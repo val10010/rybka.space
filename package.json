@@ -9,12 +9,23 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "next": "14.2.15",
     "react": "^18",
-    "react-dom": "^18",
-    "next": "14.2.15"
+    "react-dom": "^18"
   },
   "devDependencies": {
-    "eslint": "^8",
-    "eslint-config-next": "14.2.15"
+    "@babel/eslint-parser": "^7.25.8",
+    "@babel/eslint-plugin": "^7.25.7",
+    "eslint": "^8.57.1",
+    "eslint-config-next": "14.2.15",
+    "imagemin-mozjpeg": "^10.0.0",
+    "imagemin-optipng": "^8.0.0",
+    "imagemin-svgo": "^11.0.1",
+    "next-compose-plugins": "^2.2.1",
+    "next-optimized-images": "^2.6.2",
+    "responsive-loader": "^3.1.2",
+    "sass": "^1.79.5",
+    "sass-loader": "^16.0.2",
+    "sharp": "^0.33.5"
   }
 }
