@@ -1,0 +1,9 @@
+@import "app/utils/styles";
+
+.container {
+  width: 100%;
+  padding: em(123);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}

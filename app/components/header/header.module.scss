@@ -1,0 +1,33 @@
+@import "app/utils/styles";
+
+.container {
+  width: 100%;
+  height: 100svh;
+  padding: em(20);
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: column;
+
+  .logo {
+    align-self: flex-start;
+
+    .img {
+      width: em(140);
+      height: em(140);
+    }
+  }
+
+  .title {
+    max-width: em(1000, 52);
+    font-size: em(52);
+    font-weight: 200;
+    text-transform: uppercase;
+    text-align: center;
+    margin: 3em auto 0;
+
+    span {
+      font-weight: 700;
+    }
+  }
+}
