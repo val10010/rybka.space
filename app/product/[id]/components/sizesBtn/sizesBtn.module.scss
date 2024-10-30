@@ -1,0 +1,35 @@
+@import "app/utils/styles";
+
+.aboutInfoSizesBtn {
+  display: flex;
+  background: none;
+  border: none;
+  text-decoration: underline;
+  cursor: pointer;
+  margin-top: em(30);
+
+  .aboutInfoSizesBtnImg {
+    width: em(20);
+    height: em(20);
+    margin-right: em(10);
+  }
+}
+
+.popupContent {
+  padding: em(40);
+  max-width: em(800);
+
+  .popupContentTitle {
+    font-size: em(24);
+    margin-bottom: em(20, 24);
+  }
+
+  .popupContentDesc {
+    margin-bottom: em(20);
+  }
+
+  .popupContentSizesImg {
+    width: em(465);
+    height: em(300);
+  }
+}

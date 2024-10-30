@@ -1,0 +1,47 @@
+.popupOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.popupContainer {
+  position: relative;
+  background-color: #fff;
+  max-width: 90%;
+  max-height: 90%;
+  overflow-y: auto;
+  border: em(1) solid #BEBEBE;
+  box-shadow: 2.80667px 2.80667px 5.61333px rgba(0, 0, 0, 0.25);
+  border-radius: 20px;
+}
+
+.popupCloseBtn {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  cursor: pointer;
+  background: url('/images/cross.svg') no-repeat;
+  background-size: contain;
+  width: 23px;
+  height: 23px;
+  border: none;
+}
+
+.popupFloatCloseBtn {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  cursor: pointer;
+  border: none;
+  color: #fff;
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 130%;
+}
