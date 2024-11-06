@@ -1,0 +1,161 @@
+@import "app/utils/mixins";
+
+.slider {
+  width: 100%;
+  max-width: em(1000);
+  margin: 0 auto;
+  padding: em(16);
+  position: sticky;
+  top: 0;
+}
+
+.mainImageContainer {
+  position: relative;
+  width: 100%;
+  height: em(500);
+  margin-bottom: em(16);
+}
+
+.mainImage {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: em(8);
+  box-shadow: 0 em(4) em(6) rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: transform 0.2s ease;
+
+  &:hover {
+    transform: scale(1.02);
+  }
+}
+
+.navButton {
+  position: absolute;
+  top: 50%;
+  width: em(45, 20);
+  height: em(45, 20);
+  transform: translateY(-50%);
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  z-index: 10;
+  font-size: em(20);
+  line-height: 0;
+
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.7);
+  }
+
+  @include mobile {
+    display: none;
+  }
+}
+
+.prevButton {
+  left: em(10);
+}
+
+.nextButton {
+  right: em(10);
+}
+
+.thumbnailContainer {
+  display: flex;
+  justify-content: center;
+  gap: em(10);
+}
+
+.thumbnailButton {
+  position: relative;
+  width: em(80);
+  height: em(80);
+  padding: em(4);
+  border: em(2) solid transparent;
+  border-radius: em(8);
+  overflow: hidden;
+  opacity: 0.5;
+  cursor: pointer;
+  transition: all 0.3s ease;
+
+  &:hover {
+    opacity: 0.8;
+  }
+}
+
+.activeThumbnail {
+  border-color: #3b82f6;
+  opacity: 1;
+}
+
+.thumbnailImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: em(4);
+}
+
+.fullscreenOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.9);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.fullscreenContent {
+  position: relative;
+  width: 90%;
+  height: 90%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.fullscreenImage {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+.closeButton {
+  position: absolute;
+  top: em(20);
+  right: em(20);
+  background: none;
+  border: none;
+  color: white;
+  font-size: em(40);
+  cursor: pointer;
+  z-index: 1001;
+  padding: em(10);
+  line-height: 1;
+
+  &:hover {
+    color: #3b82f6;
+  }
+}
+
+.fullscreenNavButton {
+  position: fixed;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: em(24);
+  padding: em(15) em(20);
+}
+
+.fullscreenPrevButton {
+  left: em(20);
+}
+
+.fullscreenNextButton {
+  right: em(20);
+}

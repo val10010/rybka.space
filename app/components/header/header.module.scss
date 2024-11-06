@@ -1,4 +1,4 @@
-@import "app/utils/styles";
+@import "app/utils/mixins";
 
 .container {
   width: 100%;
@@ -8,26 +8,40 @@
   justify-content: flex-start;
   align-items: center;
   flex-direction: column;
+  position: relative;
+  overflow: hidden;
+}
 
-  .logo {
-    align-self: flex-start;
+.logo {
+  align-self: flex-start;
+  width: em(140);
+  height: em(140);
+  position: relative;
+  will-change: transform;
+  transform-origin: center center; // Добавляем для корректного масштабирования из центра
 
-    .img {
-      width: em(140);
-      height: em(140);
-    }
+  .img {
+    pointer-events: none;
+  }
+}
+
+.title {
+  max-width: em(1000, 52);
+  font-size: em(52);
+  font-weight: 300;
+  text-transform: uppercase;
+  text-align: center;
+  margin: 3em auto 0;
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+
+  @include mobile {
+    font-size: em(36);
+    margin: 4em auto 0;
   }
 
-  .title {
-    max-width: em(1000, 52);
-    font-size: em(52);
-    font-weight: 300;
-    text-transform: uppercase;
-    text-align: center;
-    margin: 3em auto 0;
-
-    span {
-      font-weight: 600;
-    }
+  span {
+    font-weight: 600;
+    display: inline-block;
   }
 }

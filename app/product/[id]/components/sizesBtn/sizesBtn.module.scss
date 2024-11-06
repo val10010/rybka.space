@@ -1,4 +1,4 @@
-@import "app/utils/styles";
+@import "app/utils/mixins";
 
 .aboutInfoSizesBtn {
   display: flex;
@@ -7,6 +7,10 @@
   text-decoration: underline;
   cursor: pointer;
   margin-top: em(30);
+
+  @include mobile {
+    font-size: em(18);
+  }
 
   .aboutInfoSizesBtnImg {
     width: em(20);
@@ -19,17 +23,47 @@
   padding: em(40);
   max-width: em(800);
 
+  @include mobile {
+    padding: em(20);
+  }
+
   .popupContentTitle {
     font-size: em(24);
     margin-bottom: em(20, 24);
+    text-transform: uppercase;
+
+    @include mobile {
+      font-size: em(20);
+      margin-bottom: em(20, 20);
+    }
   }
 
   .popupContentDesc {
     margin-bottom: em(20);
+
+    @include mobile {
+      font-size: em(14);
+      margin-bottom: em(20,14);
+    }
   }
 
-  .popupContentSizesImg {
+  .popupContentSizesImgWrap {
     width: em(465);
     height: em(300);
+    margin-bottom: em(20);
+    position: relative;
+
+    @include mobile {
+      width: em(250);
+      height: em(150);
+    }
   }
+
+  .popupContentSizesGridWrap {
+    overflow-x: scroll;
+  }
+}
+
+.sizeGrid {
+  margin-bottom: em(20);
 }

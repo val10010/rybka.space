@@ -1,9 +1,19 @@
-import Link from "next/link";
-import Image from "next/image";
-import SizesBtn from "./components/sizesBtn";
+import ProductClient from "./components/productClient";
+import VariantsSlider from "./components/variantsSlider";
+
 import productsInfo from "@/mocks/productsInfo.json";
 
 import styles from "./product.module.scss";
+
+export async function generateMetadata({ params }) {
+    const id = params.id - 1;
+    const product = productsInfo[id]
+
+    return {
+        title: `${product.name} - My Store`,
+        description: product.description
+    }
+}
 
 export default function Product({ params }) {
     const id = params.id - 1;
@@ -12,13 +22,7 @@ export default function Product({ params }) {
     return (
         <>
             <section className={styles.about}>
-                <Image
-                    width={300}
-                    height={600}
-                    src={'/images/products/' + (id + 1) + '.png'}
-                    className={styles.img}
-                />
-
+                <VariantsSlider id={id}/>
                 <div className={styles.aboutInfo}>
                     <h1 className={styles.aboutInfoTitle}>
                         { product?.name }
@@ -28,43 +32,7 @@ export default function Product({ params }) {
                         <span className={styles.aboutInfoSubtitle}>Ціна</span>
                         { product?.price } грн.
                     </div>
-
-                    <div className={styles.aboutInfoSizeBlock}>
-                        <span className={styles.aboutInfoSubtitle}>Розмір</span>
-                        <div className={styles.aboutInfoSizeWrap}>
-                            {
-                                product?.size?.map((item, i) => (
-                                    <button className={styles.aboutInfoSizeItem}>
-                                        { item }
-                                    </button>
-                                ))
-                            }
-                        </div>
-                    </div>
-
-                    <div className={styles.aboutInfoColorsBlock}>
-                        <span className={styles.aboutInfoSubtitle}>Кольори</span>
-                        <div className={styles.aboutInfoColorsWrap}>
-                            {
-                                product?.colors?.map((item, i) => (
-                                    <Link href={'/product/' + item.id}>
-                                        <Image
-                                            width={20}
-                                            height={50}
-                                            src={'/images/products/' + item.id + '.png'}
-                                        />
-                                    </Link>
-                                ))
-                            }
-                        </div>
-                    </div>
-
-                    <SizesBtn/>
-
-                    <button className={styles.aboutInfoBuyBtn}>
-                        Купити в один клік
-                    </button>
-
+                    <ProductClient product={product}/>
                 </div>
             </section>
             <section className={styles.desc}>

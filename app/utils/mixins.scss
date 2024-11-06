@@ -1,0 +1,23 @@
+$base-font-size: 16;
+
+@function em($px, $base: $base-font-size) {
+  @return ($px / $base) * 1em;
+}
+
+
+@mixin retina-image($image, $image2x, $width, $height) {
+  background-image: url($image);
+  background-size: $width $height;
+
+  @media (-webkit-min-device-pixel-ratio: 2),
+  (min-resolution: 192dpi) {
+    background-image: url($image2x);
+    background-size: $width $height;
+  }
+}
+
+@mixin mobile {
+  @media (max-width: 767px) {
+    @content;
+  }
+}

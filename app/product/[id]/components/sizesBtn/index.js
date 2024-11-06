@@ -4,9 +4,11 @@ import React, { useCallback, useState } from 'react';
 import Popup from "@/components/popup";
 import Image from "next/image";
 
+import SizeGrid from "../sizeGrid";
+
 import styles from "./sizesBtn.module.scss";
 
-const sizesBtn = () => {
+const sizesBtn = ({ product }) => {
     const [isPopupOpen,  setIsPopupOpen] = useState(false);
 
     const handleShowPopup = useCallback(() => {
@@ -42,14 +44,18 @@ const sizesBtn = () => {
                         Покладіть на рівну поверхню свій спортивний костюм та зніміть заміри,
                         як показано на схемі. Якщо ви все зробите правильно, помилитися з розміром у вас не буде шансу.
                     </p>
-                    <Image
-                        width="465"
-                        height="300"
-                        src="/images/pages/product/sizes.jpg"
-                        className={styles.popupContentSizesImg}
-                    />
-
-
+                    <div className={styles.popupContentSizesImgWrap}>
+                        <Image
+                            fill
+                            src="/images/pages/product/sizes.jpg"
+                        />
+                    </div>
+                    <div className={styles.popupContentSizesGridWrap}>
+                        <SizeGrid product={product} className={styles.sizeGrid} />
+                    </div>
+                    <h2 className={styles.popupContentTitle}>
+                        ЯК ПРАВИЛЬНО ЗНЯТИ МІРКИ?
+                    </h2>
                 </div>
             </Popup>
         </>

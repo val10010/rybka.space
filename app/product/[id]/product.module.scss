@@ -1,118 +1,146 @@
-@import "app/utils/styles";
+@import "app/utils/mixins";
 
 .about {
   display: flex;
   padding: 0 em(70);
+  gap: em(60);
 
-  .img {
-    width: 50%;
-    object-fit: contain;
+  @include mobile {
+    flex-direction: column;
+    padding: 0 em(20);
+    gap: em(20);
   }
 
   .aboutInfo {
     width: 50%;
-    border: 1px solid;
     padding-left: em(80);
 
-    .aboutInfoTitle {
-      font-size: em(36);
-      text-transform: uppercase;
-      margin-bottom: em(30);
+    @include mobile {
+      width: 100%;
+      padding-left: 0;
     }
 
-    .aboutInfoSubtitle {
-      font-size: em(24);
+    .aboutInfoTitle {
+      font-size: em(42);
       text-transform: uppercase;
-      font-weight: 700;
+      margin-bottom: em(40);
+      font-weight: 300;
+      letter-spacing: em(1);
+      color: #000;
+
+      @include mobile {
+        margin-bottom: em(20);
+      }
     }
 
     .aboutInfoPrice {
       display: flex;
       flex-direction: column;
-      margin: em(10) 0;
-      gap: em(8);
-    }
+      margin: em(25) 0 em(35);
+      gap: em(12);
+      font-size: em(24);
+      color: #000;
+      font-weight: 300;
 
-    .aboutInfoSizeBlock {
-      display: flex;
-      flex-direction: column;
-      gap: em(8);
-      margin: em(10) 0;
+      @include  mobile {
+        margin: em(10) 0 em(15);
+      }
 
-      .aboutInfoSizeWrap {
+      &::after {
+        content: '';
+        display: block;
+        width: 100%;
+        height: em(1);
+        background: #eee;
+        margin-top: em(35);
 
-        .aboutInfoSizeItem {
-          background: transparent;
-          border: none;
-          font-size: em(18);
-          padding: em(2) em(8);
-          cursor: pointer;
-          border-radius: em(2);
-
-          &:hover {
-            background: #eaeaea;
-          }
+        @include mobile {
+          margin-top: em(10);
         }
       }
-    }
-
-    .aboutInfoColorsBlock {
-      display: flex;
-      flex-direction: column;
-      gap: em(8);
-      margin: em(10) 0;
-
-      .aboutInfoColorsWrap {
-
-        .aboutInfoColorsItem {
-
-        }
-      }
-    }
-
-    .aboutInfoBuyBtn {
-      background: #0071e3;
-      border: none;
-      color: #fff;
-      font-size: em(17);
-      padding: em(11) em(21);
-      border-radius: em(980);
-      cursor: pointer;
-      margin-top: em(50);
     }
   }
 }
 
 .desc {
-  padding: em(20, 14) 0;
-  font-size: em(14);
-  max-width: em(570, 14);
+  max-width: em(770, 14);
   width: 100%;
-  margin: 0 auto;
+  margin: em(80) auto 0;
+  border-top: em(1) solid #eee;
+  padding-top: em(60);
+
+  @include mobile {
+    padding: em(25) em(20) 0;
+  }
 
   .descTitle {
-    font-size: em(20, 14);
+    font-size: em(28, 14);
     text-align: center;
-    margin-bottom: em(20, 20);
+    margin-bottom: em(40, 28);
+    font-weight: 300;
+    letter-spacing: em(2);
+    color: #000;
+
+    @include mobile {
+      margin-bottom: em(20, 28);
+    }
   }
 
   .descWrap {
+    font-size: em(15, 14);
+    color: #333;
+    line-height: 1.8;
 
     .descTitle {
-      font-size: em(18);
-      font-weight: 600;
-      margin: em(10,18) 0;
+      font-size: em(13);
+      font-weight: 500;
+      margin: em(30,13) 0 em(12,13);
       text-align: left;
+      text-transform: uppercase;
+      letter-spacing: em(1.5);
+      color: #737373;
     }
 
     .descItem {
-      font-weight: 400;
-      margin-bottom: em(20);
+      font-weight: 300;
+      margin-bottom: em(25);
+      color: #000;
     }
 
     .descList {
+      list-style: none;
+      margin-bottom: em(25);
+
+      li {
+        position: relative;
+        padding-left: em(15);
+        margin-bottom: em(12);
+        color: #000;
+        font-weight: 300;
+
+        &:before {
+          content: '';
+          position: absolute;
+          left: 0;
+          top: em(10);
+          width: em(4);
+          height: em(4);
+          background: #000;
+          border-radius: 50%;
+        }
+
+        &:last-child {
+          margin-bottom: 0;
+        }
+      }
     }
-
-
   }
+}
+
+.aboutInfoSubtitle {
+  font-size: em(14);
+  text-transform: uppercase;
+  font-weight: 500;
+  letter-spacing: em(2);
+  color: #737373;
 }
