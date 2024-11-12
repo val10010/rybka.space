@@ -1,5 +1,7 @@
+import BackBtn from "./components/BackBtn";
 import ProductClient from "./components/productClient";
 import VariantsSlider from "./components/variantsSlider";
+
 
 import productsInfo from "@/mocks/productsInfo.json";
 
@@ -22,6 +24,7 @@ export default function Product({ params }) {
     return (
         <>
             <section className={styles.about}>
+                <BackBtn/>
                 <VariantsSlider id={id}/>
                 <div className={styles.aboutInfo}>
                     <h1 className={styles.aboutInfoTitle}>
