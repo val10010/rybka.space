@@ -31,22 +31,49 @@
 .label {
   font-size: em(14);
   font-weight: 500;
+  color: #1f2937;
 }
 
 .select {
+  appearance: none;
+  background-color: white;
   padding: em(8) em(12);
+  padding-right: em(36);
   border: 1px solid #e2e8f0;
   border-radius: em(6);
   font-size: em(14);
+  line-height: 1.5;
+  color: #1f2937;
+  cursor: pointer;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%236B7280'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right em(8) center;
+  background-size: em(20);
   outline: none;
+  transition: all 0.2s ease;
+
+  &:hover {
+    border-color: #cbd5e1;
+  }
 
   &:focus {
     border-color: #3b82f6;
+    box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.1);
   }
+
+  &::-ms-expand {
+    display: none;
+  }
+
+  text-overflow: ellipsis;
+  font-family: inherit;
 }
 
 .results {
-  align-self: flex-end;
+  display: flex;
+  align-items: center; // Вертикальное центрирование
+  height: 100%; // Занимает всю высоту родительского элемента
+  padding-top: em(22); // Компенсация высоты label в других колонках
   font-size: em(14);
   color: #64748b;
 }
