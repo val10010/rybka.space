@@ -13,7 +13,7 @@ const Footer = () => {
                    className={styles.socialItem}
                    target="_blank" rel="noopener noreferrer">
                     <Image
-                        src={'images/i.svg'}
+                        src={'/images/i.svg'}
                         fill
                     />
                 </a>
@@ -21,7 +21,7 @@ const Footer = () => {
                    className={styles.socialItem}
                    target="_blank" rel="noopener noreferrer">
                     <Image
-                        src={'images/f.svg'}
+                        src={'/images/f.svg'}
                         fill
                     />
                 </a>
@@ -29,7 +29,7 @@ const Footer = () => {
                    className={styles.socialItem}
                    target="_blank" rel="noopener noreferrer">
                     <Image
-                        src={'images/t.svg'}
+                        src={'/images/t.svg'}
                         fill
                     />
                 </a>
