@@ -50,4 +50,6 @@
   width: em(40);
   height: em(40);
   margin-top: auto;
+  will-change: transform, opacity;
+  backface-visibility: hidden;
 }

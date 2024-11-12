@@ -4,13 +4,17 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
+import ScrollToPlugin from "gsap/ScrollToPlugin";
 
 import styles from "./header.module.scss";
+
+gsap.registerPlugin(ScrollToPlugin);
 
 export default function Header() {
     const headerRef = useRef(null);
     const logoRef = useRef(null);
     const titleRef = useRef(null);
+    const arrowRef = useRef(null);
 
     useEffect(() => {
         const tl = gsap.timeline();
@@ -37,6 +41,11 @@ export default function Header() {
             y: em(10),
         });
 
+        gsap.set(arrowRef.current, {
+            opacity: 0,
+            y: em(2),
+        });
+
         // Анимация лого
         tl.to(logoRef.current, {
             x: 0,
@@ -55,7 +64,35 @@ export default function Header() {
             ease: "power2.out"
         });
 
-        return () => tl.kill();
+        // Анимация стрелки
+        tl.to(arrowRef.current, {
+            opacity: 1,
+            y: 0,
+            duration: 0.2,
+            ease: "power2.out"
+        }).to(arrowRef.current, {
+            y: em(10),
+            duration: 0.5,
+            ease: "power1.inOut",
+            yoyo: true,
+            repeat: -1
+        }).to(arrowRef.current, {
+            opacity: 0,
+            duration: 0.3,
+            delay: 1,
+            onComplete: () => {
+                gsap.to(window, {
+                    duration: 1,
+                    scrollTo: "main",
+                    ease: "power2.inOut"
+                });
+            }
+        });
+
+        return () => {
+            tl.kill();
+            gsap.killTweensOf(window);
+        };
     }, []);
 
     function em(px, base = 16) {
@@ -88,6 +125,8 @@ export default function Header() {
             <img
                 src={'/images/header-arrow.svg'}
                 className={styles.arrow}
+                ref={arrowRef}
+                alt="Scroll down"
             />
         </header>
     );
