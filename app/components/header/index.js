@@ -17,17 +17,40 @@ export default function Header() {
     const titleRef = useRef(null);
     const arrowRef = useRef(null);
     const pathname = usePathname();
+    const scrollPosition = useRef(0);
 
     // Функции для блокировки/разблокировки скролла
     const lockScroll = () => {
-        const scrollBarWidth = window.innerWidth - document.documentElement.clientWidth;
+        // Сохраняем текущую позицию скролла
+        scrollPosition.current = window.scrollY;
+
+        // Добавляем стили для блокировки
         document.documentElement.style.overflow = 'hidden';
-        document.documentElement.style.paddingRight = `${scrollBarWidth}px`;
+        document.body.style.overflow = 'hidden';
+        document.body.style.position = 'fixed';
+        document.body.style.top = `-${scrollPosition.current}px`;
+        document.body.style.width = '100%';
+
+        // Компенсация ширины скроллбара
+        const scrollBarWidth = window.innerWidth - document.documentElement.clientWidth;
+        if (scrollBarWidth > 0) {
+            document.documentElement.style.paddingRight = `${scrollBarWidth}px`;
+            document.body.style.paddingRight = `${scrollBarWidth}px`;
+        }
     };
 
     const unlockScroll = () => {
-        document.documentElement.style.overflow = 'initial';
+        // Удаляем стили блокировки
+        document.documentElement.style.overflow = '';
+        document.body.style.overflow = '';
+        document.body.style.position = '';
+        document.body.style.top = '';
+        document.body.style.width = '';
         document.documentElement.style.paddingRight = '';
+        document.body.style.paddingRight = '';
+
+        // Восстанавливаем позицию скролла
+        window.scrollTo(0, scrollPosition.current);
     };
 
     const startAnimation = () => {
@@ -98,22 +121,19 @@ export default function Header() {
             duration: 0.3,
             delay: 1,
             onComplete: () => {
+                // Разблокируем скролл перед анимацией скролла
+                unlockScroll();
                 gsap.to(window, {
                     duration: 1,
                     scrollTo: {
                         y: "main",
                         ease: "power2.inOut"
-                    },
-                    onComplete: () => {
-                        // Разблокируем скролл после завершения всех анимаций
-                        unlockScroll();
                     }
                 });
             }
         });
 
         return () => {
-            // Убеждаемся, что скролл разблокирован при очистке
             unlockScroll();
             tl.kill();
             gsap.killTweensOf(window);
