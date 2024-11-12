@@ -85,6 +85,10 @@ export default function Header() {
             >
                 твій особистий <span>space</span> краси та комфорту
             </h1>
+            <img
+                src={'/images/header-arrow.svg'}
+                className={styles.arrow}
+            />
         </header>
     );
 }

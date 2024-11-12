@@ -3,12 +3,57 @@
 .container {
   width: 100%;
   max-width: em(1145);
-  display: flex;
-  flex-wrap: wrap;
-  gap: em(20);
   margin: 0 auto;
 
   @include mobile {
     padding: em(20);
   }
+}
+
+.filters {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: em(20);
+  margin-bottom: em(30);
+
+  @include mobile {
+    grid-template-columns: 1fr;
+  }
+}
+
+.filterGroup {
+  display: flex;
+  flex-direction: column;
+  gap: em(8);
+}
+
+.label {
+  font-size: em(14);
+  font-weight: 500;
+}
+
+.select {
+  padding: em(8) em(12);
+  border: 1px solid #e2e8f0;
+  border-radius: em(6);
+  font-size: em(14);
+  outline: none;
+
+  &:focus {
+    border-color: #3b82f6;
+  }
+}
+
+.results {
+  align-self: flex-end;
+  font-size: em(14);
+  color: #64748b;
+}
+
+.productsGrid {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  gap: em(20);
 }
