@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 
 import styles from "./backBtn.module.scss";
 
-const BackButton = () => {
+const BackBtn = () => {
     const router = useRouter();
         console.log(234234)
     return (
@@ -21,4 +21,4 @@ const BackButton = () => {
     );
 }
 
-export default BackButton;
+export default BackBtn;
