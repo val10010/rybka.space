@@ -26,7 +26,7 @@ export default function Header() {
     };
 
     const unlockScroll = () => {
-        document.documentElement.style.overflow = '';
+        document.documentElement.style.overflow = 'initial';
         document.documentElement.style.paddingRight = '';
     };
 
