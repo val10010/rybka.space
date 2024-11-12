@@ -6,7 +6,7 @@ import styles from "./backBtn.module.scss";
 
 const BackButton = () => {
     const router = useRouter();
-
+        console.log(234234)
     return (
         <button
             onClick={() => router.back()}
