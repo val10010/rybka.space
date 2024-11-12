@@ -1,9 +1,10 @@
 "use client"
 
-import Image from "next/image";
-import Link from "next/link";
-import { useEffect, useRef } from "react";
 import gsap from "gsap";
+import Link from "next/link";
+import Image from "next/image";
+import { useEffect, useRef } from "react";
+import { usePathname } from "next/navigation";
 import ScrollToPlugin from "gsap/ScrollToPlugin";
 
 import styles from "./header.module.scss";
@@ -15,8 +16,24 @@ export default function Header() {
     const logoRef = useRef(null);
     const titleRef = useRef(null);
     const arrowRef = useRef(null);
+    const pathname = usePathname();
 
-    useEffect(() => {
+    // Функции для блокировки/разблокировки скролла
+    const lockScroll = () => {
+        const scrollBarWidth = window.innerWidth - document.documentElement.clientWidth;
+        document.documentElement.style.overflow = 'hidden';
+        document.documentElement.style.paddingRight = `${scrollBarWidth}px`;
+    };
+
+    const unlockScroll = () => {
+        document.documentElement.style.overflow = '';
+        document.documentElement.style.paddingRight = '';
+    };
+
+    const startAnimation = () => {
+        // Блокируем скролл в начале анимации
+        lockScroll();
+
         const tl = gsap.timeline();
 
         // Получаем размеры контейнера и лого
@@ -83,17 +100,32 @@ export default function Header() {
             onComplete: () => {
                 gsap.to(window, {
                     duration: 1,
-                    scrollTo: "main",
-                    ease: "power2.inOut"
+                    scrollTo: {
+                        y: "main",
+                        ease: "power2.inOut"
+                    },
+                    onComplete: () => {
+                        // Разблокируем скролл после завершения всех анимаций
+                        unlockScroll();
+                    }
                 });
             }
         });
 
         return () => {
+            // Убеждаемся, что скролл разблокирован при очистке
+            unlockScroll();
             tl.kill();
             gsap.killTweensOf(window);
         };
-    }, []);
+    };
+
+    useEffect(() => {
+        // Прокручиваем страницу наверх при изменении маршрута
+        window.scrollTo(0, 0);
+
+        return startAnimation();
+    }, [pathname]);
 
     function em(px, base = 16) {
         return `${px / base}em`;
