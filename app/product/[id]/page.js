@@ -25,7 +25,7 @@ export default function Product({ params }) {
                 <VariantsSlider id={id}/>
                 <div className={styles.aboutInfo}>
                     <h1 className={styles.aboutInfoTitle}>
-                        { product?.name }
+                        { product?.name } { product?.currentColor }
                     </h1>
 
                     <div className={styles.aboutInfoPrice}>

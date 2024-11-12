@@ -9,7 +9,7 @@ export default function Product({ data }) {
             <Image
                 width={300}
                 height={600}
-                src={'/images/products/' + data.id + '.png'}
+                src={'/images/products/' + 1 + '.png'}
                 className={styles.img}
             />
             <Link

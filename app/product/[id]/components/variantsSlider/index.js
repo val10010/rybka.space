@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react';
 
 import s from './variantsSlider.module.scss';
+import Image from "next/image";
 
 const ImageSlider = ({
                          images = [
@@ -68,13 +69,19 @@ const ImageSlider = ({
                         onClick={handlePrevSlide}
                         className={`${s.navButton} ${s.prevButton}`}
                     >
-                        ←
+                        <Image
+                            fill
+                            src={'/images/arrow-left.svg'}
+                        />
                     </button>
                     <button
                         onClick={handleNextSlide}
                         className={`${s.navButton} ${s.nextButton}`}
                     >
-                        →
+                        <Image
+                            fill
+                            src={'/images/arrow-left.svg'}
+                        />
                     </button>
                 </div>
 
@@ -110,7 +117,10 @@ const ImageSlider = ({
                             onClick={handlePrevSlide}
                             className={`${s.navButton} ${s.fullscreenNavButton} ${s.fullscreenPrevButton}`}
                         >
-                            ←
+                            <Image
+                                fill
+                                src={'/images/arrow-left.svg'}
+                            />
                         </button>
                         <img
                             src={images[currentIndex]}
@@ -121,7 +131,10 @@ const ImageSlider = ({
                             onClick={handleNextSlide}
                             className={`${s.navButton} ${s.fullscreenNavButton} ${s.fullscreenNextButton}`}
                         >
-                            →
+                            <Image
+                                fill
+                                src={'/images/arrow-left.svg'}
+                            />
                         </button>
                     </div>
                 </div>

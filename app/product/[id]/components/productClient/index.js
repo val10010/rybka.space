@@ -9,7 +9,6 @@ import SizesBtn from "../sizesBtn";
 import Popup from "@/components/popup";
 
 import styles from "./productClient.module.scss";
-import {sendBotData} from "@/services/innerServices";
 
 const ProductClient = ({ product }) => {
     const {
@@ -90,25 +89,28 @@ const ProductClient = ({ product }) => {
                     }
                 </div>
             </div>
-            <div className={styles.aboutInfoColorsBlock}>
-                <span className={styles.aboutInfoSubtitle}>Кольори</span>
-                <div className={styles.aboutInfoColorsWrap}>
-                    {
-                        product?.colors?.map((item, i) => (
-                            <Link
-                                key={i}
-                                href={'/product/' + item.id}
-                                className={styles.aboutInfoColors}
-                            >
-                                <Image
-                                    fill
-                                    src={'/images/products/' + item.id + '.png'}
-                                />
-                            </Link>
-                        ))
-                    }
+            {
+                product?.colors &&
+                <div className={styles.aboutInfoColorsBlock}>
+                    <span className={styles.aboutInfoSubtitle}>Кольори</span>
+                    <div className={styles.aboutInfoColorsWrap}>
+                        {
+                            product?.colors?.map((item, i) => (
+                                <Link
+                                    key={i}
+                                    href={'/product/' + item}
+                                    className={styles.aboutInfoColors}
+                                >
+                                    <Image
+                                        fill
+                                        src={'/images/products/' + item + '.png'}
+                                    />
+                                </Link>
+                            ))
+                        }
+                    </div>
                 </div>
-            </div>
+            }
 
             <SizesBtn product={product}/>
 

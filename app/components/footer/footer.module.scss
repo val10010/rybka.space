@@ -1,0 +1,41 @@
+@import "app/utils/mixins";
+
+.container {
+  width: 100%;
+  max-width: em(1150);
+  margin: em(100) auto em(20);
+  border-top: em(1) solid #eee;
+  display: flex;
+  justify-content: space-between;
+
+  @include mobile {
+    width: auto;
+    margin: em(100) em(20) em(20);
+    flex-direction: column-reverse;
+  }
+
+  .social {
+    display: flex;
+    justify-content: center;
+    gap: em(20);
+    margin-top: em(20);
+
+    .socialItem {
+      width: em(24);
+      height: em(24);
+      position: relative;
+      transition: opacity 0.2s ease;
+
+      &:hover {
+        opacity: 0.7;
+      }
+    }
+  }
+
+  .copyright {
+    color: #111;
+    margin-top: em(20);
+    text-align: center;
+    text-transform: uppercase;
+  }
+}

@@ -2,11 +2,11 @@
 
 .container {
   width: 100%;
-  padding: em(123);
+  max-width: em(1145);
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
   gap: em(20);
+  margin: 0 auto;
 
   @include mobile {
     padding: em(20);
