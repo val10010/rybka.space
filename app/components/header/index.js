@@ -3,8 +3,8 @@
 import gsap from "gsap";
 import Link from "next/link";
 import Image from "next/image";
-import { useEffect, useRef } from "react";
-import { usePathname } from "next/navigation";
+import { useEffect, useRef, useState } from "react";
+import { usePathname, useNavigationType } from "next/navigation";
 import ScrollToPlugin from "gsap/ScrollToPlugin";
 
 import styles from "./header.module.scss";
@@ -12,6 +12,7 @@ import styles from "./header.module.scss";
 gsap.registerPlugin(ScrollToPlugin);
 
 export default function Header() {
+    const [isBackNavigation, setIsBackNavigation] = useState(false);
     const headerRef = useRef(null);
     const logoRef = useRef(null);
     const titleRef = useRef(null);
@@ -119,12 +120,11 @@ export default function Header() {
         }).to(arrowRef.current, {
             opacity: 0,
             duration: 0.3,
-            delay: 1,
             onComplete: () => {
                 // Разблокируем скролл перед анимацией скролла
                 unlockScroll();
                 gsap.to(window, {
-                    duration: 1,
+                    duration: .5,
                     scrollTo: {
                         y: "main",
                         ease: "power2.inOut"
@@ -141,6 +141,24 @@ export default function Header() {
     };
 
     useEffect(() => {
+        // Слушаем событие popstate (срабатывает при навигации назад)
+        const handlePopState = () => {
+            setIsBackNavigation(true);
+        };
+
+        window.addEventListener('popstate', handlePopState);
+
+        return () => {
+            window.removeEventListener('popstate', handlePopState);
+        };
+    }, []);
+
+    useEffect(() => {
+        if (isBackNavigation) {
+            setIsBackNavigation(false); // Сбрасываем флаг
+            return;
+        }
+
         // Прокручиваем страницу наверх при изменении маршрута
         window.scrollTo(0, 0);
 
