@@ -25,7 +25,7 @@ export default function Product({ params }) {
         <>
             <section className={styles.about}>
                 <BackBtn/>
-                <VariantsSlider id={id}/>
+                <VariantsSlider product={product}/>
                 <div className={styles.aboutInfo}>
                     <h1 className={styles.aboutInfoTitle}>
                         { product?.name } { product?.currentColor }

@@ -5,13 +5,10 @@ import React, { useState, useEffect } from 'react';
 import s from './variantsSlider.module.scss';
 import Image from "next/image";
 
-const ImageSlider = ({
-                         images = [
-                             "/images/products/1.png",
-                             "/images/products/2.png",
-                             "/images/products/3.png"
-                         ]
-                     }) => {
+const ImageSlider = ({ product }) => {
+    const id = product.id;
+    const images = [];
+    product.images.forEach(item => images.push(`/images/products/${id}/${item}.png`));
     const [currentIndex, setCurrentIndex] = useState(0);
     const [isFullscreen, setIsFullscreen] = useState(false);
 

@@ -1,3 +1,4 @@
+// productSlider.module.scss
 @import "app/utils/mixins";
 
 .container {
@@ -8,30 +9,141 @@
   overflow: hidden;
   background-color: rgb(245 245 245);
   position: relative;
+}
 
+.slideTrack {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform: translateZ(0); // Включаем аппаратное ускорение
+}
 
-  .img {
-    width: em(367);
-    height: 100%;
+.slide {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  will-change: transform; // Оптимизация производительности
+
+  &:hover {
+    .img {
+      filter: brightness(0.9);
+    }
+  }
+}
+
+.img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: filter 0.3s ease;
+}
+
+.details {
+  padding: em(11) em(21);
+  background-color: #0071e3;
+  border-radius: em(980);
+  color: #fff;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.9);
+  opacity: 0;
+  pointer-events: auto;
+  // Анимация будет управляться через GSAP
+}
+
+.navButton {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: 50%;
+  width: em(40);
+  height: em(40);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 300ms ease, background-color 300ms ease;
+  z-index: 10;
+  cursor: pointer;
+  border: none;
+
+  &:hover {
+    background-color: rgba(255, 255, 255, 1);
   }
 
-  .details {
-    padding: em(11) em(21);
+  .container:hover & {
+    opacity: 1;
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
+}
+
+.prevButton {
+  left: em(16);
+}
+
+.nextButton {
+  right: em(16);
+}
+
+.navIcon {
+  width: em(24);
+  height: em(24);
+  color: #1a1a1a;
+}
+
+.pagination {
+  position: absolute;
+  bottom: em(16);
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: em(8);
+  z-index: 10;
+}
+
+.paginationDot {
+  width: em(8);
+  height: em(8);
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.5);
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  transition: all 300ms ease;
+
+  &.active {
+    width: em(16);
     background-color: #0071e3;
-    border-radius: em(980);
-    color: #fff;
-    display: none;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    border-radius: em(4);
   }
+}
 
-  &:hover .img {
-    background-color: rgba(0,0,0, .1);
-  }
+.slideTrack {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform: translateZ(0);
+  user-select: none;
+  cursor: grab;
 
-  &:hover .details {
-    display: block;
+  &:active {
+    cursor: grabbing;
   }
+}
+
+.slide {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  will-change: transform;
 }
