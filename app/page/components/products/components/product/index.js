@@ -10,121 +10,90 @@ export default function ProductSlider({ data }) {
     const slideTrackRef = useRef(null);
     const slidesRef = useRef([]);
 
-    // Состояния для отслеживания свайпа
-    const dragRef = useRef({
+    const sliderState = useRef({
         startX: 0,
         currentX: 0,
         isDragging: false,
-        startTime: 0
+        currentTranslateX: 0
     });
 
     useEffect(() => {
-        gsap.set(slidesRef.current, {
-            xPercent: i => i * 100
+        const slider = slideTrackRef.current;
+        if (!slider) return;
+
+        // Установка начальной позиции
+        gsap.set(slider, {
+            x: 0
         });
     }, []);
 
-    const animateSlides = (direction) => {
+    const getPositionX = (event) => {
+        return event.type.includes('mouse') ? event.pageX : event.touches[0].pageX;
+    };
+
+    const handleDragStart = (event) => {
         if (isAnimating) return;
-        setIsAnimating(true);
 
-        const nextSlide = direction === 'next'
-            ? currentSlide === data.images.length - 1 ? 0 : currentSlide + 1
-            : currentSlide === 0 ? data.images.length - 1 : currentSlide - 1;
+        const positionX = getPositionX(event);
 
-        gsap.to(slideTrackRef.current, {
-            duration: 0.8,
-            xPercent: -nextSlide * 100,
-            ease: "power2.inOut",
-            onComplete: () => {
-                setCurrentSlide(nextSlide);
-                setIsAnimating(false);
-            }
+        sliderState.current = {
+            startX: positionX,
+            currentX: positionX,
+            isDragging: true,
+            currentTranslateX: -currentSlide * slideTrackRef.current.offsetWidth
+        };
+
+        gsap.killTweensOf(slideTrackRef.current);
+    };
+
+    const handleDragMove = (event) => {
+        if (!sliderState.current.isDragging) return;
+        event.preventDefault();
+
+        const currentPosition = getPositionX(event);
+        const diffX = currentPosition - sliderState.current.startX;
+        const moveX = sliderState.current.currentTranslateX + diffX;
+
+        gsap.set(slideTrackRef.current, {
+            x: moveX
         });
+
+        sliderState.current.currentX = currentPosition;
+    };
+
+    const handleDragEnd = () => {
+        if (!sliderState.current.isDragging) return;
+
+        const movedBy = sliderState.current.currentX - sliderState.current.startX;
+        const slideWidth = slideTrackRef.current.offsetWidth;
+
+        let newSlideIndex = currentSlide;
+
+        if (Math.abs(movedBy) > slideWidth * 0.15) {
+            if (movedBy < 0 && currentSlide < data.images.length - 1) {
+                newSlideIndex = currentSlide + 1;
+            } else if (movedBy > 0 && currentSlide > 0) {
+                newSlideIndex = currentSlide - 1;
+            }
+        }
+
+        goToSlide(newSlideIndex);
+        sliderState.current.isDragging = false;
     };
 
     const goToSlide = (index) => {
-        if (isAnimating || index === currentSlide) return;
+        if (isAnimating) return;
         setIsAnimating(true);
 
         gsap.to(slideTrackRef.current, {
-            duration: 0.8,
-            xPercent: -index * 100,
-            ease: "power2.inOut",
+            duration: 0.3,
+            x: -index * slideTrackRef.current.offsetWidth,
+            ease: "power2.out",
             onComplete: () => {
                 setCurrentSlide(index);
                 setIsAnimating(false);
             }
         });
-    };
-
-    // Обработчики свайпа
-    const handleDragStart = (e) => {
-        if (isAnimating) return;
-
-        const clientX = e.type.includes('mouse') ? e.clientX : e.touches[0].clientX;
-
-        dragRef.current = {
-            startX: clientX,
-            currentX: clientX,
-            isDragging: true,
-            startTime: Date.now()
-        };
-
-        gsap.set(slideTrackRef.current, {
-            clearProps: "all"
-        });
-
-        if (e.type === 'mousedown') {
-            document.addEventListener('mousemove', handleDragMove);
-            document.addEventListener('mouseup', handleDragEnd);
-        }
-    };
-
-    const handleDragMove = (e) => {
-        if (!dragRef.current.isDragging) return;
-
-        const clientX = e.type.includes('mouse') ? e.clientX : e.touches[0].clientX;
-        const delta = clientX - dragRef.current.startX;
-        const containerWidth = slideTrackRef.current.offsetWidth;
-
-        const maxDrag = containerWidth * 0.3;
-        const boundedDelta = Math.max(Math.min(delta, maxDrag), -maxDrag);
-
-        dragRef.current.currentX = clientX;
-
-        const newX = (-currentSlide * 100) + (boundedDelta / containerWidth * 100);
-        gsap.set(slideTrackRef.current, {
-            xPercent: newX
-        });
-    };
-
-    const handleDragEnd = (e) => {
-        if (!dragRef.current.isDragging) return;
-
-        document.removeEventListener('mousemove', handleDragMove);
-        document.removeEventListener('mouseup', handleDragEnd);
-
-        const dragDistance = dragRef.current.currentX - dragRef.current.startX;
-        const dragDuration = Date.now() - dragRef.current.startTime;
-        const containerWidth = slideTrackRef.current.offsetWidth;
-
-        const threshold = containerWidth * 0.2;
-        const isQuickSwipe = dragDuration < 300 && Math.abs(dragDistance) > threshold * 0.5;
-
-        if (Math.abs(dragDistance) > threshold || isQuickSwipe) {
-            if (dragDistance > 0 && currentSlide > 0) {
-                goToSlide(currentSlide - 1);
-            } else if (dragDistance < 0 && currentSlide < data.images.length - 1) {
-                goToSlide(currentSlide + 1);
-            } else {
-                goToSlide(currentSlide);
-            }
-        } else {
-            goToSlide(currentSlide);
-        }
-
-        dragRef.current.isDragging = false;
     };
 
     const handleMouseEnter = (slideIndex) => {
@@ -186,10 +155,13 @@ export default function ProductSlider({ data }) {
             <div
                 ref={slideTrackRef}
                 className={styles.slideTrack}
-                onMouseDown={handleDragStart}
                 onTouchStart={handleDragStart}
                 onTouchMove={handleDragMove}
                 onTouchEnd={handleDragEnd}
+                onMouseDown={handleDragStart}
+                onMouseMove={handleDragMove}
+                onMouseUp={handleDragEnd}
+                onMouseLeave={handleDragEnd}
             >
                 {data.images.map((imageId, index) => (
                     <div
@@ -206,6 +178,7 @@ export default function ProductSlider({ data }) {
                             alt={`${data.name} - изображение ${imageId}`}
                             className={styles.img}
                             draggable={false}
+                            priority={index === 0}
                         />
                         <Link
                             href={`/product/${data.id}`}
@@ -217,21 +190,25 @@ export default function ProductSlider({ data }) {
                 ))}
             </div>
 
-            <button
-                onClick={() => animateSlides('prev')}
-                className={`${styles.navButton} ${styles.prevButton}`}
-                disabled={isAnimating}
-            >
-                <ChevronLeft className={styles.navIcon} />
-            </button>
+            {currentSlide > 0 && (
+                <button
+                    onClick={() => goToSlide(currentSlide - 1)}
+                    className={`${styles.navButton} ${styles.prevButton}`}
+                    disabled={isAnimating}
+                >
+                    <ChevronLeft className={styles.navIcon} />
+                </button>
+            )}
 
-            <button
-                onClick={() => animateSlides('next')}
-                className={`${styles.navButton} ${styles.nextButton}`}
-                disabled={isAnimating}
-            >
-                <ChevronRight className={styles.navIcon} />
-            </button>
+            {currentSlide < data.images.length - 1 && (
+                <button
+                    onClick={() => goToSlide(currentSlide + 1)}
+                    className={`${styles.navButton} ${styles.nextButton}`}
+                    disabled={isAnimating}
+                >
+                    <ChevronRight className={styles.navIcon} />
+                </button>
+            )}
 
             <div className={styles.pagination}>
                 {data.images.map((_, index) => (
