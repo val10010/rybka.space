@@ -1,4 +1,4 @@
-import BackBtn from "./components/BackBtn";
+import BackBtn from "./components/backBtn";
 import ProductClient from "./components/productClient";
 import VariantsSlider from "./components/variantsSlider";
 
