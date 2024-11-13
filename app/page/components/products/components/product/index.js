@@ -1,3 +1,4 @@
+// ProductSlider.jsx
 import React, { useState, useRef, useEffect } from 'react';
 import Image from "next/image";
 import Link from "next/link";
@@ -12,16 +13,18 @@ export default function ProductSlider({ data }) {
 
     const sliderState = useRef({
         startX: 0,
+        startY: 0,
         currentX: 0,
         isDragging: false,
-        currentTranslateX: 0
+        currentTranslateX: 0,
+        isScrolling: false,
+        isDirectionLocked: false
     });
 
     useEffect(() => {
         const slider = slideTrackRef.current;
         if (!slider) return;
 
-        // Установка начальной позиции
         gsap.set(slider, {
             x: 0
         });
@@ -31,16 +34,24 @@ export default function ProductSlider({ data }) {
         return event.type.includes('mouse') ? event.pageX : event.touches[0].pageX;
     };
 
+    const getPositionY = (event) => {
+        return event.type.includes('mouse') ? event.pageY : event.touches[0].pageY;
+    };
+
     const handleDragStart = (event) => {
         if (isAnimating) return;
 
         const positionX = getPositionX(event);
+        const positionY = getPositionY(event);
 
         sliderState.current = {
             startX: positionX,
+            startY: positionY,
             currentX: positionX,
             isDragging: true,
-            currentTranslateX: -currentSlide * slideTrackRef.current.offsetWidth
+            currentTranslateX: -currentSlide * slideTrackRef.current.offsetWidth,
+            isScrolling: false,
+            isDirectionLocked: false
         };
 
         gsap.killTweensOf(slideTrackRef.current);
@@ -48,21 +59,44 @@ export default function ProductSlider({ data }) {
 
     const handleDragMove = (event) => {
         if (!sliderState.current.isDragging) return;
+
+        const currentX = getPositionX(event);
+        const currentY = getPositionY(event);
+        const deltaX = Math.abs(currentX - sliderState.current.startX);
+        const deltaY = Math.abs(currentY - sliderState.current.startY);
+
+        if (!sliderState.current.isDirectionLocked) {
+            if (deltaX > deltaY && deltaX > 5) {
+                sliderState.current.isScrolling = false;
+                sliderState.current.isDirectionLocked = true;
+                event.preventDefault();
+            } else if (deltaY > deltaX && deltaY > 5) {
+                sliderState.current.isScrolling = true;
+                sliderState.current.isDirectionLocked = true;
+                sliderState.current.isDragging = false;
+                return;
+            }
+            return;
+        }
+
+        if (sliderState.current.isScrolling) {
+            return;
+        }
+
         event.preventDefault();
 
-        const currentPosition = getPositionX(event);
-        const diffX = currentPosition - sliderState.current.startX;
+        const diffX = currentX - sliderState.current.startX;
         const moveX = sliderState.current.currentTranslateX + diffX;
 
         gsap.set(slideTrackRef.current, {
             x: moveX
         });
 
-        sliderState.current.currentX = currentPosition;
+        sliderState.current.currentX = currentX;
     };
 
     const handleDragEnd = () => {
-        if (!sliderState.current.isDragging) return;
+        if (!sliderState.current.isDragging || sliderState.current.isScrolling) return;
 
         const movedBy = sliderState.current.currentX - sliderState.current.startX;
         const slideWidth = slideTrackRef.current.offsetWidth;
@@ -79,6 +113,7 @@ export default function ProductSlider({ data }) {
 
         goToSlide(newSlideIndex);
         sliderState.current.isDragging = false;
+        sliderState.current.isDirectionLocked = false;
     };
 
     const goToSlide = (index) => {
