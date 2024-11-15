@@ -1,4 +1,3 @@
-// ProductSlider.jsx
 import React, { useState, useRef, useEffect } from 'react';
 import Image from "next/image";
 import Link from "next/link";
@@ -8,8 +7,10 @@ import styles from "./product.module.scss";
 export default function ProductSlider({ data }) {
     const [currentSlide, setCurrentSlide] = useState(0);
     const [isAnimating, setIsAnimating] = useState(false);
+    const [showSwipeHint, setShowSwipeHint] = useState(true);
     const slideTrackRef = useRef(null);
     const slidesRef = useRef([]);
+    const swipeHintRef = useRef(null);
 
     const sliderState = useRef({
         startX: 0,
@@ -25,10 +26,30 @@ export default function ProductSlider({ data }) {
         const slider = slideTrackRef.current;
         if (!slider) return;
 
-        gsap.set(slider, {
-            x: 0
-        });
-    }, []);
+        gsap.set(slider, { x: 0 });
+
+        if (showSwipeHint && swipeHintRef.current) {
+            const tl = gsap.timeline({ repeat: 2 });
+            tl.to(swipeHintRef.current, {
+                x: 30,
+                duration: 1,
+                ease: "power1.inOut"
+            })
+                .to(swipeHintRef.current, {
+                    x: 0,
+                    duration: 1,
+                    ease: "power1.inOut"
+                });
+
+            tl.then(() => {
+                gsap.to(swipeHintRef.current, {
+                    opacity: 0,
+                    duration: 0.5,
+                    onComplete: () => setShowSwipeHint(false)
+                });
+            });
+        }
+    }, [showSwipeHint]);
 
     const getPositionX = (event) => {
         return event.type.includes('mouse') ? event.pageX : event.touches[0].pageX;
@@ -40,6 +61,7 @@ export default function ProductSlider({ data }) {
 
     const handleDragStart = (event) => {
         if (isAnimating) return;
+        setShowSwipeHint(false);
 
         const positionX = getPositionX(event);
         const positionY = getPositionY(event);
@@ -54,7 +76,12 @@ export default function ProductSlider({ data }) {
             isDirectionLocked: false
         };
 
-        gsap.killTweensOf(slideTrackRef.current);
+        gsap.to(slideTrackRef.current, {
+            scale: 0.98,
+            duration: 0.2
+        });
+
+        gsap.killTweensOf(slideTrackRef.current, { x: true });
     };
 
     const handleDragMove = (event) => {
@@ -79,9 +106,7 @@ export default function ProductSlider({ data }) {
             return;
         }
 
-        if (sliderState.current.isScrolling) {
-            return;
-        }
+        if (sliderState.current.isScrolling) return;
 
         event.preventDefault();
 
@@ -97,6 +122,11 @@ export default function ProductSlider({ data }) {
 
     const handleDragEnd = () => {
         if (!sliderState.current.isDragging || sliderState.current.isScrolling) return;
+
+        gsap.to(slideTrackRef.current, {
+            scale: 1,
+            duration: 0.2
+        });
 
         const movedBy = sliderState.current.currentX - sliderState.current.startX;
         const slideWidth = slideTrackRef.current.offsetWidth;
@@ -155,38 +185,15 @@ export default function ProductSlider({ data }) {
         }
     };
 
-    const ChevronLeft = () => (
-        <svg
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-        >
-            <path d="M15 18l-6-6 6-6" />
-        </svg>
-    );
-
-    const ChevronRight = () => (
-        <svg
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-        >
-            <path d="M9 18l6-6-6-6" />
-        </svg>
-    );
-
     return (
         <div className={styles.container}>
+            {showSwipeHint && (
+                <div ref={swipeHintRef} className={styles.swipeHint}>
+                    <MoveHorizontal size={24} />
+                    <span>свайпай в лiво</span>
+                </div>
+            )}
+
             <div
                 ref={slideTrackRef}
                 className={styles.slideTrack}
@@ -259,3 +266,21 @@ export default function ProductSlider({ data }) {
         </div>
     );
 }
+
+const ChevronLeft = () => (
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M15 18l-6-6 6-6" />
+    </svg>
+);
+
+const ChevronRight = () => (
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M9 18l6-6-6-6" />
+    </svg>
+);
+
+const MoveHorizontal = () => (
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M5 12h14M3 12l4-4m-4 4l4 4M21 12l-4-4m4 4l-4 4" />
+    </svg>
+);
