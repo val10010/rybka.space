@@ -213,11 +213,13 @@ export default function ProductSlider({ data }) {
                         onMouseEnter={() => handleMouseEnter(index)}
                         onMouseLeave={() => handleMouseLeave(index)}
                     >
-                        <img
+                        <Image
+                            fill
                             src={`/images/products/${data.id}/${imageId}.jpg`}
                             alt={`${data.name} - изображение ${imageId}`}
                             className={styles.img}
                             draggable={false}
+                            priority={index === 0}
                         />
                         <Link
                             href={`/product/${data.id}`}
