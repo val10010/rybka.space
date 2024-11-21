@@ -187,12 +187,12 @@ export default function ProductSlider({ data }) {
 
     return (
         <div className={styles.container}>
-            {showSwipeHint && (
-                <div ref={swipeHintRef} className={styles.swipeHint}>
-                    <MoveHorizontal size={24} />
-                    <span>свайпай в лiво</span>
-                </div>
-            )}
+            {/*{showSwipeHint && (*/}
+            {/*    <div ref={swipeHintRef} className={styles.swipeHint}>*/}
+            {/*        <MoveHorizontal size={24} />*/}
+            {/*        <span>свайпай в лiво</span>*/}
+            {/*    </div>*/}
+            {/*)}*/}
 
             <div
                 ref={slideTrackRef}
@@ -213,14 +213,11 @@ export default function ProductSlider({ data }) {
                         onMouseEnter={() => handleMouseEnter(index)}
                         onMouseLeave={() => handleMouseLeave(index)}
                     >
-                        <Image
-                            width={367}
-                            height={652}
+                        <img
                             src={`/images/products/${data.id}/${imageId}.png`}
                             alt={`${data.name} - изображение ${imageId}`}
                             className={styles.img}
                             draggable={false}
-                            priority={index === 0}
                         />
                         <Link
                             href={`/product/${data.id}`}
