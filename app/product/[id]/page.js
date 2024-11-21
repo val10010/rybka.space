@@ -1,7 +1,7 @@
 import BackBtn from "./components/backBtn";
 import ProductClient from "./components/productClient";
 import VariantsSlider from "./components/variantsSlider";
-
+import { redirect } from 'next/navigation'
 
 import productsInfo from "@/mocks/productsInfo.json";
 
@@ -20,6 +20,10 @@ export async function generateMetadata({ params }) {
 export default function Product({ params }) {
     const id = params.id - 1;
     const product = productsInfo[id];
+
+    if(product.disabled) {
+        redirect('/');
+    }
 
     return (
         <>
