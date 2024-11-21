@@ -530,6 +530,7 @@
       "stretchedBelt": [1, 111],
       "notStretchedBelt": [1, 111]
     },
+    "disabled": true,
     "images": [1,2,3],
     "currentColor": "коричневий",
     "info": {
@@ -553,6 +554,7 @@
       "stretchedBelt": [111],
       "notStretchedBelt": [111]
     },
+    "disabled": true,
     "images": [1,2,3],
     "currentColor": "оливка",
     "info": {
