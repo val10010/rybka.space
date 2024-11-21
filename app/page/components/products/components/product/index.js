@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Image from "next/image";
 import Link from "next/link";
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -9,11 +9,20 @@ import 'swiper/css/pagination';
 import styles from "./product.module.scss";
 
 export default function ProductSlider({ data }) {
-    if(data.disabled) return;
+    if(data.disabled) return null;
 
     const navigationPrevRef = React.useRef(null);
     const navigationNextRef = React.useRef(null);
-    const paginationRef = React.useRef(null);
+    const swiperRef = React.useRef(null);
+
+    useEffect(() => {
+        if (swiperRef.current) {
+            swiperRef.current.params.navigation.prevEl = navigationPrevRef.current;
+            swiperRef.current.params.navigation.nextEl = navigationNextRef.current;
+            swiperRef.current.navigation.init();
+            swiperRef.current.navigation.update();
+        }
+    }, []);
 
     return (
         <div className={styles.container}>
@@ -22,17 +31,16 @@ export default function ProductSlider({ data }) {
                 spaceBetween={0}
                 slidesPerView={1}
                 navigation={{
-                    prevEl: navigationPrevRef?.current,
-                    nextEl: navigationNextRef?.current,
-                    enabled: true,
+                    prevEl: navigationPrevRef.current,
+                    nextEl: navigationNextRef.current,
                 }}
                 pagination={{
-                    el: paginationRef?.current,
-                    bulletClass: styles.paginationDot,
-                    bulletActiveClass: styles.active,
+                    enabled: true,
                     clickable: true,
                 }}
-                grabCursor={true}
+                onSwiper={(swiper) => {
+                    swiperRef.current = swiper;
+                }}
                 className={styles.slideTrack}
             >
                 {data.images.map((imageId) => (
@@ -61,7 +69,6 @@ export default function ProductSlider({ data }) {
             <button ref={navigationNextRef} className={`${styles.navButton} ${styles.nextButton}`}>
                 <ChevronRight />
             </button>
-            <div ref={paginationRef} className={styles.pagination} />
         </div>
     );
 }
