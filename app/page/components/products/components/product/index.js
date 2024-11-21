@@ -22,19 +22,15 @@ export default function ProductSlider({ data }) {
                 spaceBetween={0}
                 slidesPerView={1}
                 navigation={{
-                    prevEl: navigationPrevRef.current,
-                    nextEl: navigationNextRef.current,
+                    prevEl: navigationPrevRef?.current,
+                    nextEl: navigationNextRef?.current,
+                    enabled: true,
                 }}
                 pagination={{
-                    el: paginationRef.current,
+                    el: paginationRef?.current,
                     bulletClass: styles.paginationDot,
                     bulletActiveClass: styles.active,
                     clickable: true,
-                }}
-                onBeforeInit={(swiper) => {
-                    swiper.params.navigation.prevEl = navigationPrevRef.current;
-                    swiper.params.navigation.nextEl = navigationNextRef.current;
-                    swiper.params.pagination.el = paginationRef.current;
                 }}
                 grabCursor={true}
                 className={styles.slideTrack}
