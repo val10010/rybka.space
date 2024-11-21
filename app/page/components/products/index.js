@@ -12,7 +12,7 @@ export default function Products() {
 
     const availableSizes = useMemo(() => {
         const sizes = new Set();
-        productsInfo.forEach(product => {
+        productsInfo.filter(product => !product.disabled).forEach(product => {
             product.grid.sizes.forEach(size => sizes.add(size));
         });
         return ['all', ...Array.from(sizes)];
@@ -20,7 +20,7 @@ export default function Products() {
 
     const availableColors = useMemo(() => {
         const colors = new Set();
-        productsInfo.forEach(product => {
+        productsInfo.filter(product => !product.disabled).forEach(product => {
             colors.add(product.currentColor);
         });
         return ['all', ...Array.from(colors)];
@@ -28,6 +28,8 @@ export default function Products() {
 
     const filteredProducts = useMemo(() => {
         return productsInfo.filter(product => {
+            if (product.disabled) return false;
+
             const sizeMatch = selectedSize === 'all' || product.grid.sizes.includes(selectedSize);
             const colorMatch = selectedColor === 'all' || product.currentColor === selectedColor;
             const fleeceMatch = isFleece === 'all' ||
@@ -56,7 +58,6 @@ export default function Products() {
                     </select>
                 </div>
 
-                {/* Fleece Filter */}
                 <div className={styles.filterGroup}>
                     <label className={styles.label}>Сезон</label>
                     <select
@@ -70,7 +71,6 @@ export default function Products() {
                     </select>
                 </div>
 
-                {/* Color Filter */}
                 <div className={styles.filterGroup}>
                     <label className={styles.label}>Колір</label>
                     <select
@@ -86,13 +86,11 @@ export default function Products() {
                     </select>
                 </div>
 
-                {/* Results count */}
                 <div className={styles.results}>
                     Знайдено товарів: {filteredProducts.length}
                 </div>
             </div>
 
-            {/* Products Grid */}
             <div className={styles.productsGrid}>
                 {filteredProducts.map(data => (
                     <Product key={data.id} data={data} />

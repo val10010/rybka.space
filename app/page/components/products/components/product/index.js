@@ -9,6 +9,8 @@ import 'swiper/css/pagination';
 import styles from "./product.module.scss";
 
 export default function ProductSlider({ data }) {
+    if(data.disabled) return;
+
     const navigationPrevRef = React.useRef(null);
     const navigationNextRef = React.useRef(null);
     const paginationRef = React.useRef(null);
