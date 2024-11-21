@@ -214,7 +214,7 @@ export default function ProductSlider({ data }) {
                         onMouseLeave={() => handleMouseLeave(index)}
                     >
                         <img
-                            src={`/images/products/${data.id}/${imageId}.png`}
+                            src={`/images/products/${data.id}/${imageId}.jpg`}
                             alt={`${data.name} - изображение ${imageId}`}
                             className={styles.img}
                             draggable={false}

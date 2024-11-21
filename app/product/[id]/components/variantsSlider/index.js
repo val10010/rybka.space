@@ -8,7 +8,7 @@ import Image from "next/image";
 const ImageSlider = ({ product }) => {
     const id = product.id;
     const images = [];
-    product.images.forEach(item => images.push(`/images/products/${id}/${item}.png`));
+    product.images.forEach(item => images.push(`/images/products/${id}/${item}.jpg`));
     const [currentIndex, setCurrentIndex] = useState(0);
     const [isFullscreen, setIsFullscreen] = useState(false);
 
