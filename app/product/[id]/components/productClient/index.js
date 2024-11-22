@@ -103,7 +103,7 @@ const ProductClient = ({ product }) => {
                                 >
                                     <Image
                                         fill
-                                        src={'/images/products/' + item + '.png'}
+                                        src={`/images/products/${item}/4.jpg`}
                                     />
                                 </Link>
                             ))
