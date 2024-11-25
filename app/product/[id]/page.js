@@ -37,7 +37,11 @@ export default function Product({ params }) {
 
                     <div className={styles.aboutInfoPrice}>
                         <span className={styles.aboutInfoSubtitle}>Ціна</span>
-                        { product?.price } грн.
+                        <span className={styles.bf}>Black Friday -15%</span>
+                        <span className={styles.price}>
+                           <span className={styles.oldPrice}>
+                               { product?.oldPrice } </span> &nbsp; { product?.price } грн.
+                        </span>
                     </div>
                     <ProductClient product={product}/>
                 </div>

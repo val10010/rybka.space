@@ -35,9 +35,8 @@
 
     .aboutInfoPrice {
       display: flex;
-      flex-direction: column;
       margin: em(25) 0 em(35);
-      gap: em(12);
+      flex-direction: column;
       font-size: em(24);
       color: #000;
       font-weight: 300;
@@ -56,6 +55,28 @@
 
         @include mobile {
           margin-top: em(10);
+        }
+      }
+
+      .bf {
+        font-size: em(12);
+        padding: em(2, 12) em(4, 12);
+        background: #CC0C39;
+        color: #fff;
+        border-radius: em(4, 12);
+        font-weight: 500;
+        margin-top: em(12);
+        width: max-content;
+      }
+
+      .price {
+        display: flex;
+        margin-top: em(5);
+
+        .oldPrice {
+          text-decoration: line-through;
+          color: #737373;
+          font-weight: 500;
         }
       }
     }
