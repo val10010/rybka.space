@@ -6,15 +6,12 @@ import styles from "./page.module.scss";
 
 export const metadata = {
     title: "rybka.space",
-    description: "твій особистий space краси та комфорту",
+    description: "твій особистий space краси та комфорту"
 };
 
 export default function RootLayout({ children }) {
     return (
-        <html lang="en">
-        <head>
-            <link rel="icon" type="image/svg+xml" href="/images/favicon.png" />
-        </head>
+        <html lang="uk">
         <body>
         <Script
             src="https://www.googletagmanager.com/gtag/js?id=G-EKSSB3ELFW"
