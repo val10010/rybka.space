@@ -48,16 +48,16 @@ export default function Product({ params }) {
                     <p className={styles.descItem}>
                         { product.info.desc }
                     </p>
-                    <p className={styles.descTitle}>
-                        Матеріал:
-                    </p>
-                    <ul className={styles.descList}>
-                        {
-                            product.info.material.map(item => (
-                                <li>{item}</li>
-                            ))
-                        }
-                    </ul>
+                    {/*<p className={styles.descTitle}>*/}
+                    {/*    Матеріал:*/}
+                    {/*</p>*/}
+                    {/*<ul className={styles.descList}>*/}
+                    {/*    {*/}
+                    {/*        product.info.material.map(item => (*/}
+                    {/*            <li>{item}</li>*/}
+                    {/*        ))*/}
+                    {/*    }*/}
+                    {/*</ul>*/}
                     <p className={styles.descTitle}>
                         Сезон:
                     </p>
@@ -82,9 +82,10 @@ export default function Product({ params }) {
                         На фото:
                     </p>
                     <ul className={styles.descList}>
-                        <li>зріст моделі - 176 см;</li>
-                        <li>вага моделі - 74 кг;</li>
-                        <li>розмір речей - "M".</li>
+                        <li>зріст моделі - 164 см;</li>
+                        <li>обхват грудей - 86 см;</li>
+                        <li>обхват бедер - 95 см;</li>
+                        <li>розмір речей - "S".</li>
                     </ul>
                 </div>
             </section>
