@@ -89,7 +89,9 @@ export default function Product({ params }) {
                         <li>зріст моделі - 164 см;</li>
                         <li>обхват грудей - 86 см;</li>
                         <li>обхват бедер - 95 см;</li>
-                        <li>розмір речей - "S".</li>
+                        {
+                            product.currentSize ? <li>розмір речей - "{product.currentSize}".</li> : <li>розмір речей - "S".</li>
+                        }
                     </ul>
                 </div>
             </section>
