@@ -32,9 +32,12 @@ export async function POST(request) {
         txt += `<b>Номер заказа: </b> <u>${orderNumber}</u>\n`;
         txt += `<b>Фамилия Имя: </b> <u>${body.name}</u>\n`;
         txt += `<b>Телефон: </b> <u>${body.phone}</u>\n`;
+        txt += `<b>Называние товара: </b> <u>${body.orderName}</u>\n`;
+        txt += `<b>Цвет товара: </b> <u>${body.orderColor}</u>\n`;
+        txt += `<b>Цена товара: </b> <u>${body.orderPrice} грн.</u>\n`;
 
-        if(body.size) {
-            txt += `<b>Размер: </b> <u>${body.size}</u>\n`;
+        if(body.orderSize) {
+            txt += `<b>Размер: </b> ${body.orderSize}\n`;
         }
 
 

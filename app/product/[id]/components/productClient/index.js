@@ -62,7 +62,10 @@ const ProductClient = ({product}) => {
 
     const onSubmit = async (data) => {
         const res = await innerServices.sendBotData({
-            size: selectedSize,
+            orderSize: selectedSize,
+            orderName: product.name,
+            orderColor: product.currentColor,
+            orderPrice: product.price,
             ...data
         });
 
