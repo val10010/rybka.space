@@ -152,6 +152,8 @@
       border: none;
       border-bottom: em(1) solid;
       padding: em(5);
+      -webkit-appearance: none;
+      border-radius: 0;
     }
 
     .orderFormInputInvalid {
