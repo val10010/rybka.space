@@ -14,10 +14,6 @@
   width: 100%;
   height: em(500);
   margin-bottom: em(16);
-
-  @include mobile {
-    pointer-events: none;
-  }
 }
 
 .mainImage {
@@ -28,6 +24,10 @@
   box-shadow: 0 em(4) em(6) rgba(0, 0, 0, 0.1);
   cursor: pointer;
   transition: transform 0.2s ease;
+
+  @include mobile {
+    pointer-events: none;
+  }
 
   &:hover {
     transform: scale(1.02);
@@ -53,10 +53,6 @@
   &:hover {
     background-color: rgba(0, 0, 0, 0.7);
   }
-
-  @include mobile {
-    display: none;
-  }
 }
 
 .prevButton {
@@ -65,7 +61,7 @@
 
 .nextButton {
   right: em(10);
-  transform: rotate(180deg);
+  transform: translateY(-50%) rotate(180deg);
 }
 
 .thumbnailContainer {

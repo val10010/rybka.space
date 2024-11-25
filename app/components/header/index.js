@@ -3,21 +3,18 @@
 import gsap from "gsap";
 import Link from "next/link";
 import Image from "next/image";
-import { useEffect, useRef, useState } from "react";
-import { usePathname, useNavigationType } from "next/navigation";
 import ScrollToPlugin from "gsap/ScrollToPlugin";
+import { useEffect, useRef } from "react";
 
 import styles from "./header.module.scss";
 
 gsap.registerPlugin(ScrollToPlugin);
 
 export default function Header() {
-    const [isBackNavigation, setIsBackNavigation] = useState(false);
     const headerRef = useRef(null);
     const logoRef = useRef(null);
     const titleRef = useRef(null);
     const arrowRef = useRef(null);
-    const pathname = usePathname();
     const scrollPosition = useRef(0);
 
     // Функции для блокировки/разблокировки скролла
@@ -141,25 +138,6 @@ export default function Header() {
     };
 
     useEffect(() => {
-        // Слушаем событие popstate (срабатывает при навигации назад)
-        const handlePopState = () => {
-            setIsBackNavigation(true);
-        };
-
-        window.addEventListener('popstate', handlePopState);
-
-        return () => {
-            window.removeEventListener('popstate', handlePopState);
-        };
-    }, []);
-
-    useEffect(() => {
-        if (isBackNavigation) {
-            setIsBackNavigation(false); // Сбрасываем флаг
-            return;
-        }
-
-        // Прокручиваем страницу наверх при изменении маршрута
         window.scrollTo(0, 0);
 
         return startAnimation();
