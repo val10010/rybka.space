@@ -8,20 +8,20 @@ import productsInfo from "@/mocks/productsInfo.json";
 import styles from "./product.module.scss";
 
 export async function generateMetadata({ params }) {
-    const id = params.id - 1;
-    const product = productsInfo[id]
+    const id = +params.id;
+    const product = productsInfo.filter(item => item.id === id)[0];
 
     return {
-        title: `${product.name} - My Store`,
+        title: `${product.name} - RYBKA.SPACE`,
         description: product.description
     }
 }
 
 export default function Product({ params }) {
-    const id = params.id - 1;
-    const product = productsInfo[id];
+    const id = +params.id;
+    const product = productsInfo.filter(item => item.id === id)[0];
 
-    if(product.disabled) {
+    if(!product || product.disabled) {
         redirect('/');
     }
 

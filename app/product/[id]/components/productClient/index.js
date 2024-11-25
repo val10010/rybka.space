@@ -1,26 +1,28 @@
 "use client"
 
-import React, { useState, useCallback } from 'react';
-import { useForm, Controller } from 'react-hook-form';
-import { innerServices } from "@/services/index";
+import React, {useState, useCallback} from 'react';
+import {useForm, Controller} from 'react-hook-form';
+import {innerServices} from "@/services/index";
 import Link from "next/link";
 import Image from "next/image";
 import SizesBtn from "../sizesBtn";
 import Popup from "@/components/popup";
+import productsInfo from "@/mocks/productsInfo.json";
 
 import styles from "./productClient.module.scss";
 
-const ProductClient = ({ product }) => {
+const ProductClient = ({product}) => {
     const {
         register,
         handleSubmit,
         control,
         reset,
-        formState: { errors, isValid, isSubmitting },
-    } = useForm({ mode: 'onChange' });
+        formState: {errors, isValid, isSubmitting},
+    } = useForm({mode: 'onChange'});
 
     const [selectedSize, setSize] = useState('');
     const [isPopupOpen, setIsPopupOpen] = useState();
+    const [isShowMessage, setIsShowMessage] = useState();
 
     const handleSelectSize = useCallback((size) => {
         setSize(size)
@@ -59,13 +61,19 @@ const ProductClient = ({ product }) => {
     };
 
     const onSubmit = async (data) => {
-        const res =  await innerServices.sendBotData({
-            formName: 'Форма зворотного зв\'язку',
+        const res = await innerServices.sendBotData({
+            size: selectedSize,
             ...data
         });
 
+        console.log(res)
+
         if (res.success) {
             reset();
+            setIsShowMessage(`Ваше замовлення успішно створено! Номер замовлення: ${res.orderNumber}`)
+        } else {
+            reset();
+            setIsShowMessage('Під час відправлення форми сталася помилка, перезавантажте сторінку і спробуйте ще раз.')
         }
     };
 
@@ -83,7 +91,7 @@ const ProductClient = ({ product }) => {
                                 }}
                                 className={`${styles.aboutInfoSizeItem} ${item === selectedSize ? styles.aboutInfoSizeItemSelected : ''}`}
                             >
-                                { item }
+                                {item}
                             </button>
                         ))
                     }
@@ -95,24 +103,30 @@ const ProductClient = ({ product }) => {
                     <span className={styles.aboutInfoSubtitle}>Кольори</span>
                     <div className={styles.aboutInfoColorsWrap}>
                         {
-                            product?.colors?.map((item, i) => (
-                                <Link
-                                    key={i}
-                                    href={'/product/' + item}
-                                    className={styles.aboutInfoColors}
-                                >
-                                    <Image
-                                        fill
-                                        src={`/images/products/${item}/4.jpg`}
-                                    />
-                                </Link>
-                            ))
+                            product?.colors?.map((item, i) => {
+                                const product = productsInfo.filter(product => product.id === item)[0];
+
+                                if (product.disabled) return null;
+
+                                return (
+                                    <Link
+                                        key={i}
+                                        href={'/product/' + item}
+                                        className={styles.aboutInfoColors}
+                                    >
+                                        <Image
+                                            fill
+                                            src={`/images/products/${item}/4.jpg`}
+                                        />
+                                    </Link>
+                                );
+                            })
                         }
                     </div>
                 </div>
             }
 
-            <SizesBtn product={product}/>
+            {/*<SizesBtn product={product}/>*/}
 
             <button
                 onClick={handleBuyBtnClick}
@@ -121,51 +135,80 @@ const ProductClient = ({ product }) => {
                 Купити в один клік
             </button>
             <Popup isOpen={isPopupOpen} onClose={handleClosePopup}>
-                <form onSubmit={handleSubmit(onSubmit)} className={styles.orderForm}>
-                    <h2 className={styles.orderFormTitle}>
-                        Швидке замовлення
-                    </h2>
-                    <div className={styles.orderFormInputWrap}>
-                        <label>Призвище Ім'я*</label>
-                        <input
-                            type="text"
-                            className={`${styles.orderFormInput} ${errors?.name?.message ? styles.orderFormInputInvalid : '' }`}
-                            {...register('name', { required: 'Заповнить це поле' })}
-                        />
-                        <p className={`${styles.orderFormInputError}`}>{ errors?.name?.message }</p>
-                    </div>
-                    <div className={styles.orderFormInputWrap}>
-                        <label>Номер телефону*</label>
-                        <Controller
-                            name="phone"
-                            control={control}
-                            defaultValue="+380"
-                            rules={{
-                                required: 'Заповнить це поле',
-                                minLength: {
-                                    value: 13,
-                                    message: 'Введіть повний номер телефону'
-                                }
-                            }}
-                            render={({ field: { onChange, value } }) => (
-                                <input
-                                    type="text"
-                                    className={`${styles.orderFormInput} ${errors?.phone?.message ? styles.orderFormInputInvalid : ''}`}
-                                    value={value}
-                                    onChange={(e) => handlePhoneChange(e, onChange)}
-                                    onKeyDown={handlePhoneKeyDown}
-                                />
-                            )}
-                        />
-                        <p className={`${styles.orderFormInputError}`}>{ errors?.phone?.message }</p>
-                    </div>
-                    <button
-                        className={`${styles.aboutInfoBuyBtn} ${!isValid || isSubmitting ? styles.orderFormBtnDisabled : ''}`}
-                        disabled={!isValid || isSubmitting}
-                    >
-                        Відправити
-                    </button>
-                </form>
+                {
+                    isShowMessage
+                        ?
+                            <div className={styles.message}>
+                                <h2 className={styles.messageTxt}>
+                                    {isShowMessage}
+                                </h2>
+                            </div>
+                        :
+                            <form onSubmit={handleSubmit(onSubmit)} className={styles.orderForm}>
+                                <h2 className={styles.orderFormTitle}>
+                                    Швидке замовлення
+                                </h2>
+                                <div className={styles.orderFormInputWrap}>
+                                    <label>Призвище Ім'я*</label>
+                                    <input
+                                        type="text"
+                                        className={`${styles.orderFormInput} ${errors?.name?.message ? styles.orderFormInputInvalid : ''}`}
+                                        {...register('name', {required: 'Заповнить це поле'})}
+                                    />
+                                    <p className={`${styles.orderFormInputError}`}>{errors?.name?.message}</p>
+                                </div>
+                                <div className={styles.orderFormInputWrap}>
+                                    <label>Номер телефону*</label>
+                                    <Controller
+                                        name="phone"
+                                        control={control}
+                                        defaultValue="+380"
+                                        rules={{
+                                            required: 'Заповнить це поле',
+                                            minLength: {
+                                                value: 13,
+                                                message: 'Введіть повний номер телефону'
+                                            }
+                                        }}
+                                        render={({field: {onChange, value}}) => (
+                                            <input
+                                                type="text"
+                                                className={`${styles.orderFormInput} ${errors?.phone?.message ? styles.orderFormInputInvalid : ''}`}
+                                                value={value}
+                                                onChange={(e) => handlePhoneChange(e, onChange)}
+                                                onKeyDown={handlePhoneKeyDown}
+                                            />
+                                        )}
+                                    />
+                                    <p className={`${styles.orderFormInputError}`}>{errors?.phone?.message}</p>
+                                </div>
+                                <div className={styles.orderFormInputWrap}>
+                                    <span>Розмір</span>
+                                    <div className={`${styles.aboutInfoSizeWrap} ${styles.aboutInfoSizeWrapMargin}`}>
+                                        {
+                                            product?.grid.sizes?.map((item, i) => (
+                                                <button
+                                                    type="button"
+                                                    key={i}
+                                                    onClick={() => {
+                                                        handleSelectSize(item)
+                                                    }}
+                                                    className={`${styles.aboutInfoSizeItem} ${item === selectedSize ? styles.aboutInfoSizeItemSelected : ''}`}
+                                                >
+                                                    {item}
+                                                </button>
+                                            ))
+                                        }
+                                    </div>
+                                </div>
+                                <button
+                                    className={`${styles.aboutInfoBuyBtn} ${!isValid || isSubmitting ? styles.orderFormBtnDisabled : ''}`}
+                                    disabled={!isValid || isSubmitting}
+                                >
+                                    Відправити
+                                </button>
+                            </form>
+                }
             </Popup>
         </>
     );

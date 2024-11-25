@@ -66,8 +66,8 @@ export default function Products() {
                         onChange={(e) => setIsFleece(e.target.value)}
                     >
                         <option value="all">Всі сезони</option>
-                        <option value="yes">Осінь</option>
-                        <option value="no">Зима</option>
+                        <option value="yes">Зима</option>
+                        <option value="no">Осінь</option>
                     </select>
                 </div>
 

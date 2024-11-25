@@ -116,7 +116,7 @@ export default function Header() {
             duration: 0.5,
             ease: "power1.inOut",
             yoyo: true,
-            repeat: -1
+            repeat: 3
         }).to(arrowRef.current, {
             opacity: 0,
             duration: 0.3,

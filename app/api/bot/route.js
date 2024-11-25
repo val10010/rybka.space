@@ -2,6 +2,16 @@
 import { NextResponse } from 'next/server';
 import { headers } from 'next/headers';
 
+function generateOrderNumber() {
+    const date = new Date();
+    const year = date.getFullYear().toString().slice(-2);
+    const month = (date.getMonth() + 1).toString().padStart(2, '0');
+    const day = date.getDate().toString().padStart(2, '0');
+    const random = Math.floor(Math.random() * 1000).toString().padStart(3, '0');
+
+    return `BR-${year}${month}${day}-${random}`;
+}
+
 export async function POST(request) {
     const env = 'DEV';
     const TOKEN = process.env['TOKEN_BEREG_' + `${env}`];
@@ -14,19 +24,20 @@ export async function POST(request) {
     // Получаем данные из запроса
     const body = await request.json();
 
-    if (body.name && body.phone && body.formName) {
+    if (body.name && body.phone) {
+        const orderNumber = generateOrderNumber();
+
         let txt = '';
 
-        txt += `<b>Название формы: </b> <u>${body.formName}</u>\n`;
+        txt += `<b>Номер заказа: </b> <u>${orderNumber}</u>\n`;
+        txt += `<b>Фамилия Имя: </b> <u>${body.name}</u>\n`;
+        txt += `<b>Телефон: </b> <u>${body.phone}</u>\n`;
 
-        if (body.price) {
-            txt += `<b>Цена услги:</b> <u>${body.price}</u>\n`;
+        if(body.size) {
+            txt += `<b>Размер: </b> <u>${body.size}</u>\n`;
         }
 
-        txt += `<b>Фамилия Имя: </b> <u>${body.name}</u>\n`;
-        txt += `<b>Телефон или никнейм месенджера: </b> <u>${body.phone}</u>\n`;
 
-        console.log(`https://api.telegram.org/bot${TOKEN}/sendMessage?chat_id=${CHATID}&text=${encodeURIComponent(txt)}&parse_mode=HTML`, 123123123)
         try {
             const url = `https://api.telegram.org/bot${TOKEN}/sendMessage?chat_id=${CHATID}&text=${encodeURIComponent(txt)}&parse_mode=HTML`;
 
@@ -50,7 +61,7 @@ export async function POST(request) {
             const data = await response.json();
 
             return NextResponse.json(
-                { success: data.ok },
+                { success: data.ok, orderNumber: orderNumber },
                 {
                     status: 200,
                     headers: {
@@ -64,9 +75,9 @@ export async function POST(request) {
         } catch (error) {
             console.error('Telegram API error:', error);
             return NextResponse.json(
-                { message: 'Oh, snap...something went wrong.' },
+                { success: false, message: 'Oh, snap...something went wrong.' },
                 {
-                    status: 500,
+                    status: 200,
                     headers: {
                         'Access-Control-Allow-Origin': origin,
                         'Access-Control-Allow-Methods': 'POST',
@@ -77,9 +88,9 @@ export async function POST(request) {
         }
     } else {
         return NextResponse.json(
-            { message: 'ERROR!' },
+            { success: false, message: 'ERROR!' },
             {
-                status: 400,
+                status: 200,
                 headers: {
                     'Access-Control-Allow-Origin': origin,
                     'Access-Control-Allow-Methods': 'POST',

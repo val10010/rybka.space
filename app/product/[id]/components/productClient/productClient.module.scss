@@ -5,40 +5,45 @@
   flex-direction: column;
   gap: em(16);
   margin: em(35) 0;
+}
 
-  .aboutInfoSizeWrap {
-    display: flex;
-    gap: em(12);
+.aboutInfoSizeWrap {
+  display: flex;
+  gap: em(12);
+}
 
-    .aboutInfoSizeItem {
-      background: #fff;
-      border: em(1) solid #ddd;
-      font-size: em(15);
-      height: em(45);
-      width: em(45);
-      cursor: pointer;
-      transition: all 0.3s ease;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #000;
-      text-transform: uppercase;
+.aboutInfoSizeWrapMargin {
+  margin-top: em(10);
+}
 
-      &:hover {
-        border-color: #000;
-      }
+.aboutInfoSizeItem {
+  background: #fff;
+  border: em(1) solid #ddd;
+  font-size: em(15);
+  height: em(45);
+  width: em(45);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #000;
+  text-transform: uppercase;
 
-      &.active {
-        background: #000;
-        border-color: #000;
-        color: #fff;
-      }
-    }
-
-    .aboutInfoSizeItemSelected {
-      border-color: #000;
-    }
+  &:hover {
+    border-color: #000;
   }
+
+  &.active {
+    background: #000;
+    border-color: #000;
+    color: #fff;
+  }
+}
+
+.aboutInfoSizeItemSelected {
+  border-color: #000;
+  background: rgba(0,0,0,.03);
 }
 
 .aboutInfoColorsBlock {
@@ -163,5 +168,19 @@
   .orderFormBtnDisabled {
     opacity: .6;
     pointer-events: none;
+  }
+}
+
+.message {
+  padding: em(60) em(40);
+
+  .messageTxt {
+    font-size: em(18);
+    text-transform: uppercase;
+
+    @include mobile {
+      font-size: em(14);
+      text-align: center;
+    }
   }
 }
