@@ -69,8 +69,6 @@ const ProductClient = ({product}) => {
             ...data
         });
 
-        console.log(res)
-
         if (res.success) {
             reset();
             setIsShowMessage(`Ваше замовлення успішно створено! Номер замовлення: ${res.orderNumber}`)

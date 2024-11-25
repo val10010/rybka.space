@@ -9,7 +9,7 @@ const BackBtn = () => {
 
     return (
         <button
-            onClick={() => router.back()}
+            onClick={() => router.push('/')}
             className={styles.backBtn}
         >
            <img

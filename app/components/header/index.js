@@ -163,7 +163,7 @@ export default function Header() {
         window.scrollTo(0, 0);
 
         return startAnimation();
-    }, [pathname]);
+    }, []);
 
     function em(px, base = 16) {
         return `${px / base}em`;
