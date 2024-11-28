@@ -17,19 +17,14 @@ export default function Header() {
     const arrowRef = useRef(null);
     const scrollPosition = useRef(0);
 
-    // Функции для блокировки/разблокировки скролла
     const lockScroll = () => {
-        // Сохраняем текущую позицию скролла
         scrollPosition.current = window.scrollY;
-
-        // Добавляем стили для блокировки
         document.documentElement.style.overflow = 'hidden';
         document.body.style.overflow = 'hidden';
         document.body.style.position = 'fixed';
         document.body.style.top = `-${scrollPosition.current}px`;
         document.body.style.width = '100%';
 
-        // Компенсация ширины скроллбара
         const scrollBarWidth = window.innerWidth - document.documentElement.clientWidth;
         if (scrollBarWidth > 0) {
             document.documentElement.style.paddingRight = `${scrollBarWidth}px`;
@@ -38,7 +33,6 @@ export default function Header() {
     };
 
     const unlockScroll = () => {
-        // Удаляем стили блокировки
         document.documentElement.style.overflow = '';
         document.body.style.overflow = '';
         document.body.style.position = '';
@@ -47,27 +41,27 @@ export default function Header() {
         document.documentElement.style.paddingRight = '';
         document.body.style.paddingRight = '';
 
-        // Восстанавливаем позицию скролла
         window.scrollTo(0, scrollPosition.current);
     };
 
     const startAnimation = () => {
-        // Блокируем скролл в начале анимации
         lockScroll();
+
+        // Делаем элементы видимыми перед началом анимации
+        gsap.set([logoRef.current, titleRef.current, arrowRef.current], {
+            visibility: "visible"
+        });
 
         const tl = gsap.timeline();
 
-        // Получаем размеры контейнера и лого
         const headerHeight = headerRef.current.offsetHeight;
         const headerWidth = headerRef.current.offsetWidth;
         const logoHeight = logoRef.current.offsetHeight;
         const logoWidth = logoRef.current.offsetWidth;
 
-        // Вычисляем центральную позицию
         const centerY = (headerHeight - logoHeight) / 2;
         const centerX = (headerWidth - logoWidth) / 2;
 
-        // Устанавливаем начальные состояния
         gsap.set(logoRef.current, {
             y: centerY,
             x: centerX,
@@ -84,7 +78,6 @@ export default function Header() {
             y: em(2),
         });
 
-        // Анимация лого
         tl.to(logoRef.current, {
             x: 0,
             y: 0,
@@ -94,7 +87,6 @@ export default function Header() {
             delay: 0.1
         });
 
-        // Анимация текста
         tl.to(titleRef.current, {
             opacity: 1,
             y: 0,
@@ -102,7 +94,6 @@ export default function Header() {
             ease: "power2.out"
         });
 
-        // Анимация стрелки
         tl.to(arrowRef.current, {
             opacity: 1,
             y: 0,
@@ -118,7 +109,6 @@ export default function Header() {
             opacity: 0,
             duration: 0.3,
             onComplete: () => {
-                // Разблокируем скролл перед анимацией скролла
                 unlockScroll();
                 gsap.to(window, {
                     duration: .5,
@@ -139,6 +129,10 @@ export default function Header() {
 
     useEffect(() => {
         window.scrollTo(0, 0);
+        // Устанавливаем начальное состояние элементов как скрытое
+        gsap.set([logoRef.current, titleRef.current, arrowRef.current], {
+            visibility: "hidden"
+        });
 
         return startAnimation();
     }, []);
