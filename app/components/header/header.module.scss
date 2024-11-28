@@ -21,6 +21,7 @@
   position: relative;
   will-change: transform;
   transform-origin: center center; // Добавляем для корректного масштабирования из центра
+  visibility: hidden;
 
   .img {
     pointer-events: none;
@@ -36,6 +37,7 @@
   margin: 3em auto 0;
   will-change: transform, opacity;
   backface-visibility: hidden;
+  visibility: hidden;
 
   @include mobile {
     font-size: em(36);
@@ -54,4 +56,5 @@
   margin-top: auto;
   will-change: transform, opacity;
   backface-visibility: hidden;
+  visibility: hidden;
 }
