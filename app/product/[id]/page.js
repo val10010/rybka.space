@@ -2,7 +2,7 @@ import BackBtn from "./components/backBtn";
 import ProductClient from "./components/productClient";
 import VariantsSlider from "./components/variantsSlider";
 import VisitorCounter from "./components/visitorCounter";
-import { VideoPlayer } from "@/components/videoPlayer"
+// import { VideoPlayer } from "@/components/videoPlayer"
 import { redirect } from 'next/navigation'
 
 import productsInfo from "@/mocks/productsInfo.json";
