@@ -10,21 +10,32 @@ export const metadata = {
 };
 
 export default function RootLayout({ children }) {
+    const isDev = process.env.NODE_ENV === 'development';
+
+    const Analytics = () => {
+        if (isDev) return null;
+
+        return (
+            <>
+                <Script
+                    src="https://www.googletagmanager.com/gtag/js?id=G-K03JMHQMNL"
+                />
+                <Script id="google-analytics" strategy="afterInteractive">
+                    {`
+                        window.dataLayer = window.dataLayer || [];
+                        function gtag(){dataLayer.push(arguments);}
+                        gtag('js', new Date());
+                        gtag('config', 'G-K03JMHQMNL');
+                    `}
+                </Script>
+            </>
+        );
+    };
+
     return (
         <html lang="uk">
         <body>
-        <Script
-            src="https://www.googletagmanager.com/gtag/js?id=G-EKSSB3ELFW"
-            strategy="afterInteractive"
-        />
-        <Script id="google-analytics" strategy="afterInteractive">
-            {`
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', 'G-EKSSB3ELFW');
-          `}
-        </Script>
+        <Analytics />
         <Header/>
         <main className={styles.main}>
             {children}
