@@ -3,7 +3,7 @@
 import { useRef } from 'react'
 import ReactPlayer from 'react-player'
 
-function VideoPlayer({
+export function VideoPlayer({
     url,
     playing = false,
     controls = true,
