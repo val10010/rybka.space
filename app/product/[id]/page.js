@@ -1,6 +1,7 @@
 import BackBtn from "./components/backBtn";
 import ProductClient from "./components/productClient";
 import VariantsSlider from "./components/variantsSlider";
+import VisitorCounter from "./components/visitorCounter";
 import { redirect } from 'next/navigation'
 
 import productsInfo from "@/mocks/productsInfo.json";
@@ -12,8 +13,8 @@ export async function generateMetadata({ params }) {
     const product = productsInfo.filter(item => item.id === id)[0];
 
     return {
-        title: `${product.name} - RYBKA.SPACE`,
-        description: product.description
+        title: `${product.name} ${product.currentColor} - RYBKA.SPACE`,
+        description: product.info.desc
     }
 }
 
@@ -42,6 +43,7 @@ export default function Product({ params }) {
                            <span className={styles.oldPrice}>
                                { product?.oldPrice } </span> &nbsp; { product?.price } грн.
                         </span>
+                        <VisitorCounter/>
                     </div>
                     <ProductClient product={product}/>
                 </div>

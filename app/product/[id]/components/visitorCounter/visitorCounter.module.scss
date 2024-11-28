@@ -1,0 +1,21 @@
+@import "app/utils/mixins";
+
+.aboutInfoSee {
+  display: flex;
+  font-size: em(10);
+  margin-top: em(20,10);
+  font-weight: 500;
+  color: #737373;
+  padding: em(5, 10) em(5,10);
+  border: em(1, 10) solid #eee;
+  width: max-content;
+  text-align: center;
+  border-radius: em(8, 10);
+
+  .aboutInfoSeeImg {
+    width: em(20);
+    height: em(20);
+    position: relative;
+    margin-right: em(5);
+  }
+}
