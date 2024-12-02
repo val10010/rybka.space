@@ -1,6 +1,6 @@
 import dynamic from 'next/dynamic'
 
-const VideoPlayer = dynamic(() => import('./VideoPlayer.js'), {
+const VideoPlayer = dynamic(() => import('./videoPlayer'), {
     ssr: false
 })
 
