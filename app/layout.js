@@ -28,6 +28,18 @@ export default function RootLayout({ children }) {
                         gtag('config', 'G-EKSSB3ELFW');
                     `}
                 </Script>
+                //google ads
+                <Script
+                    src="https://www.googletagmanager.com/gtag/js?id=AW-16799720217"
+                />
+                <Script id="google-analytics" strategy="afterInteractive">
+                    {`
+                        window.dataLayer = window.dataLayer || [];
+                        function gtag(){dataLayer.push(arguments);}
+                        gtag('js', new Date());
+                        gtag('config', 'G-EKSSB3ELFW');
+                    `}
+                </Script>
             </>
         );
     };
