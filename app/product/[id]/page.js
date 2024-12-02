@@ -2,7 +2,7 @@ import BackBtn from "./components/backBtn";
 import ProductClient from "./components/productClient";
 import VariantsSlider from "./components/variantsSlider";
 import VisitorCounter from "./components/visitorCounter";
-// import { VideoPlayer } from "@/components/videoPlayer"
+import { VideoPlayer } from "@/components/videoPlayer"
 import { redirect } from 'next/navigation'
 
 import productsInfo from "@/mocks/productsInfo.json";
@@ -49,7 +49,7 @@ export default function Product({ params }) {
             </section>
             {/*<section className={styles.videoDetails}>*/}
             {/*    <VideoPlayer*/}
-            {/*        url="https://youtube.com/shorts/JTwMzut7DGk"*/}
+            {/*        url="https://youtube.com/shorts/n3vwHFJ3VsM?si=xD3v_h8cJFbIQt-Z"*/}
             {/*    />*/}
             {/*</section>*/}
             <section className={styles.desc}>

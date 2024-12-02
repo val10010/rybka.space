@@ -1,1 +1,1 @@
-// export { VideoWrapper as VideoPlayer } from "./videoPlayerWrapper"
+export { VideoWrapper as VideoPlayer } from "./videoPlayerWrapper"
