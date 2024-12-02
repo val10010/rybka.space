@@ -70,6 +70,12 @@ const ProductClient = ({product}) => {
         });
 
         if (res.success) {
+            window.gtag && window.gtag('event', 'conversion', {
+                'send_to': 'AW-16799720217/Ctj7CJaT5fEZEJnG3co-',
+                'value': 1.0,
+                'currency': 'UAH',
+                'transaction_id': res.orderNumber
+            });
             reset();
             setIsShowMessage(`Ваше замовлення успішно створено! Номер замовлення: ${res.orderNumber}`)
         } else {
