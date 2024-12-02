@@ -47,11 +47,11 @@ export default function Product({ params }) {
                     <ProductClient product={product}/>
                 </div>
             </section>
-            {/*<section className={styles.videoDetails}>*/}
-            {/*    <VideoPlayer*/}
-            {/*        url="https://youtube.com/shorts/n3vwHFJ3VsM?si=xD3v_h8cJFbIQt-Z"*/}
-            {/*    />*/}
-            {/*</section>*/}
+            <section className={styles.videoDetails}>
+                <VideoPlayer
+                    url="https://youtube.com/shorts/n3vwHFJ3VsM?si=xD3v_h8cJFbIQt-Z"
+                />
+            </section>
             <section className={styles.desc}>
                 <h2 className={styles.descTitle}>ОПИС</h2>
                 <div className={styles.descWrap}>
