@@ -49,7 +49,7 @@ export default function Product({ params }) {
             </section>
             <section className={styles.videoDetails}>
                 <VideoPlayer
-                    url="https://youtube.com/shorts/n3vwHFJ3VsM?si=xD3v_h8cJFbIQt-Z"
+                    url={product.videoLink}
                 />
             </section>
             <section className={styles.desc}>
