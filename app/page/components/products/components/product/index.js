@@ -24,8 +24,11 @@ export default function ProductSlider({ data }) {
         }
     }, []);
 
+    const productUrl = `/product/${data.id}`;
+    const productName = `${data.name} - ${data.currentColor}`;
+    
     return (
-        <div className={styles.container}>
+        <div className={styles.container} itemScope itemType="https://schema.org/Product">
             <Swiper
                 modules={[Navigation, Pagination]}
                 spaceBetween={0}
@@ -48,20 +51,34 @@ export default function ProductSlider({ data }) {
                         <Image
                             fill
                             src={`/images/products/${data.id}/${imageId}.jpg`}
-                            alt={`${data.name} - изображение ${imageId}`}
+                            alt={`${productName} - фото ${imageId}`}
                             className={styles.img}
                             draggable={false}
                             priority={imageId === data.images[0]}
+                            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                            itemProp="image"
                         />
                         <Link
-                            href={`/product/${data.id}`}
+                            href={productUrl}
                             className={styles.details}
+                            title={`Переглянути деталі про ${productName}`}
                         >
                             Детальніше
                         </Link>
                     </SwiperSlide>
                 ))}
             </Swiper>
+
+            <meta itemProp="name" content={productName} />
+            <meta itemProp="description" content={data.info?.desc || ''} />
+            <meta itemProp="price" content={data.price} />
+            <meta itemProp="priceCurrency" content="UAH" />
+            {data.oldPrice && (
+                <>
+                    <meta itemProp="priceValidUntil" content={new Date().toISOString().split('T')[0]} />
+                    <meta itemProp="price" content={data.oldPrice} />
+                </>
+            )}
 
             <button ref={navigationPrevRef} className={`${styles.navButton} ${styles.prevButton}`}>
                 <ChevronLeft />

@@ -1,6 +1,7 @@
 "use client"
 
 import React, { useState, useMemo } from 'react';
+import { NextSeo } from 'next-seo';
 import Product from "./components/product";
 import productsInfo from "@/mocks/productsInfo.json";
 import styles from "./products.module.scss";
@@ -40,62 +41,105 @@ export default function Products() {
         });
     }, [selectedSize, selectedColor, isFleece]);
 
+    // Generate structured data for products
+    const structuredData = {
+        "@context": "https://schema.org",
+        "@type": "ItemList",
+        "itemListElement": filteredProducts.map((product, index) => ({
+            "@type": "ListItem",
+            "position": index + 1,
+            "item": {
+                "@type": "Product",
+                "name": product.name,
+                "description": product.info.desc,
+                "offers": {
+                    "@type": "Offer",
+                    "price": product.price,
+                    "priceCurrency": "UAH",
+                    "availability": product.disabled ? "https://schema.org/OutOfStock" : "https://schema.org/InStock"
+                }
+            }
+        }))
+    };
+
     return (
-        <div className={styles.container}>
-            <div className={styles.filters}>
-                <div className={styles.filterGroup}>
-                    <label className={styles.label}>Розмір</label>
-                    <select
-                        className={styles.select}
-                        value={selectedSize}
-                        onChange={(e) => setSelectedSize(e.target.value)}
-                    >
-                        {availableSizes.map(size => (
-                            <option key={size} value={size}>
-                                {size === 'all' ? 'Всі розміри' : size.toUpperCase()}
-                            </option>
-                        ))}
-                    </select>
+        <>
+            <NextSeo
+                title="Жіночі спортивні костюми | Rybka.Space"
+                description="Великий вибір жіночих спортивних костюмів. Якісні матеріали, стильний дизайн, комфортні ціни."
+                openGraph={{
+                    title: 'Жіночі спортивні костюми | Rybka.Space',
+                    description: 'Великий вибір жіночих спортивних костюмів. Якісні матеріали, стильний дизайн, комфортні ціни.',
+                    images: [
+                        {
+                            url: '/images/og-image.jpg',
+                            width: 1200,
+                            height: 630,
+                            alt: 'Жіночі спортивні костюми',
+                        },
+                    ],
+                }}
+            />
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+            />
+            <div className={styles.container}>
+                <div className={styles.filters}>
+                    <div className={styles.filterGroup}>
+                        <label className={styles.label}>Розмір</label>
+                        <select
+                            className={styles.select}
+                            value={selectedSize}
+                            onChange={(e) => setSelectedSize(e.target.value)}
+                        >
+                            {availableSizes.map(size => (
+                                <option key={size} value={size}>
+                                    {size === 'all' ? 'Всі розміри' : size.toUpperCase()}
+                                </option>
+                            ))}
+                        </select>
+                    </div>
+
+                    <div className={styles.filterGroup}>
+                        <label className={styles.label}>Сезон</label>
+                        <select
+                            className={styles.select}
+                            value={isFleece}
+                            onChange={(e) => setIsFleece(e.target.value)}
+                        >
+                            <option value="all">Всі сезони</option>
+                            <option value="yes">Зима</option>
+                            <option value="no">Осінь</option>
+                        </select>
+                    </div>
+
+                    <div className={styles.filterGroup}>
+                        <label className={styles.label}>Колір</label>
+                        <select
+                            className={styles.select}
+                            value={selectedColor}
+                            onChange={(e) => setSelectedColor(e.target.value)}
+                        >
+                            {availableColors.map(color => (
+                                <option key={color} value={color}>
+                                    {color === 'all' ? 'Всі кольори' : color}
+                                </option>
+                            ))}
+                        </select>
+                    </div>
+
+                    <div className={styles.results}>
+                        Знайдено товарів: {filteredProducts.length}
+                    </div>
                 </div>
 
-                <div className={styles.filterGroup}>
-                    <label className={styles.label}>Сезон</label>
-                    <select
-                        className={styles.select}
-                        value={isFleece}
-                        onChange={(e) => setIsFleece(e.target.value)}
-                    >
-                        <option value="all">Всі сезони</option>
-                        <option value="yes">Зима</option>
-                        <option value="no">Осінь</option>
-                    </select>
-                </div>
-
-                <div className={styles.filterGroup}>
-                    <label className={styles.label}>Колір</label>
-                    <select
-                        className={styles.select}
-                        value={selectedColor}
-                        onChange={(e) => setSelectedColor(e.target.value)}
-                    >
-                        {availableColors.map(color => (
-                            <option key={color} value={color}>
-                                {color === 'all' ? 'Всі кольори' : color}
-                            </option>
-                        ))}
-                    </select>
-                </div>
-
-                <div className={styles.results}>
-                    Знайдено товарів: {filteredProducts.length}
+                <div className={styles.productsGrid}>
+                    {filteredProducts.map(data => (
+                        <Product key={data.id} data={data} />
+                    ))}
                 </div>
             </div>
-
-            <div className={styles.productsGrid}>
-                {filteredProducts.map(data => (
-                    <Product key={data.id} data={data} />
-                ))}
-            </div>
-        </div>
+        </>
     );
 }
