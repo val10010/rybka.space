@@ -134,6 +134,7 @@ const ProductClient = ({product}) => {
             }
 
             {/*<SizesBtn product={product}/>*/}
+            <Link className={styles.link} href="/delivery-and-payment">Доставка, оплата, повернення</Link>
 
             <button
                 onClick={handleBuyBtnClick}
