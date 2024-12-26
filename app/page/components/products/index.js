@@ -1,7 +1,6 @@
 "use client"
 
 import React, { useState, useMemo } from 'react';
-import { NextSeo } from 'next-seo';
 import Product from "./components/product";
 import productsInfo from "@/mocks/productsInfo.json";
 import styles from "./products.module.scss";
@@ -64,22 +63,6 @@ export default function Products() {
 
     return (
         <>
-            <NextSeo
-                title="Жіночі спортивні костюми | Rybka.Space"
-                description="Великий вибір жіночих спортивних костюмів. Якісні матеріали, стильний дизайн, комфортні ціни."
-                openGraph={{
-                    title: 'Жіночі спортивні костюми | Rybka.Space',
-                    description: 'Великий вибір жіночих спортивних костюмів. Якісні матеріали, стильний дизайн, комфортні ціни.',
-                    images: [
-                        {
-                            url: '/images/og-image.jpg',
-                            width: 1200,
-                            height: 630,
-                            alt: 'Жіночі спортивні костюми',
-                        },
-                    ],
-                }}
-            />
             <script
                 type="application/ld+json"
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
