@@ -11,16 +11,17 @@ export const metadata = {
     alternates: {
         canonical: 'https://rybka.space',
         languages: {
-            'uk-UA': 'https://rybka.space',
-            'ru-RU': 'https://rybka.space/ru'
+            'uk': 'https://rybka.space'
         }
+    },
+    verification: {
+        google: 'cC-cUeg7EzhhRc8HKzvNBwzU1zBro8xgdf9Lc-ABfpM',
     },
     openGraph: {
         title: 'Rybka Space | Стильний жіночий одяг | Casual костюми',
         description: 'Інтернет-магазин стильного жіночого одягу Rybka Space ✅ Модні костюми в стилі casual ✅ Висока якість ✅ Швидка доставка ✅ Приємні ціни',
         type: 'website',
         locale: 'uk_UA',
-        alternateLocale: 'ru_RU',
         url: 'https://rybka.space',
     }
 };
@@ -50,11 +51,6 @@ export default function RootLayout({ children }) {
 
     return (
         <html lang="uk">
-        <head>
-            <link rel="alternate" hrefLang="uk" href="https://rybka.space" />
-            <link rel="canonical" href="https://rybka.space" />
-            <meta name="google-site-verification" content="cC-cUeg7EzhhRc8HKzvNBwzU1zBro8xgdf9Lc-ABfpM" />
-        </head>
         <Analytics/>
         <body>
         <Header/>
