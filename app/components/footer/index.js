@@ -34,6 +34,9 @@ const Footer = () => {
                     />
                 </a>
             </div>
+            <p className={styles.address}>
+                наша адреса: Україна, м. Ізмаїл, проспект Миру, 36.
+            </p>
         </footer>
     );
 };

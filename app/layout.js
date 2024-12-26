@@ -33,7 +33,17 @@ export default function RootLayout({ children }) {
 
         return (
             <>
-
+                <Script
+                    src="https://www.googletagmanager.com/gtag/js?id=G-K03JMHQMNL"
+                />
+                <Script id="google-analytics" strategy="afterInteractive">
+                    {`
+                        window.dataLayer = window.dataLayer || [];
+                        function gtag(){dataLayer.push(arguments);}
+                        gtag('js', new Date());
+                        gtag('config', 'G-K03JMHQMNL');
+                    `}
+                </Script>
             </>
         );
     };
@@ -43,19 +53,10 @@ export default function RootLayout({ children }) {
         <head>
             <link rel="alternate" hrefLang="uk" href="https://rybka.space" />
             <link rel="canonical" href="https://rybka.space" />
+            <meta name="google-site-verification" content="cC-cUeg7EzhhRc8HKzvNBwzU1zBro8xgdf9Lc-ABfpM" />
         </head>
+        <Analytics/>
         <body>
-        <Script
-            src="https://www.googletagmanager.com/gtag/js?id=G-K03JMHQMNL"
-        />
-        <Script id="google-analytics" strategy="afterInteractive">
-            {`
-                        window.dataLayer = window.dataLayer || [];
-                        function gtag(){dataLayer.push(arguments);}
-                        gtag('js', new Date());
-                        gtag('config', 'G-K03JMHQMNL');
-                    `}
-        </Script>
         <Header/>
         <main className={styles.main}>
             {children}
