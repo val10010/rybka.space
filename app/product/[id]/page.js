@@ -4,6 +4,7 @@ import VariantsSlider from "./components/variantsSlider";
 import VisitorCounter from "./components/visitorCounter";
 import { VideoPlayer } from "@/components/videoPlayer"
 import { redirect } from 'next/navigation'
+import SchemaProduct from "@/components/SchemaProduct";
 
 import productsInfo from "@/mocks/productsInfo.json";
 
@@ -29,6 +30,7 @@ export default function Product({ params }) {
 
     return (
         <>
+            <SchemaProduct product={product} />
             <section className={styles.about}>
                 <BackBtn/>
                 <VariantsSlider product={product}/>
