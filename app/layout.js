@@ -143,7 +143,7 @@ export default function RootLayout({ children }) {
         <head>
             <link rel="manifest" href="/manifest.json" />
             <meta name="theme-color" content="#000000" />
-            <link rel="apple-touch-icon" href="/icons/icon-192x192.png" />
+            <link rel="apple-touch-icon" href="/images/icon-192x192.png" />
             <script
                 type="application/ld+json"
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
