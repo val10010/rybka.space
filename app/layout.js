@@ -7,7 +7,7 @@ import styles from "./page.module.scss";
 export const metadata = {
     title: "Купити жіночі спортивні костюми | Rybka Space",
     description: "⭐ Великий вибір жіночих спортивних костюмів в інтернет-магазині Rybka Space ✅ Висока якість ✅ Швидка доставка по Україні ✅ Приємні ціни ✅ Зручна оплата",
-    keywords: "жіночі спортивні костюми, спортивний одяг для жінок, купити спортивний костюм, жіночий спортивний костюм, спортивні костюми україна, модний спортивний одяг",
+    keywords: "жіночі спортивні костюми, спортивний одяг для жінок, купити спортивний костюм, жіночий спортивний костюм, спортивні костюми україна, модний спортивний одяг, спортивні костюми Ізмаїл, жіночий одяг, спортивний стиль",
     alternates: {
         canonical: 'https://rybkaspace.com',
         languages: {
@@ -44,6 +44,12 @@ export const metadata = {
             'max-snippet': -1,
         },
     },
+    twitter: {
+        card: 'summary_large_image',
+        title: 'Купити жіночі спортивні костюми | Rybka Space',
+        description: '⭐ Великий вибір жіночих спортивних костюмів в інтернет-магазині Rybka Space',
+        images: ['https://rybkaspace.com/og-image.jpg'],
+    }
 };
 
 export default function RootLayout({ children }) {
@@ -87,18 +93,57 @@ export default function RootLayout({ children }) {
         "contactPoint": {
             "@type": "ContactPoint",
             "contactType": "customer service",
-            "email": "support@rybkaspace.com"
+            "email": "support@rybkaspace.com",
+            "availableLanguage": ["Ukrainian"]
         },
         "sameAs": [
             "https://www.instagram.com/rybka.space",
             "https://www.facebook.com/profile.php?id=61566339753971",
             "https://www.tiktok.com/@rybka.space"
-        ]
+        ],
+        "priceRange": "₴₴",
+        "openingHoursSpecification": {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": [
+                "Monday",
+                "Tuesday",
+                "Wednesday",
+                "Thursday",
+                "Friday",
+                "Saturday",
+                "Sunday"
+            ],
+            "opens": "09:00",
+            "closes": "18:00"
+        },
+        "potentialAction": {
+            "@type": "SearchAction",
+            "target": {
+                "@type": "EntryPoint",
+                "urlTemplate": "https://rybkaspace.com/search?q={search_term_string}"
+            },
+            "query-input": "required name=search_term_string"
+        },
+        "aggregateRating": {
+            "@type": "AggregateRating",
+            "ratingValue": "4.8",
+            "reviewCount": "150"
+        },
+        "offers": {
+            "@type": "AggregateOffer",
+            "priceCurrency": "UAH",
+            "lowPrice": "1360",
+            "highPrice": "1800",
+            "offerCount": "50"
+        }
     };
 
     return (
         <html lang="uk">
         <head>
+            <link rel="manifest" href="/manifest.json" />
+            <meta name="theme-color" content="#000000" />
+            <link rel="apple-touch-icon" href="/icons/icon-192x192.png" />
             <script
                 type="application/ld+json"
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}

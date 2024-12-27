@@ -6,4 +6,3 @@ Disallow: /api/
 Disallow: /_next/
 
 Sitemap: https://rybkaspace.com/sitemap.xml
-Sitemap: https://rybkaspace.com/google-shopping-feed.xml
