@@ -57,7 +57,7 @@ const ImageSlider = ({ product }) => {
                 <div className={s.mainImageContainer}>
                     <img
                         src={images[currentIndex]}
-                        alt={`Slide ${currentIndex + 1}`}
+                        alt={`${product.name} - ${product.currentColor}, фото ${currentIndex + 1}`}
                         className={s.mainImage}
                         onClick={handleFullscreenToggle}
                     />
@@ -69,6 +69,7 @@ const ImageSlider = ({ product }) => {
                         <Image
                             fill
                             src={'/images/arrow-left.svg'}
+                            alt="Попереднє фото"
                         />
                     </button>
                     <button
@@ -78,6 +79,7 @@ const ImageSlider = ({ product }) => {
                         <Image
                             fill
                             src={'/images/arrow-left.svg'}
+                            alt="Наступне фото"
                         />
                     </button>
                 </div>
@@ -93,7 +95,7 @@ const ImageSlider = ({ product }) => {
                         >
                             <img
                                 src={img}
-                                alt={`Thumbnail ${index + 1}`}
+                                alt={`${product.name} - ${product.currentColor}, мініатюра ${index + 1}`}
                                 className={s.thumbnailImage}
                             />
                         </button>
@@ -117,11 +119,12 @@ const ImageSlider = ({ product }) => {
                             <Image
                                 fill
                                 src={'/images/arrow-left.svg'}
+                                alt="Попереднє фото"
                             />
                         </button>
                         <img
                             src={images[currentIndex]}
-                            alt={`Fullscreen ${currentIndex + 1}`}
+                            alt={`${product.name} - ${product.currentColor}, фото ${currentIndex + 1} у повному розмірі`}
                             className={s.fullscreenImage}
                         />
                         <button
@@ -131,6 +134,7 @@ const ImageSlider = ({ product }) => {
                             <Image
                                 fill
                                 src={'/images/arrow-left.svg'}
+                                alt="Наступне фото"
                             />
                         </button>
                     </div>

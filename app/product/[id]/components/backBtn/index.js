@@ -15,6 +15,7 @@ const BackBtn = () => {
            <img
                className={styles.backBtnIcon}
                src={'/images/backBtn.svg'}
+               alt="Повернутися на головну сторінку"
            />
             Назад
         </button>

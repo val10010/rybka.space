@@ -168,7 +168,7 @@ export default function Header() {
                 src={'/images/header-arrow.svg'}
                 className={styles.arrow}
                 ref={arrowRef}
-                alt="Scroll down"
+                alt="Прокрутіть вниз, щоб побачити колекцію жіночих спортивних костюмів"
             />
         </header>
     );
