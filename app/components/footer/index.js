@@ -1,6 +1,5 @@
-import React from 'react';
-import styles from './footer.module.scss';
 import Image from "next/image";
+import styles from "./footer.module.scss";
 
 const Footer = () => {
     return (
@@ -14,7 +13,7 @@ const Footer = () => {
                    target="_blank" rel="noopener noreferrer"
                    aria-label="Наш Instagram">
                     <Image
-                        src={'/images/i.svg'}
+                        src="/images/i.svg"
                         fill
                         alt="Наш Instagram - жіночі спортивні костюми Rybka Space"
                     />
@@ -24,7 +23,7 @@ const Footer = () => {
                    target="_blank" rel="noopener noreferrer"
                    aria-label="Наш Facebook">
                     <Image
-                        src={'/images/f.svg'}
+                        src="/images/f.svg"
                         fill
                         alt="Наш Facebook - жіночі спортивні костюми Rybka Space"
                     />
@@ -34,7 +33,7 @@ const Footer = () => {
                    target="_blank" rel="noopener noreferrer"
                    aria-label="Наш TikTok">
                     <Image
-                        src={'/images/t.svg'}
+                        src="/images/t.svg"
                         fill
                         alt="Наш TikTok - жіночі спортивні костюми Rybka Space"
                     />

@@ -5,6 +5,8 @@ import VisitorCounter from "./components/visitorCounter";
 import { VideoPlayer } from "@/components/videoPlayer"
 import { redirect } from 'next/navigation'
 import SchemaProduct from "@/components/SchemaProduct";
+import Breadcrumbs from "@/components/breadcrumbs";
+import FAQ from "@/components/faq";
 
 import productsInfo from "@/mocks/productsInfo.json";
 
@@ -31,6 +33,14 @@ export default function Product({ params }) {
     return (
         <>
             <SchemaProduct product={product} />
+            <Breadcrumbs
+                items={[
+                    {
+                        title: `${product.name} ${product.currentColor}`,
+                        path: `/product/${product.id}`
+                    }
+                ]}
+            />
             <section className={styles.about}>
                 <BackBtn/>
                 <VariantsSlider product={product}/>
@@ -103,6 +113,7 @@ export default function Product({ params }) {
                     </ul>
                 </div>
             </section>
+            <FAQ />
         </>
     );
 }

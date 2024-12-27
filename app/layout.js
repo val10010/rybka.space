@@ -69,8 +69,41 @@ export default function RootLayout({ children }) {
         );
     };
 
+    const jsonLd = {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "Rybka Space",
+        "url": "https://rybkaspace.com",
+        "logo": "https://rybkaspace.com/images/logo.svg",
+        "description": "Інтернет-магазин жіночих спортивних костюмів Rybka Space. Високоякісний одяг для активних жінок.",
+        "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "проспект Миру, 36",
+            "addressLocality": "Ізмаїл",
+            "addressRegion": "Одеська область",
+            "postalCode": "68600",
+            "addressCountry": "UA"
+        },
+        "contactPoint": {
+            "@type": "ContactPoint",
+            "contactType": "customer service",
+            "email": "support@rybkaspace.com"
+        },
+        "sameAs": [
+            "https://www.instagram.com/rybka.space",
+            "https://www.facebook.com/profile.php?id=61566339753971",
+            "https://www.tiktok.com/@rybka.space"
+        ]
+    };
+
     return (
         <html lang="uk">
+        <head>
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+            />
+        </head>
         <Analytics/>
         <body>
         <a href="#main-content" className="skip-link visually-hidden">
