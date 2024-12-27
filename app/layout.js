@@ -73,8 +73,11 @@ export default function RootLayout({ children }) {
         <html lang="uk">
         <Analytics/>
         <body>
+        <a href="#main-content" className="skip-link visually-hidden">
+            Перейти до основного вмісту
+        </a>
         <Header/>
-        <main className={styles.main}>
+        <main id="main-content" className={styles.main} role="main">
             {children}
         </main>
         <Footer/>

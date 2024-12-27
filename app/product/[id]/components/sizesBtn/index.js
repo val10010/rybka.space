@@ -4,38 +4,38 @@ import React, { useCallback, useState } from 'react';
 import Popup from "@/components/popup";
 import Image from "next/image";
 
-import SizeGrid from "../sizeGrid";
-
 import styles from "./sizesBtn.module.scss";
 
 const sizesBtn = ({ product }) => {
     const [isPopupOpen,  setIsPopupOpen] = useState(false);
 
-    const handleShowPopup = useCallback(() => {
+    const handleOpenPopup = useCallback(() => {
         setIsPopupOpen(true);
     }, [setIsPopupOpen]);
 
-    const handleHidePopup = useCallback(() => {
+    const handleClosePopup = useCallback(() => {
         setIsPopupOpen(false);
     }, [setIsPopupOpen])
 
     return (
         <>
-            <button className={styles.aboutInfoSizesBtn} onClick={handleShowPopup}>
+            <button
+                onClick={handleOpenPopup}
+                className={styles.aboutInfoSizesBtn}
+                aria-expanded={isPopupOpen}
+                aria-haspopup="dialog"
+            >
                 <Image
                     width="20"
                     height="20"
                     src="/images/pages/product/sizes.svg"
                     className={styles.aboutInfoSizesBtnImg}
                     alt="Іконка таблиці розмірів"
+                    aria-hidden="true"
                 />
                 Підібрати розмір
             </button>
-            <Popup
-                isOpen={isPopupOpen}
-                onClose={handleHidePopup}
-
-            >
+            <Popup isOpen={isPopupOpen} onClose={handleClosePopup}>
                 <div className={styles.popupContent}>
                     <h2 className={styles.popupContentTitle}>
                         Таблиця мірок
@@ -53,7 +53,24 @@ const sizesBtn = ({ product }) => {
                         />
                     </div>
                     <div className={styles.popupContentSizesGridWrap}>
-                        <SizeGrid product={product} className={styles.sizeGrid} />
+                        <div className={styles.popupContentSizesGrid}>
+                            <div className={styles.popupContentSizesGridHeader}>
+                                <span>Розмір</span>
+                                <span>Груди</span>
+                                <span>Талія</span>
+                                <span>Стегна</span>
+                            </div>
+                            {
+                                product?.grid?.table?.map((item, i) => (
+                                    <div key={i} className={styles.popupContentSizesGridRow}>
+                                        <span>{item.size}</span>
+                                        <span>{item.chest}</span>
+                                        <span>{item.waist}</span>
+                                        <span>{item.hips}</span>
+                                    </div>
+                                ))
+                            }
+                        </div>
                     </div>
                     <h2 className={styles.popupContentTitle}>
                         ЯК ПРАВИЛЬНО ЗНЯТИ МІРКИ?

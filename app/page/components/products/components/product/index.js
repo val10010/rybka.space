@@ -30,7 +30,7 @@ export default function ProductSlider({ data }) {
     const brandName = "Rybka Space";
     
     return (
-        <div className={styles.container} itemScope itemType="https://schema.org/Product">
+        <article className={styles.container} itemScope itemType="https://schema.org/Product">
             <Swiper
                 modules={[Navigation, Pagination]}
                 spaceBetween={0}
@@ -64,6 +64,7 @@ export default function ProductSlider({ data }) {
                             href={productUrl}
                             className={styles.details}
                             title={`Переглянути деталі про ${productName}`}
+                            aria-label={`Переглянути деталі про ${productName}`}
                         >
                             Детальніше
                         </Link>
@@ -120,13 +121,21 @@ export default function ProductSlider({ data }) {
                 </div>
             ))}
 
-            <button ref={navigationPrevRef} className={`${styles.navButton} ${styles.prevButton}`}>
+            <button 
+                ref={navigationPrevRef} 
+                className={`${styles.navButton} ${styles.prevButton}`}
+                aria-label="Попереднє фото"
+            >
                 <ChevronLeft />
             </button>
-            <button ref={navigationNextRef} className={`${styles.navButton} ${styles.nextButton}`}>
+            <button 
+                ref={navigationNextRef} 
+                className={`${styles.navButton} ${styles.nextButton}`}
+                aria-label="Наступне фото"
+            >
                 <ChevronRight />
             </button>
-        </div>
+        </article>
     );
 }
 

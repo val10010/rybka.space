@@ -59,9 +59,13 @@ const VisitorCounter = () => {
     }, []);
 
     return (
-        <div className={styles.aboutInfoSee}>
-            <span className={styles.aboutInfoSeeImg}>
-                <Image src="/images/eye.svg" fill alt="Кількість відвідувачів, які зараз переглядають цей товар" />
+        <div className={styles.aboutInfoSee} role="status" aria-live="polite">
+            <span className={styles.aboutInfoSeeImg} aria-hidden="true">
+                <Image 
+                    src="/images/eye.svg" 
+                    fill 
+                    alt="Кількість відвідувачів, які зараз переглядають цей товар"
+                />
             </span>
             {visitorCount} {visitorCount === 1 ? 'людина' : visitorCount < 5 ? 'людини' : 'людей'} зараз переглядає
         </div>

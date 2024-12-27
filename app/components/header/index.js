@@ -145,17 +145,20 @@ export default function Header() {
         <header
             ref={headerRef}
             className={styles.container}
+            role="banner"
         >
             <Link
                 href="/"
                 className={styles.logo}
                 ref={logoRef}
+                aria-label="Rybka Space - головна сторінка"
             >
                 <Image
                     className={styles.img}
                     src="/images/logo.svg"
                     fill
-                    alt="Logo"
+                    alt="Логотип Rybka Space"
+                    priority
                 />
             </Link>
             <h1
