@@ -5,25 +5,45 @@ import "./globals.scss";
 import styles from "./page.module.scss";
 
 export const metadata = {
-    title: "Rybka Space | Стильний жіночий одяг | Casual костюми",
-    description: "Інтернет-магазин стильного жіночого одягу Rybka Space ✅ Модні костюми в стилі casual ✅ Висока якість ✅ Швидка доставка ✅ Приємні ціни",
-    keywords: "жіночий одяг, casual костюми, модний одяг, жіночі костюми, інтернет магазин одягу, купити жіночий одяг",
+    title: "Купити жіночі спортивні костюми | Rybka Space",
+    description: "⭐ Великий вибір жіночих спортивних костюмів в інтернет-магазині Rybka Space ✅ Висока якість ✅ Швидка доставка по Україні ✅ Приємні ціни ✅ Зручна оплата",
+    keywords: "жіночі спортивні костюми, спортивний одяг для жінок, купити спортивний костюм, жіночий спортивний костюм, спортивні костюми україна, модний спортивний одяг",
     alternates: {
-        canonical: 'https://rybka.space',
+        canonical: 'https://rybkaspace.com',
         languages: {
-            'uk': 'https://rybka.space'
+            'uk': 'https://rybkaspace.com'
         }
     },
     verification: {
         google: 'cC-cUeg7EzhhRc8HKzvNBwzU1zBro8xgdf9Lc-ABfpM',
     },
     openGraph: {
-        title: 'Rybka Space | Стильний жіночий одяг | Casual костюми',
-        description: 'Інтернет-магазин стильного жіночого одягу Rybka Space ✅ Модні костюми в стилі casual ✅ Висока якість ✅ Швидка доставка ✅ Приємні ціни',
+        title: 'Купити жіночі спортивні костюми | Rybka Space',
+        description: '⭐ Великий вибір жіночих спортивних костюмів в інтернет-магазині Rybka Space ✅ Висока якість ✅ Швидка доставка по Україні ✅ Приємні ціни ✅ Зручна оплата',
         type: 'website',
         locale: 'uk_UA',
-        url: 'https://rybka.space',
-    }
+        url: 'https://rybkaspace.com',
+        siteName: 'Rybka Space',
+        images: [
+            {
+                url: 'https://rybkaspace.com/og-image.jpg',
+                width: 1200,
+                height: 630,
+                alt: 'Жіночі спортивні костюми Rybka Space',
+            }
+        ],
+    },
+    robots: {
+        index: true,
+        follow: true,
+        googleBot: {
+            index: true,
+            follow: true,
+            'max-video-preview': -1,
+            'max-image-preview': 'large',
+            'max-snippet': -1,
+        },
+    },
 };
 
 export default function RootLayout({ children }) {
