@@ -124,6 +124,7 @@ const ProductClient = ({product}) => {
                                         <Image
                                             fill
                                             src={`/images/products/${item}/4.jpg`}
+                                            alt={`Жіночий спортивний костюм ${productsInfo.filter(product => product.id === item)[0].name} - ${productsInfo.filter(product => product.id === item)[0].currentColor}`}
                                         />
                                     </Link>
                                 );

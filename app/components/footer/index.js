@@ -6,7 +6,7 @@ const Footer = () => {
     return (
         <footer className={styles.container}>
             <div className={styles.copyright}>
-                © 2024 Rybka.space
+                2024 Rybka.space
             </div>
             <div className={styles.social}>
                 <a href="https://www.instagram.com/rybka.space?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw=="
@@ -15,6 +15,7 @@ const Footer = () => {
                     <Image
                         src={'/images/i.svg'}
                         fill
+                        alt="Наш Instagram - жіночі спортивні костюми Rybka Space"
                     />
                 </a>
                 <a href="https://www.facebook.com/profile.php?id=61566339753971"
@@ -23,6 +24,7 @@ const Footer = () => {
                     <Image
                         src={'/images/f.svg'}
                         fill
+                        alt="Наш Facebook - жіночі спортивні костюми Rybka Space"
                     />
                 </a>
                 <a href="https://www.tiktok.com/@rybka.space?is_from_webapp=1&sender_device=pc"
@@ -31,6 +33,7 @@ const Footer = () => {
                     <Image
                         src={'/images/t.svg'}
                         fill
+                        alt="Наш TikTok - жіночі спортивні костюми Rybka Space"
                     />
                 </a>
             </div>

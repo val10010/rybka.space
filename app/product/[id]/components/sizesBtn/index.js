@@ -27,6 +27,7 @@ const sizesBtn = ({ product }) => {
                     height="20"
                     src="/images/pages/product/sizes.svg"
                     className={styles.aboutInfoSizesBtnImg}
+                    alt="Іконка таблиці розмірів"
                 />
                 Підібрати розмір
             </button>
@@ -48,6 +49,7 @@ const sizesBtn = ({ product }) => {
                         <Image
                             fill
                             src="/images/pages/product/sizes.jpg"
+                            alt="Схема вимірювання жіночого спортивного костюма"
                         />
                     </div>
                     <div className={styles.popupContentSizesGridWrap}>
