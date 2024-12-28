@@ -5,6 +5,7 @@ export default function SchemaProduct({ product }) {
         "name": `${product.name} ${product.currentColor}`,
         "description": product.info.desc,
         "image": product.images.map(img => `https://rybkaspace.com/images/products/${product.id}/${img}.jpg`),
+        "sku": `RS-${product.id}`,
         "offers": {
             "@type": "Offer",
             "url": `https://rybkaspace.com/product/${product.id}`,
