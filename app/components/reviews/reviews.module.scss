@@ -1,0 +1,154 @@
+@import "app/utils/mixins.scss";
+
+.reviews {
+    padding: em(60) 0;
+    background-color: #f9f9f9;
+    max-width: em(1200);
+    margin: em(40) auto;
+    border-radius: em(10);
+}
+
+.title {
+    font-size: em(28, 14);
+    text-align: center;
+    margin-bottom: em(40, 28);
+    font-weight: 300;
+    letter-spacing: em(2);
+    color: #000;
+}
+
+.swiperContainer {
+    margin: 0 em(-30);
+    padding: 0 em(30);
+    position: relative;
+}
+
+.swiper {
+    padding: em(20) em(40);
+    margin: 0 auto;
+    max-width: em(1200);
+}
+
+.slide {
+    height: auto;
+    display: flex;
+}
+
+.review {
+    background: white;
+    border-radius: em(10);
+    padding: em(20);
+    box-shadow: 0 em(2) em(10) rgba(0, 0, 0, 0.1);
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: em(15);
+}
+
+.author {
+    font-weight: bold;
+    color: #333;
+}
+
+.date {
+    color: #666;
+    font-size: em(14);
+}
+
+.rating {
+    margin-bottom: em(15);
+}
+
+.star {
+    color: #ddd;
+    font-size: em(18);
+
+    &.filled {
+        color: #ffd700;
+    }
+}
+
+.text {
+    margin-bottom: em(15);
+    line-height: 1.6;
+    flex-grow: 1;
+    font-size: em(15);
+    color: #444;
+}
+
+.image {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: auto;
+}
+
+.reviewImage {
+    border-radius: 8px;
+    object-fit: cover;
+}
+
+.swiperNavigation {
+    :global(.swiper-button-next),
+    :global(.swiper-button-prev) {
+        width: em(40);
+        height: em(40);
+        background-color: white;
+        border-radius: 50%;
+        box-shadow: 0 em(2) em(8) rgba(0, 0, 0, 0.1);
+        color: #333;
+        transition: all 0.3s ease;
+
+        &:after {
+            font-size: em(18);
+            font-weight: bold;
+        }
+
+        &:hover {
+            background-color: #333;
+            color: white;
+            transform: scale(1.05);
+        }
+
+        @media (max-width: 768px) {
+            display: none;
+        }
+    }
+
+    :global(.swiper-button-prev) {
+        left: em(10);
+    }
+
+    :global(.swiper-button-next) {
+        right: em(10);
+    }
+}
+
+.swiperPagination {
+    :global(.swiper-pagination-bullet) {
+        width: em(8);
+        height: em(8);
+        background: #ddd;
+        opacity: 1;
+        transition: all 0.3s ease;
+
+        &:global(.swiper-pagination-bullet-active) {
+            background: #333;
+            transform: scale(1.2);
+        }
+
+        &:hover {
+            background: #333;
+        }
+    }
+
+    :global(.swiper-pagination) {
+        margin-top: em(20);
+    }
+}

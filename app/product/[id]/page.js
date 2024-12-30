@@ -7,6 +7,7 @@ import { redirect } from 'next/navigation'
 import SchemaProduct from "@/components/SchemaProduct";
 import Breadcrumbs from "@/components/breadcrumbs";
 import FAQ from "@/components/faq";
+import Reviews from "@/components/reviews";
 
 import productsInfo from "@/mocks/productsInfo.json";
 
@@ -62,6 +63,13 @@ export default function Product({ params }) {
             <section className={styles.videoDetails}>
                 <VideoPlayer
                     url={product.videoLink}
+                />
+            </section>
+            <Reviews />
+            <section className={styles.videoDetails}>
+                <h3 className={styles.videoDetailsTitle}>Відео відгуки</h3>
+                <VideoPlayer
+                    url="https://youtube.com/shorts/LAXrt1adoHg?feature=share"
                 />
             </section>
             <section className={styles.desc}>

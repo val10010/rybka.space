@@ -4,6 +4,8 @@ import React, { useState, useMemo } from 'react';
 import Product from "./components/product";
 import productsInfo from "@/mocks/productsInfo.json";
 import styles from "./products.module.scss";
+import Reviews from "@/components/reviews";
+import {VideoPlayer} from "@/components/videoPlayer";
 
 export default function Products() {
     const [selectedSize, setSelectedSize] = useState('all');
@@ -124,6 +126,13 @@ export default function Products() {
                         <Product key={data.id} data={data} />
                     ))}
                 </div>
+                <Reviews />
+                <section className={styles.videoDetails}>
+                    <h3 className={styles.videoDetailsTitle}>Відео відгуки</h3>
+                    <VideoPlayer
+                        url="https://youtube.com/shorts/LAXrt1adoHg?feature=share"
+                    />
+                </section>
             </div>
         </>
     );
