@@ -7,6 +7,9 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import styles from "./product.module.scss";
+import reviewsData from '@/mocks/reviews.json';
+
+const { reviews } = reviewsData;
 
 export default function ProductSlider({ data }) {
     if(data.disabled) return null;
@@ -14,6 +17,9 @@ export default function ProductSlider({ data }) {
     const navigationPrevRef = React.useRef(null);
     const navigationNextRef = React.useRef(null);
     const swiperRef = React.useRef(null);
+
+    // Вычисляем средний рейтинг
+    const averageRating = (reviews.reduce((acc, review) => acc + review.rating, 0) / reviews.length).toFixed(1);
 
     useEffect(() => {
         if (swiperRef.current) {
@@ -28,7 +34,7 @@ export default function ProductSlider({ data }) {
     const productName = `${data.name} - ${data.currentColor}`;
     const currentDate = new Date().toISOString().split('T')[0];
     const brandName = "Rybka Space";
-    
+
     return (
         <article className={styles.container} itemScope itemType="https://schema.org/Product">
             <meta itemProp="name" content={productName} />
@@ -39,8 +45,8 @@ export default function ProductSlider({ data }) {
                 <meta itemProp="availability" content={data.disabled ? "https://schema.org/OutOfStock" : "https://schema.org/InStock"} />
             </div>
             <div itemProp="aggregateRating" itemScope itemType="https://schema.org/AggregateRating">
-                <meta itemProp="ratingValue" content="4.6" />
-                <meta itemProp="reviewCount" content="5" />
+                <meta itemProp="ratingValue" content={averageRating} />
+                <meta itemProp="reviewCount" content={reviews.length.toString()} />
             </div>
             <Swiper
                 modules={[Navigation, Pagination]}
@@ -88,7 +94,7 @@ export default function ProductSlider({ data }) {
             <meta itemProp="productID" content={`RS-${data.id}`} />
             <meta itemProp="category" content="Жіночі спортивні костюми" />
             <meta itemProp="url" content={`https://rybkaspace.com${productUrl}`} />
-            
+
             <div itemProp="brand" itemScope itemType="https://schema.org/Brand">
                 <meta itemProp="name" content={brandName} />
             </div>
@@ -131,7 +137,7 @@ export default function ProductSlider({ data }) {
                 </div>
             ))}
 
-            <script 
+            <script
                 type="application/ld+json"
                 dangerouslySetInnerHTML={{
                     __html: JSON.stringify({
@@ -156,54 +162,38 @@ export default function ProductSlider({ data }) {
                         },
                         "aggregateRating": {
                             "@type": "AggregateRating",
-                            "ratingValue": "4.5",
-                            "reviewCount": "6",
+                            "ratingValue": averageRating,
+                            "reviewCount": reviews.length.toString(),
                             "bestRating": "5",
                             "worstRating": "1"
                         },
-                        "review": [
-                            {
-                                "@type": "Review",
-                                "reviewRating": {
-                                    "@type": "Rating",
-                                    "ratingValue": "5",
-                                    "bestRating": "5"
-                                },
-                                "author": {
-                                    "@type": "Person",
-                                    "name": "Олена Петренко"
-                                },
-                                "datePublished": "2024-12-28",
-                                "reviewBody": "Тканина дихаюча, приємна до тіла. Після прання форма не змінилась. Дуже задоволена покупкою"
+                        "review": reviews.map(review => ({
+                            "@type": "Review",
+                            "reviewRating": {
+                                "@type": "Rating",
+                                "ratingValue": review.rating.toString(),
+                                "bestRating": "5"
                             },
-                            {
-                                "@type": "Review",
-                                "reviewRating": {
-                                    "@type": "Rating",
-                                    "ratingValue": "4",
-                                    "bestRating": "5"
-                                },
-                                "author": {
-                                    "@type": "Person",
-                                    "name": "Мария Ковальчук"
-                                },
-                                "datePublished": "2024-11-25",
-                                "reviewBody": "Костюм сел идеально. Единственный минус доставка была дольше, чем ожидала. Но качество товара компенсирует это полностью)"
-                            }
-                        ]
+                            "author": {
+                                "@type": "Person",
+                                "name": review.author
+                            },
+                            "datePublished": review.date,
+                            "reviewBody": review.text
+                        }))
                     })
                 }}
             />
 
-            <button 
-                ref={navigationPrevRef} 
+            <button
+                ref={navigationPrevRef}
                 className={`${styles.navButton} ${styles.prevButton}`}
                 aria-label="Попереднє фото"
             >
                 <ChevronLeft />
             </button>
-            <button 
-                ref={navigationNextRef} 
+            <button
+                ref={navigationNextRef}
                 className={`${styles.navButton} ${styles.nextButton}`}
                 aria-label="Наступне фото"
             >

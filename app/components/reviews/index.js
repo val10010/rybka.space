@@ -9,58 +9,9 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import styles from './reviews.module.scss';
+import reviewsData from '@/mocks/reviews.json';
 
-const reviews = [
-    {
-        id: 1,
-        author: 'Олена Петренко',
-        rating: 5,
-        date: '2024-12-28',
-        text: 'Тканина дихаюча, приємна до тіла. Після прання форма не змінилась. Дуже задоволена покупкою ',
-    },
-    {
-        id: 2,
-        author: 'Мария Ковальчук',
-        rating: 4,
-        date: '2024-11-25',
-        text: 'Костюм сел идеально . Единственный минус доставка была дольше, чем ожидала. Но качество товара компенсирует это полностью)',
-    },
-    {
-        id: 5,
-        author: 'София Мельник',
-        rating: 5,
-        date: '2024-11-15',
-        text: 'Отлично держит форму, не теряет цвет после стирки. Однозначно рекомендую ',
-    },
-    {
-        id: 6,
-        author: 'Анна Коваленко',
-        rating: 4,
-        date: '2024-12-12',
-        text: 'Якість пошиву відмінна, все акуратно . Трохи засмутив колір на фото здавався яскравішим. Але в цілому дуже задоволена.',
-    },
-    {
-        id: 7,
-        author: 'Виктория Лысенко',
-        rating: 5,
-        date: '2024-11-08',
-        text: 'Приятно удивлена скоростью доставки и качеством обслуживания! Костюм сидит идеально, не стесняет движений ',
-    },
-    {
-        id: 8,
-        author: 'Катерина Бондаренко',
-        rating: 4,
-        date: '2024-12-05',
-        text: 'Дуже стильний та зручний костюмчик) матеріал приємний до тіла, не електризується ',
-    },
-    {
-        id: 9,
-        author: 'Диана Романенко',
-        rating: 5,
-        date: '2024-11-30',
-        text: 'Сидит идеально, качество отличное . Отдельное спасибо за быструю доставку и красивую упаковку!',
-    }
-];
+const { reviews } = reviewsData;
 
 export default function Reviews() {
     return (
@@ -89,46 +40,31 @@ export default function Reviews() {
             >
                 {reviews.map((review) => (
                     <SwiperSlide key={review.id} className={styles.slide}>
-                        <div itemProp="review" itemScope itemType="https://schema.org/Review">
-                            <meta itemProp="datePublished" content={review.date} />
-                            <div itemProp="author" itemScope itemType="https://schema.org/Person">
-                                <meta itemProp="name" content={review.author} />
+                        <div className={styles.review} itemScope itemType="https://schema.org/Review">
+                            <div itemProp="itemReviewed" itemScope itemType="https://schema.org/Product">
+                                <meta itemProp="name" content="Спортивний костюм" />
+                                <meta itemProp="sku" content="RS-18" />
                             </div>
-                            <div itemProp="reviewRating" itemScope itemType="https://schema.org/Rating">
+                            <div className={styles.header}>
+                                <div className={styles.author} itemProp="author" itemScope itemType="https://schema.org/Person">
+                                    <meta itemProp="name" content={review.author} />
+                                    {review.author}
+                                </div>
+                                <div className={styles.date} itemProp="datePublished">{review.date}</div>
+                            </div>
+                            <div className={styles.rating} itemProp="reviewRating" itemScope itemType="https://schema.org/Rating">
                                 <meta itemProp="ratingValue" content={review.rating} />
                                 <meta itemProp="bestRating" content="5" />
+                                {[...Array(5)].map((_, index) => (
+                                    <span
+                                        key={index}
+                                        className={`${styles.star} ${index < review.rating ? styles.filled : ''}`}
+                                    >
+                                        ★
+                                    </span>
+                                ))}
                             </div>
-                            <meta itemProp="reviewBody" content={review.text} />
-                            <div className={styles.review} itemScope itemType="https://schema.org/Product">
-                                <meta itemProp="name" content="Спортивний костюм" />
-                                <div className={styles.header}>
-                                    <div className={styles.author} itemProp="author">{review.author}</div>
-                                    <div className={styles.date} itemProp="datePublished">{review.date}</div>
-                                </div>
-                                <div className={styles.rating} itemProp="reviewRating" itemScope itemType="https://schema.org/Rating">
-                                    <meta itemProp="ratingValue" content={review.rating} />
-                                    {[...Array(5)].map((_, index) => (
-                                        <span
-                                            key={index}
-                                            className={`${styles.star} ${index < review.rating ? styles.filled : ''}`}
-                                        >
-                                            ★
-                                        </span>
-                                    ))}
-                                </div>
-                                <p className={styles.text} itemProp="reviewBody">{review.text}</p>
-                                {review.image && (
-                                    <div className={styles.image}>
-                                        <Image
-                                            src={review.image}
-                                            alt={`Відгук від ${review.author}`}
-                                            width={200}
-                                            height={200}
-                                            className={styles.reviewImage}
-                                        />
-                                    </div>
-                                )}
-                            </div>
+                            <p className={styles.text} itemProp="reviewBody">{review.text}</p>
                         </div>
                     </SwiperSlide>
                 ))}
