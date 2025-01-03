@@ -99,6 +99,18 @@ export default function ProductSlider({ data }) {
                 <meta itemProp="name" content={brandName} />
             </div>
 
+            {reviews.map((review) => (
+                <div key={review.id} itemProp="review" itemScope itemType="https://schema.org/Review">
+                    <meta itemProp="author" content={review.author} />
+                    <meta itemProp="datePublished" content={review.date} />
+                    <div itemProp="reviewRating" itemScope itemType="https://schema.org/Rating">
+                        <meta itemProp="ratingValue" content={review.rating} />
+                        <meta itemProp="bestRating" content="5" />
+                    </div>
+                    <meta itemProp="reviewBody" content={review.text} />
+                </div>
+            ))}
+
             <div itemProp="offers" itemScope itemType="https://schema.org/Offer">
                 <meta itemProp="price" content={data.price} />
                 <meta itemProp="priceCurrency" content="UAH" />
