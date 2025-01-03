@@ -89,37 +89,46 @@ export default function Reviews() {
             >
                 {reviews.map((review) => (
                     <SwiperSlide key={review.id} className={styles.slide}>
-                        <div className={styles.review} itemScope itemType="https://schema.org/Review">
-                            <div itemProp="itemReviewed" itemScope itemType="https://schema.org/Product">
-                                <meta itemProp="name" content="Спортивний костюм" />
+                        <div itemProp="review" itemScope itemType="https://schema.org/Review">
+                            <meta itemProp="datePublished" content={review.date} />
+                            <div itemProp="author" itemScope itemType="https://schema.org/Person">
+                                <meta itemProp="name" content={review.author} />
                             </div>
-                            <div className={styles.header}>
-                                <div className={styles.author} itemProp="author">{review.author}</div>
-                                <div className={styles.date} itemProp="datePublished">{review.date}</div>
-                            </div>
-                            <div className={styles.rating} itemProp="reviewRating" itemScope itemType="https://schema.org/Rating">
+                            <div itemProp="reviewRating" itemScope itemType="https://schema.org/Rating">
                                 <meta itemProp="ratingValue" content={review.rating} />
-                                {[...Array(5)].map((_, index) => (
-                                    <span
-                                        key={index}
-                                        className={`${styles.star} ${index < review.rating ? styles.filled : ''}`}
-                                    >
-                                        ★
-                                    </span>
-                                ))}
+                                <meta itemProp="bestRating" content="5" />
                             </div>
-                            <p className={styles.text} itemProp="reviewBody">{review.text}</p>
-                            {review.image && (
-                                <div className={styles.image}>
-                                    <Image
-                                        src={review.image}
-                                        alt={`Відгук від ${review.author}`}
-                                        width={200}
-                                        height={200}
-                                        className={styles.reviewImage}
-                                    />
+                            <meta itemProp="reviewBody" content={review.text} />
+                            <div className={styles.review} itemScope itemType="https://schema.org/Product">
+                                <meta itemProp="name" content="Спортивний костюм" />
+                                <div className={styles.header}>
+                                    <div className={styles.author} itemProp="author">{review.author}</div>
+                                    <div className={styles.date} itemProp="datePublished">{review.date}</div>
                                 </div>
-                            )}
+                                <div className={styles.rating} itemProp="reviewRating" itemScope itemType="https://schema.org/Rating">
+                                    <meta itemProp="ratingValue" content={review.rating} />
+                                    {[...Array(5)].map((_, index) => (
+                                        <span
+                                            key={index}
+                                            className={`${styles.star} ${index < review.rating ? styles.filled : ''}`}
+                                        >
+                                            ★
+                                        </span>
+                                    ))}
+                                </div>
+                                <p className={styles.text} itemProp="reviewBody">{review.text}</p>
+                                {review.image && (
+                                    <div className={styles.image}>
+                                        <Image
+                                            src={review.image}
+                                            alt={`Відгук від ${review.author}`}
+                                            width={200}
+                                            height={200}
+                                            className={styles.reviewImage}
+                                        />
+                                    </div>
+                                )}
+                            </div>
                         </div>
                     </SwiperSlide>
                 ))}

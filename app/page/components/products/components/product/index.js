@@ -31,6 +31,17 @@ export default function ProductSlider({ data }) {
     
     return (
         <article className={styles.container} itemScope itemType="https://schema.org/Product">
+            <meta itemProp="name" content={productName} />
+            <meta itemProp="brand" content={brandName} />
+            <div itemProp="offers" itemScope itemType="https://schema.org/Offer">
+                <meta itemProp="price" content={data.price} />
+                <meta itemProp="priceCurrency" content="UAH" />
+                <meta itemProp="availability" content={data.disabled ? "https://schema.org/OutOfStock" : "https://schema.org/InStock"} />
+            </div>
+            <div itemProp="aggregateRating" itemScope itemType="https://schema.org/AggregateRating">
+                <meta itemProp="ratingValue" content="4.6" />
+                <meta itemProp="reviewCount" content="5" />
+            </div>
             <Swiper
                 modules={[Navigation, Pagination]}
                 spaceBetween={0}
@@ -72,7 +83,6 @@ export default function ProductSlider({ data }) {
                 ))}
             </Swiper>
 
-            <meta itemProp="name" content={productName} />
             <meta itemProp="description" content={data.info?.desc || ''} />
             <meta itemProp="sku" content={`RS-${data.id}`} />
             <meta itemProp="productID" content={`RS-${data.id}`} />
