@@ -172,15 +172,23 @@ export default function ProductSlider({ data }) {
                             "reviewRating": {
                                 "@type": "Rating",
                                 "ratingValue": review.rating.toString(),
-                                "bestRating": "5"
+                                "bestRating": "5",
+                                "worstRating": "1"
                             },
                             "author": {
                                 "@type": "Person",
                                 "name": review.author
                             },
                             "datePublished": review.date,
-                            "reviewBody": review.text
-                        }))
+                            "reviewBody": review.text,
+                            "itemReviewed": {
+                                "@type": "Product",
+                                "name": productName,
+                                "sku": `RS-${data.id}`
+                            }
+                        })),
+                        "material": data.info?.material?.join(", ") || '',
+                        "size": data.grid?.sizes?.join(", ") || ''
                     })
                 }}
             />
