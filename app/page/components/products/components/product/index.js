@@ -36,18 +36,7 @@ export default function ProductSlider({ data }) {
     const brandName = "Rybka Space";
 
     return (
-        <article className={styles.container} itemScope itemType="https://schema.org/Product">
-            <meta itemProp="name" content={productName} />
-            <meta itemProp="brand" content={brandName} />
-            <div itemProp="offers" itemScope itemType="https://schema.org/Offer">
-                <meta itemProp="price" content={data.price} />
-                <meta itemProp="priceCurrency" content="UAH" />
-                <meta itemProp="availability" content={data.disabled ? "https://schema.org/OutOfStock" : "https://schema.org/InStock"} />
-            </div>
-            <div itemProp="aggregateRating" itemScope itemType="https://schema.org/AggregateRating">
-                <meta itemProp="ratingValue" content={averageRating} />
-                <meta itemProp="reviewCount" content={reviews.length.toString()} />
-            </div>
+        <article className={styles.container}>
             <Swiper
                 modules={[Navigation, Pagination]}
                 spaceBetween={0}
@@ -75,7 +64,6 @@ export default function ProductSlider({ data }) {
                             draggable={false}
                             priority={imageId === data.images[0]}
                             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                            itemProp="image"
                         />
                         <Link
                             href={productUrl}
@@ -88,66 +76,6 @@ export default function ProductSlider({ data }) {
                     </SwiperSlide>
                 ))}
             </Swiper>
-
-            <meta itemProp="description" content={data.info?.desc || ''} />
-            <meta itemProp="sku" content={`RS-${data.id}`} />
-            <meta itemProp="productID" content={`RS-${data.id}`} />
-            <meta itemProp="category" content="Жіночі спортивні костюми" />
-            <meta itemProp="url" content={`https://rybkaspace.com${productUrl}`} />
-
-            <div itemProp="brand" itemScope itemType="https://schema.org/Brand">
-                <meta itemProp="name" content={brandName} />
-            </div>
-
-            {reviews.map((review) => (
-                <div key={review.id} itemProp="review" itemScope itemType="https://schema.org/Review">
-                    <meta itemProp="author" content={review.author} />
-                    <meta itemProp="datePublished" content={review.date} />
-                    <div itemProp="reviewRating" itemScope itemType="https://schema.org/Rating">
-                        <meta itemProp="ratingValue" content={review.rating} />
-                        <meta itemProp="bestRating" content="5" />
-                    </div>
-                    <meta itemProp="reviewBody" content={review.text} />
-                </div>
-            ))}
-
-            <div itemProp="offers" itemScope itemType="https://schema.org/Offer">
-                <meta itemProp="price" content={data.price} />
-                <meta itemProp="priceCurrency" content="UAH" />
-                <meta itemProp="availability" content={data.disabled ? "https://schema.org/OutOfStock" : "https://schema.org/InStock"} />
-                <meta itemProp="url" content={`https://rybkaspace.com${productUrl}`} />
-                <meta itemProp="priceValidUntil" content={currentDate} />
-                {data.oldPrice && (
-                    <div itemProp="priceSpecification" itemScope itemType="https://schema.org/PriceSpecification">
-                        <meta itemProp="price" content={data.oldPrice} />
-                        <meta itemProp="priceCurrency" content="UAH" />
-                    </div>
-                )}
-            </div>
-
-            <div itemProp="additionalProperty" itemScope itemType="https://schema.org/PropertyValue">
-                <meta itemProp="name" content="Колір" />
-                <meta itemProp="value" content={data.currentColor} />
-            </div>
-
-            {data.grid?.sizes?.map((size) => (
-                <div key={size} itemProp="additionalProperty" itemScope itemType="https://schema.org/PropertyValue">
-                    <meta itemProp="name" content="Розмір" />
-                    <meta itemProp="value" content={size} />
-                </div>
-            ))}
-
-            <div itemProp="manufacturer" itemScope itemType="https://schema.org/Organization">
-                <meta itemProp="name" content={brandName} />
-                <meta itemProp="address" content="Україна, м. Ізмаїл, проспект Миру, 36" />
-            </div>
-
-            {data.info?.material?.map((material, index) => (
-                <div key={index} itemProp="material" itemScope itemType="https://schema.org/PropertyValue">
-                    <meta itemProp="name" content="Матеріал" />
-                    <meta itemProp="value" content={material} />
-                </div>
-            ))}
 
             <script
                 type="application/ld+json"
