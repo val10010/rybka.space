@@ -40,31 +40,25 @@ export default function Reviews() {
             >
                 {reviews.map((review) => (
                     <SwiperSlide key={review.id} className={styles.slide}>
-                        <div className={styles.review} itemScope itemType="https://schema.org/Review">
-                            <div itemProp="itemReviewed" itemScope itemType="https://schema.org/Product">
-                                <meta itemProp="name" content="Спортивний костюм" />
-                                <meta itemProp="sku" content="RS-18" />
-                            </div>
+                        <div className={styles.review}>
                             <div className={styles.header}>
-                                <div className={styles.author} itemProp="author" itemScope itemType="https://schema.org/Person">
-                                    <meta itemProp="name" content={review.author} />
+                                <div className={styles.author}>
                                     {review.author}
                                 </div>
-                                <div className={styles.date} itemProp="datePublished">{review.date}</div>
+                                <div className={styles.rating}>
+                                    {[...Array(review.rating)].map((_, index) => (
+                                        <Image
+                                            key={index}
+                                            src="/images/star.svg"
+                                            alt="star"
+                                            width={24}
+                                            height={24}
+                                        />
+                                    ))}
+                                </div>
                             </div>
-                            <div className={styles.rating} itemProp="reviewRating" itemScope itemType="https://schema.org/Rating">
-                                <meta itemProp="ratingValue" content={review.rating} />
-                                <meta itemProp="bestRating" content="5" />
-                                {[...Array(5)].map((_, index) => (
-                                    <span
-                                        key={index}
-                                        className={`${styles.star} ${index < review.rating ? styles.filled : ''}`}
-                                    >
-                                        ★
-                                    </span>
-                                ))}
-                            </div>
-                            <p className={styles.text} itemProp="reviewBody">{review.text}</p>
+                            <div className={styles.text}>{review.text}</div>
+                            <div className={styles.date}>{review.date}</div>
                         </div>
                     </SwiperSlide>
                 ))}

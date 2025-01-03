@@ -11,6 +11,10 @@ export default function SchemaProduct({ product }) {
         "description": product.info.desc,
         "image": product.images.map(img => `https://rybkaspace.com/images/products/${product.id}/${img}.jpg`),
         "sku": `RS-${product.id}`,
+        "brand": {
+            "@type": "Brand",
+            "name": "Rybka Space"
+        },
         "offers": {
             "@type": "Offer",
             "url": `https://rybkaspace.com/product/${product.id}`,
@@ -20,46 +24,29 @@ export default function SchemaProduct({ product }) {
             "itemCondition": "https://schema.org/NewCondition",
             "availability": product.disabled ? "https://schema.org/OutOfStock" : "https://schema.org/InStock"
         },
-        "brand": {
-            "@type": "Brand",
-            "name": "Rybka Space"
-        },
-        "material": product.info.material.join(", "),
-        "size": product.grid.sizes.join(", "),
         "aggregateRating": {
             "@type": "AggregateRating",
             "ratingValue": averageRating,
             "reviewCount": reviews.length,
-            "bestRating": "5",
-            "worstRating": "1"
+            "bestRating": 5,
+            "worstRating": 1
         },
         "review": reviews.map(review => ({
             "@type": "Review",
+            "reviewRating": {
+                "@type": "Rating",
+                "ratingValue": review.rating,
+                "bestRating": 5,
+                "worstRating": 1
+            },
             "author": {
                 "@type": "Person",
                 "name": review.author
             },
             "datePublished": review.date,
-            "reviewRating": {
-                "@type": "Rating",
-                "ratingValue": review.rating,
-                "bestRating": "5",
-                "worstRating": "1"
-            },
             "reviewBody": review.text
         }))
     };
-
-    if (product.oldPrice) {
-        schemaData.offers = {
-            ...schemaData.offers,
-            "priceSpecification": {
-                "@type": "PriceSpecification",
-                "price": product.oldPrice,
-                "priceCurrency": "UAH"
-            }
-        };
-    }
 
     return (
         <script
