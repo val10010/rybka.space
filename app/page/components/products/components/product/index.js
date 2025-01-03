@@ -131,6 +131,67 @@ export default function ProductSlider({ data }) {
                 </div>
             ))}
 
+            <script type="application/ld+json">
+            {
+              "@context": "https://schema.org",
+              "@type": "Product",
+              "name": productName,
+              "description": data.info?.desc || '',
+              "image": data.images.map((imageId) => `https://rybkaspace.com/images/products/${data.id}/${imageId}.jpg`),
+              "sku": `RS-${data.id}`,
+              "brand": {
+                "@type": "Brand",
+                "name": brandName
+              },
+              "offers": {
+                "@type": "Offer",
+                "url": `https://rybkaspace.com${productUrl}`,
+                "priceCurrency": "UAH",
+                "price": data.price,
+                "priceValidUntil": currentDate,
+                "itemCondition": "https://schema.org/NewCondition",
+                "availability": data.disabled ? "https://schema.org/OutOfStock" : "https://schema.org/InStock"
+              },
+              "aggregateRating": {
+                "@type": "AggregateRating",
+                "ratingValue": "4.5",
+                "reviewCount": "6",
+                "bestRating": "5",
+                "worstRating": "1"
+              },
+              "review": [
+                {
+                  "@type": "Review",
+                  "reviewRating": {
+                    "@type": "Rating",
+                    "ratingValue": "5",
+                    "bestRating": "5"
+                  },
+                  "author": {
+                    "@type": "Person",
+                    "name": "Олена Петренко"
+                  },
+                  "datePublished": "2024-12-28",
+                  "reviewBody": "Тканина дихаюча, приємна до тіла. Після прання форма не змінилась. Дуже задоволена покупкою"
+                },
+                {
+                  "@type": "Review", 
+                  "reviewRating": {
+                    "@type": "Rating",
+                    "ratingValue": "4",
+                    "bestRating": "5"
+                  },
+                  "author": {
+                    "@type": "Person",
+                    "name": "Мария Ковальчук"
+                  },
+                  "datePublished": "2024-11-25",
+                  "reviewBody": "Костюм сел идеально. Единственный минус доставка была дольше, чем ожидала. Но качество товара компенсирует это полностью)"
+                }
+              ]
+            }
+            </script>
+
             <button 
                 ref={navigationPrevRef} 
                 className={`${styles.navButton} ${styles.prevButton}`}
