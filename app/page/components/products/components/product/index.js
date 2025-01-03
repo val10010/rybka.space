@@ -158,7 +158,12 @@ export default function ProductSlider({ data }) {
                             "price": data.price,
                             "priceValidUntil": currentDate,
                             "itemCondition": "https://schema.org/NewCondition",
-                            "availability": data.disabled ? "https://schema.org/OutOfStock" : "https://schema.org/InStock"
+                            "availability": data.disabled ? "https://schema.org/OutOfStock" : "https://schema.org/InStock",
+                            "priceSpecification": {
+                                "@type": "PriceSpecification",
+                                "price": data.oldPrice,
+                                "priceCurrency": "UAH"
+                            }
                         },
                         "aggregateRating": {
                             "@type": "AggregateRating",
@@ -188,7 +193,25 @@ export default function ProductSlider({ data }) {
                             }
                         })),
                         "material": data.info?.material?.join(", ") || '',
-                        "size": data.grid?.sizes?.join(", ") || ''
+                        "size": data.grid?.sizes?.join(", ") || '',
+                        "category": "Жіночі спортивні костюми",
+                        "manufacturer": {
+                            "@type": "Organization",
+                            "name": brandName,
+                            "address": "Україна, м. Ізмаїл, проспект Миру, 36"
+                        },
+                        "additionalProperty": [
+                            {
+                                "@type": "PropertyValue",
+                                "name": "Колір",
+                                "value": data.currentColor
+                            },
+                            ...(data.grid?.sizes || []).map(size => ({
+                                "@type": "PropertyValue",
+                                "name": "Розмір",
+                                "value": size
+                            }))
+                        ]
                     })
                 }}
             />
