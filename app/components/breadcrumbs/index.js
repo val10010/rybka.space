@@ -17,6 +17,7 @@ const Breadcrumbs = ({ items }) => {
                 >
                     <Link href="/" itemProp="item">
                         <span itemProp="name">Головна</span>
+                        <meta itemProp="url" content="https://rybkaspace.com/" />
                     </Link>
                     <meta itemProp="position" content="1" />
                 </li>
@@ -31,9 +32,13 @@ const Breadcrumbs = ({ items }) => {
                         {index < items.length - 1 ? (
                             <Link href={item.path} itemProp="item">
                                 <span itemProp="name">{item.title}</span>
+                                <meta itemProp="url" content={`https://rybkaspace.com${item.path}`} />
                             </Link>
                         ) : (
-                            <span itemProp="name">{item.title}</span>
+                            <>
+                                <span itemProp="name">{item.title}</span>
+                                <meta itemProp="url" content={`https://rybkaspace.com${item.path}`} />
+                            </>
                         )}
                         <meta itemProp="position" content={index + 2} />
                     </li>
