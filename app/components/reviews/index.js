@@ -51,8 +51,8 @@ export default function Reviews() {
                                             key={index}
                                             src="/images/star.svg"
                                             alt="star"
-                                            width={24}
-                                            height={24}
+                                            width={15}
+                                            height={15}
                                         />
                                     ))}
                                 </div>

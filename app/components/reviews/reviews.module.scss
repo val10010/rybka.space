@@ -62,7 +62,9 @@
 }
 
 .rating {
-    margin-bottom: em(15);
+    width: em(80);
+    display: flex;
+    justify-content: flex-end;
 }
 
 .star {
