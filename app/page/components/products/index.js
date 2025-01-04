@@ -3,6 +3,7 @@
 import React, { useState, useMemo } from 'react';
 import Product from "./components/product";
 import productsInfo from "@/mocks/productsInfo.json";
+import reviewsData from "@/mocks/reviews.json";
 import styles from "./products.module.scss";
 import Reviews from "@/components/reviews";
 import {VideoPlayer} from "@/components/videoPlayer";
@@ -11,6 +12,12 @@ export default function Products() {
     const [selectedSize, setSelectedSize] = useState('all');
     const [isFleece, setIsFleece] = useState('all');
     const [selectedColor, setSelectedColor] = useState('all');
+
+    const { reviews } = reviewsData;
+    const hasReviews = reviews && reviews.length > 0;
+    const averageRating = hasReviews 
+        ? (reviews.reduce((acc, review) => acc + review.rating, 0) / reviews.length).toFixed(1)
+        : "0";
 
     const availableSizes = useMemo(() => {
         const sizes = new Set();
@@ -46,23 +53,64 @@ export default function Products() {
     const structuredData = {
         "@context": "https://schema.org",
         "@type": "ItemList",
-        "itemListElement": filteredProducts.map((product, index) => ({
-            "@type": "ListItem",
-            "position": index + 1,
-            "item": {
-                "@type": "Product",
-                "name": `${product.name} - ${product.currentColor}`,
-                "description": product.info.desc,
-                "image": product.images.map(img => `https://rybkaspace.com/images/products/${product.id}/${img}.jpg`),
-                "sku": `RS-${product.id}`,
-                "offers": {
-                    "@type": "Offer",
-                    "price": product.price,
-                    "priceCurrency": "UAH",
-                    "availability": product.disabled ? "https://schema.org/OutOfStock" : "https://schema.org/InStock"
+        "itemListElement": filteredProducts.map((product, index) => {
+            const productData = {
+                "@type": "ListItem",
+                "position": index + 1,
+                "item": {
+                    "@type": "Product",
+                    "name": `${product.name} - ${product.currentColor}`,
+                    "description": product.info.desc,
+                    "image": product.images.map(img => `https://rybkaspace.com/images/products/${product.id}/${img}.jpg`),
+                    "sku": `RS-${product.id}`,
+                    "brand": {
+                        "@type": "Brand",
+                        "name": "Rybka Space"
+                    },
+                    "offers": {
+                        "@type": "Offer",
+                        "url": `https://rybkaspace.com/product/${product.id}`,
+                        "price": product.price.toString(),
+                        "priceCurrency": "UAH",
+                        "priceValidUntil": new Date(new Date().setFullYear(new Date().getFullYear() + 1)).toISOString().split('T')[0],
+                        "itemCondition": "https://schema.org/NewCondition",
+                        "availability": product.disabled ? "https://schema.org/OutOfStock" : "https://schema.org/InStock",
+                        "seller": {
+                            "@type": "Organization",
+                            "name": "Rybka Space"
+                        }
+                    }
                 }
+            };
+
+            if (hasReviews) {
+                productData.item.aggregateRating = {
+                    "@type": "AggregateRating",
+                    "ratingValue": averageRating,
+                    "reviewCount": reviews.length.toString(),
+                    "bestRating": "5",
+                    "worstRating": "1"
+                };
+
+                productData.item.review = reviews.map(review => ({
+                    "@type": "Review",
+                    "reviewRating": {
+                        "@type": "Rating",
+                        "ratingValue": review.rating.toString(),
+                        "bestRating": "5",
+                        "worstRating": "1"
+                    },
+                    "author": {
+                        "@type": "Person",
+                        "name": review.author
+                    },
+                    "datePublished": review.date,
+                    "reviewBody": review.text
+                }));
             }
-        }))
+
+            return productData;
+        })
     };
 
     return (
