@@ -60,15 +60,17 @@
 .answer {
     max-height: 0;
     overflow: hidden;
-    transition: max-height 0.3s ease-out;
+    transition: all 0.3s ease-out;
     background-color: #fff;
     padding: 0 em(20);
     line-height: 1.6;
     color: #666;
+    opacity: 0;
 
-    &.visible {
-        max-height: em(500);
+    &.active {
+        max-height: em(1000);
         padding-top: em(10);
         padding-bottom: em(20);
+        opacity: 1;
     }
 }
