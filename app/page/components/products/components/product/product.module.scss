@@ -177,6 +177,7 @@
   text-decoration: none;
   cursor: pointer;
   margin-top: em(5);
+  width: em(367);
 
   &::before {
     content: '';
@@ -198,34 +199,36 @@
     transition: opacity 0.2s ease;
   }
 
-  &:hover {
-    &::before {
-      width: 100%;
-      background: #e0e0e0;
-    }
-
-    &::after {
-      opacity: 1;
-    }
-
-    p {
-      &:first-child {
-        padding-left: em(20);
-
-        &::before {
-          opacity: 1;
-          width: em(6);
-          height: em(6);
-        }
+  @media (hover: hover) {
+    &:hover {
+      &::before {
+        width: 100%;
+        background: #e0e0e0;
       }
 
-      &:last-child {
-        transform: translateX(em(-4));
-        background: #0071e3;
-        color: white;
+      &::after {
+        opacity: 1;
+      }
 
-        &::after {
-          opacity: 1;
+      p {
+        &:first-child {
+          padding-left: em(20);
+
+          &::before {
+            opacity: 1;
+            width: em(6);
+            height: em(6);
+          }
+        }
+
+        &:last-child {
+          transform: translateX(em(-4));
+          background: #0071e3;
+          color: white;
+
+          &::after {
+            opacity: 1;
+          }
         }
       }
     }
@@ -279,16 +282,39 @@
 
   @include mobile {
     padding: em(14) em(16);
+    width: em(340);
+
+    &::before {
+      width: 100%;
+      background: #e0e0e0;
+    }
+
+    &::after {
+      opacity: 1;
+    }
 
     p {
       &:first-child {
         font-size: em(14);
-        padding-left: em(12);
+        padding-left: em(20);
+
+        &::before {
+          opacity: 1;
+          width: em(6);
+          height: em(6);
+        }
       }
 
       &:last-child {
         font-size: em(14);
         padding: em(8) em(16);
+        transform: translateX(em(-4));
+        background: #0071e3;
+        color: white;
+
+        &::after {
+          opacity: 1;
+        }
       }
     }
   }

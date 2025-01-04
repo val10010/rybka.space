@@ -173,7 +173,7 @@ export default function ProductSlider({ data }) {
                 </button>
             </article>
             <Link href={`/product/${data.id}`} className={styles.cardInfo}>
-                <p>{ data.name }</p>
+                <p>{ data.name } { data.currentColor }</p>
                 <p>{ data.oldPrice }</p>
             </Link>
         </div>
