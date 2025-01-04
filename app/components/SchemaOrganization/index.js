@@ -1,33 +1,11 @@
 import reviews from '@/mocks/reviews.json';
 
 const SchemaOrganization = () => {
-    const calculateAggregateRating = () => {
-        const ratings = reviews.reviews.map(review => review.rating);
-        const averageRating = (ratings.reduce((a, b) => a + b, 0) / ratings.length).toFixed(1);
-        return {
-            "@type": "AggregateRating",
-            "ratingValue": averageRating,
-            "reviewCount": reviews.reviews.length.toString(),
-            "bestRating": "5",
-            "worstRating": "1"
-        };
-    };
-
-    const formatReviews = () => {
-        return reviews.reviews.map(review => ({
-            "@type": "Review",
-            "author": {
-                "@type": "Person",
-                "name": review.author
-            },
-            "datePublished": review.date,
-            "reviewRating": {
-                "@type": "Rating",
-                "ratingValue": review.rating.toString()
-            },
-            "reviewBody": review.text
-        }));
-    };
+    const { reviews: reviewsList } = reviews;
+    const hasReviews = reviewsList && reviewsList.length > 0;
+    const averageRating = hasReviews 
+        ? (reviewsList.reduce((acc, review) => acc + review.rating, 0) / reviewsList.length).toFixed(1)
+        : null;
 
     const organizationSchema = {
         "@context": "https://schema.org",
@@ -74,14 +52,65 @@ const SchemaOrganization = () => {
             "opens": "09:00",
             "closes": "18:00"
         },
-        "aggregateRating": calculateAggregateRating(),
-        "review": formatReviews()
+        "offers": {
+            "@type": "AggregateOffer",
+            "priceCurrency": "UAH",
+            "lowPrice": "1360",
+            "highPrice": "1800",
+            "offerCount": "50",
+            "offers": [
+                {
+                    "@type": "Offer",
+                    "itemOffered": {
+                        "@type": "Product",
+                        "name": "Спортивний костюм жіночий",
+                        "description": "Високоякісний спортивний костюм для активних жінок",
+                        "brand": {
+                            "@type": "Brand",
+                            "name": "Rybka Space"
+                        }
+                    },
+                    "price": "1360",
+                    "priceCurrency": "UAH",
+                    "availability": "https://schema.org/InStock",
+                    "url": "https://rybkaspace.com/product/24"
+                }
+            ]
+        }
     };
+
+    if (hasReviews) {
+        organizationSchema.aggregateRating = {
+            "@type": "AggregateRating",
+            "ratingValue": averageRating,
+            "reviewCount": reviewsList.length.toString(),
+            "bestRating": "5",
+            "worstRating": "1"
+        };
+        
+        organizationSchema.review = reviewsList.map(review => ({
+            "@type": "Review",
+            "reviewRating": {
+                "@type": "Rating",
+                "ratingValue": review.rating.toString(),
+                "bestRating": "5",
+                "worstRating": "1"
+            },
+            "author": {
+                "@type": "Person",
+                "name": review.author
+            },
+            "datePublished": review.date,
+            "reviewBody": review.text
+        }));
+    }
 
     return (
         <script
             type="application/ld+json"
-            dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
+            dangerouslySetInnerHTML={{
+                __html: JSON.stringify(organizationSchema)
+            }}
         />
     );
 };
