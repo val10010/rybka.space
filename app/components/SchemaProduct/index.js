@@ -26,33 +26,39 @@ export default function SchemaProduct({ product }) {
             "price": product.price,
             "priceValidUntil": new Date(new Date().setFullYear(new Date().getFullYear() + 1)).toISOString().split('T')[0],
             "itemCondition": "https://schema.org/NewCondition",
-            "availability": product.disabled ? "https://schema.org/OutOfStock" : "https://schema.org/InStock"
-        },
-        ...(hasReviews && {
-            "aggregateRating": {
-                "@type": "AggregateRating",
-                "ratingValue": averageRating,
-                "reviewCount": reviews.length,
-                "bestRating": 5,
-                "worstRating": 1
-            },
-            "review": reviews.map(review => ({
-                "@type": "Review",
-                "reviewRating": {
-                    "@type": "Rating",
-                    "ratingValue": review.rating,
-                    "bestRating": 5,
-                    "worstRating": 1
-                },
-                "author": {
-                    "@type": "Person",
-                    "name": review.author
-                },
-                "datePublished": review.date,
-                "reviewBody": review.text
-            }))
-        })
+            "availability": product.disabled ? "https://schema.org/OutOfStock" : "https://schema.org/InStock",
+            "seller": {
+                "@type": "Organization",
+                "name": "Rybka Space"
+            }
+        }
     };
+
+    if (hasReviews) {
+        schemaData.aggregateRating = {
+            "@type": "AggregateRating",
+            "ratingValue": averageRating,
+            "reviewCount": reviews.length,
+            "bestRating": "5",
+            "worstRating": "1"
+        };
+        
+        schemaData.review = reviews.map(review => ({
+            "@type": "Review",
+            "reviewRating": {
+                "@type": "Rating",
+                "ratingValue": review.rating.toString(),
+                "bestRating": "5",
+                "worstRating": "1"
+            },
+            "author": {
+                "@type": "Person",
+                "name": review.author
+            },
+            "datePublished": review.date,
+            "reviewBody": review.text
+        }));
+    }
 
     return (
         <script

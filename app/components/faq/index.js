@@ -35,9 +35,13 @@ const FAQ = () => {
     ];
 
     return (
-        <section className={styles.faq} itemScope itemType="https://schema.org/FAQPage">
+        <section className={styles.faq}>
             <h2 className={styles.title}>Часті запитання</h2>
-            <div className={styles.questions}>
+            <div 
+                className={styles.questions}
+                itemScope 
+                itemType="https://schema.org/FAQPage"
+            >
                 {faqData.map((item, index) => (
                     <div
                         key={index}
@@ -81,8 +85,8 @@ const FAQ = () => {
                             aria-labelledby={`faq-question-${index}`}
                             aria-hidden={openIndex !== index}
                         >
-                            <div itemProp="text">{item.answer}</div>
-                            <meta itemProp="datePublished" content={item.datePublished} />
+                            <p itemProp="text">{item.answer}</p>
+                            <meta itemProp="dateCreated" content={item.datePublished} />
                         </div>
                     </div>
                 ))}
