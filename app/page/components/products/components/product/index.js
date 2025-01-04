@@ -36,141 +36,147 @@ export default function ProductSlider({ data }) {
     const brandName = "Rybka Space";
 
     return (
-        <article className={styles.container}>
-            <Swiper
-                modules={[Navigation, Pagination]}
-                spaceBetween={0}
-                slidesPerView={1}
-                navigation={{
-                    prevEl: navigationPrevRef.current,
-                    nextEl: navigationNextRef.current,
-                }}
-                pagination={{
-                    enabled: true,
-                    clickable: true,
-                }}
-                onSwiper={(swiper) => {
-                    swiperRef.current = swiper;
-                }}
-                className={styles.slideTrack}
-            >
-                {data.images.map((imageId) => (
-                    <SwiperSlide key={imageId} className={styles.slide}>
-                        <Image
-                            fill
-                            src={`/images/products/${data.id}/${imageId}.jpg`}
-                            alt={`Жіночий спортивний костюм ${productName} - фото ${imageId}`}
-                            className={styles.img}
-                            draggable={false}
-                            priority={imageId === data.images[0]}
-                            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                        />
-                        <Link
-                            href={productUrl}
-                            className={styles.details}
-                            title={`Переглянути деталі про ${productName}`}
-                            aria-label={`Переглянути деталі про ${productName}`}
-                        >
-                            Детальніше
-                        </Link>
-                    </SwiperSlide>
-                ))}
-            </Swiper>
+        <div className={styles.wrapper}>
+            <article className={styles.container}>
+                <Swiper
+                    modules={[Navigation, Pagination]}
+                    spaceBetween={0}
+                    slidesPerView={1}
+                    navigation={{
+                        prevEl: navigationPrevRef.current,
+                        nextEl: navigationNextRef.current,
+                    }}
+                    pagination={{
+                        enabled: true,
+                        clickable: true,
+                    }}
+                    onSwiper={(swiper) => {
+                        swiperRef.current = swiper;
+                    }}
+                    className={styles.slideTrack}
+                >
+                    {data.images.map((imageId) => (
+                        <SwiperSlide key={imageId} className={styles.slide}>
+                            <Image
+                                fill
+                                src={`/images/products/${data.id}/${imageId}.jpg`}
+                                alt={`Жіночий спортивний костюм ${productName} - фото ${imageId}`}
+                                className={styles.img}
+                                draggable={false}
+                                priority={imageId === data.images[0]}
+                                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                            />
+                            <Link
+                                href={productUrl}
+                                className={styles.details}
+                                title={`Переглянути деталі про ${productName}`}
+                                aria-label={`Переглянути деталі про ${productName}`}
+                            >
+                                Детальніше
+                            </Link>
+                        </SwiperSlide>
+                    ))}
+                </Swiper>
 
-            <script
-                type="application/ld+json"
-                dangerouslySetInnerHTML={{
-                    __html: JSON.stringify({
-                        "@context": "https://schema.org",
-                        "@type": "Product",
-                        "name": productName,
-                        "description": data.info?.desc || '',
-                        "image": data.images.map((imageId) => `https://rybkaspace.com/images/products/${data.id}/${imageId}.jpg`),
-                        "sku": `RS-${data.id}`,
-                        "brand": {
-                            "@type": "Brand",
-                            "name": brandName
-                        },
-                        "offers": {
-                            "@type": "Offer",
-                            "url": `https://rybkaspace.com${productUrl}`,
-                            "priceCurrency": "UAH",
-                            "price": data.price,
-                            "priceValidUntil": currentDate,
-                            "itemCondition": "https://schema.org/NewCondition",
-                            "availability": data.disabled ? "https://schema.org/OutOfStock" : "https://schema.org/InStock",
-                            "priceSpecification": {
-                                "@type": "PriceSpecification",
-                                "price": data.oldPrice,
-                                "priceCurrency": "UAH"
-                            }
-                        },
-                        "aggregateRating": {
-                            "@type": "AggregateRating",
-                            "ratingValue": averageRating,
-                            "reviewCount": reviews.length.toString(),
-                            "bestRating": "5",
-                            "worstRating": "1"
-                        },
-                        "review": reviews.map(review => ({
-                            "@type": "Review",
-                            "reviewRating": {
-                                "@type": "Rating",
-                                "ratingValue": review.rating.toString(),
+                <script
+                    type="application/ld+json"
+                    dangerouslySetInnerHTML={{
+                        __html: JSON.stringify({
+                            "@context": "https://schema.org",
+                            "@type": "Product",
+                            "name": productName,
+                            "description": data.info?.desc || '',
+                            "image": data.images.map((imageId) => `https://rybkaspace.com/images/products/${data.id}/${imageId}.jpg`),
+                            "sku": `RS-${data.id}`,
+                            "brand": {
+                                "@type": "Brand",
+                                "name": brandName
+                            },
+                            "offers": {
+                                "@type": "Offer",
+                                "url": `https://rybkaspace.com${productUrl}`,
+                                "priceCurrency": "UAH",
+                                "price": data.price,
+                                "priceValidUntil": currentDate,
+                                "itemCondition": "https://schema.org/NewCondition",
+                                "availability": data.disabled ? "https://schema.org/OutOfStock" : "https://schema.org/InStock",
+                                "priceSpecification": {
+                                    "@type": "PriceSpecification",
+                                    "price": data.oldPrice,
+                                    "priceCurrency": "UAH"
+                                }
+                            },
+                            "aggregateRating": {
+                                "@type": "AggregateRating",
+                                "ratingValue": averageRating,
+                                "reviewCount": reviews.length.toString(),
                                 "bestRating": "5",
                                 "worstRating": "1"
                             },
-                            "author": {
-                                "@type": "Person",
-                                "name": review.author
+                            "review": reviews.map(review => ({
+                                "@type": "Review",
+                                "reviewRating": {
+                                    "@type": "Rating",
+                                    "ratingValue": review.rating.toString(),
+                                    "bestRating": "5",
+                                    "worstRating": "1"
+                                },
+                                "author": {
+                                    "@type": "Person",
+                                    "name": review.author
+                                },
+                                "datePublished": review.date,
+                                "reviewBody": review.text,
+                                "itemReviewed": {
+                                    "@type": "Product",
+                                    "name": productName,
+                                    "sku": `RS-${data.id}`
+                                }
+                            })),
+                            "material": data.info?.material?.join(", ") || '',
+                            "size": data.grid?.sizes?.join(", ") || '',
+                            "category": "Жіночі спортивні костюми",
+                            "manufacturer": {
+                                "@type": "Organization",
+                                "name": brandName,
+                                "address": "Україна, м. Ізмаїл, проспект Миру, 36"
                             },
-                            "datePublished": review.date,
-                            "reviewBody": review.text,
-                            "itemReviewed": {
-                                "@type": "Product",
-                                "name": productName,
-                                "sku": `RS-${data.id}`
-                            }
-                        })),
-                        "material": data.info?.material?.join(", ") || '',
-                        "size": data.grid?.sizes?.join(", ") || '',
-                        "category": "Жіночі спортивні костюми",
-                        "manufacturer": {
-                            "@type": "Organization",
-                            "name": brandName,
-                            "address": "Україна, м. Ізмаїл, проспект Миру, 36"
-                        },
-                        "additionalProperty": [
-                            {
-                                "@type": "PropertyValue",
-                                "name": "Колір",
-                                "value": data.currentColor
-                            },
-                            ...(data.grid?.sizes || []).map(size => ({
-                                "@type": "PropertyValue",
-                                "name": "Розмір",
-                                "value": size
-                            }))
-                        ]
-                    })
-                }}
-            />
+                            "additionalProperty": [
+                                {
+                                    "@type": "PropertyValue",
+                                    "name": "Колір",
+                                    "value": data.currentColor
+                                },
+                                ...(data.grid?.sizes || []).map(size => ({
+                                    "@type": "PropertyValue",
+                                    "name": "Розмір",
+                                    "value": size
+                                }))
+                            ]
+                        })
+                    }}
+                />
 
-            <button
-                ref={navigationPrevRef}
-                className={`${styles.navButton} ${styles.prevButton}`}
-                aria-label="Попереднє фото"
-            >
-                <ChevronLeft />
-            </button>
-            <button
-                ref={navigationNextRef}
-                className={`${styles.navButton} ${styles.nextButton}`}
-                aria-label="Наступне фото"
-            >
-                <ChevronRight />
-            </button>
-        </article>
+                <button
+                    ref={navigationPrevRef}
+                    className={`${styles.navButton} ${styles.prevButton}`}
+                    aria-label="Попереднє фото"
+                >
+                    <ChevronLeft />
+                </button>
+                <button
+                    ref={navigationNextRef}
+                    className={`${styles.navButton} ${styles.nextButton}`}
+                    aria-label="Наступне фото"
+                >
+                    <ChevronRight />
+                </button>
+            </article>
+            <Link href={`/product/${data.id}`} className={styles.cardInfo}>
+                <p>{ data.name }</p>
+                <p>{ data.oldPrice }</p>
+            </Link>
+        </div>
     );
 }
 
