@@ -37,72 +37,31 @@ const SchemaOrganization = () => {
             "https://www.instagram.com/rybka.space",
             "https://www.facebook.com/profile.php?id=61566339753971",
             "https://www.tiktok.com/@rybka.space"
-        ],
-        "openingHoursSpecification": {
-            "@type": "OpeningHoursSpecification",
-            "dayOfWeek": [
-                "Monday",
-                "Tuesday",
-                "Wednesday",
-                "Thursday",
-                "Friday",
-                "Saturday",
-                "Sunday"
-            ],
-            "opens": "09:00",
-            "closes": "18:00"
-        },
-        "offers": {
-            "@type": "AggregateOffer",
-            "priceCurrency": "UAH",
-            "lowPrice": "1360",
-            "highPrice": "1800",
-            "offerCount": "50",
-            "offers": [
-                {
-                    "@type": "Offer",
-                    "itemOffered": {
-                        "@type": "Product",
-                        "name": "Спортивний костюм жіночий",
-                        "description": "Високоякісний спортивний костюм для активних жінок",
-                        "brand": {
-                            "@type": "Brand",
-                            "name": "Rybka Space"
-                        }
-                    },
-                    "price": "1360",
-                    "priceCurrency": "UAH",
-                    "availability": "https://schema.org/InStock",
-                    "url": "https://rybkaspace.com/product/24"
-                }
-            ]
-        }
+        ]
     };
 
     if (hasReviews) {
         organizationSchema.aggregateRating = {
             "@type": "AggregateRating",
             "ratingValue": averageRating,
-            "reviewCount": reviewsList.length.toString(),
-            "bestRating": "5",
-            "worstRating": "1"
+            "reviewCount": reviewsList.length
         };
         
-        organizationSchema.review = reviewsList.map(review => ({
-            "@type": "Review",
-            "reviewRating": {
-                "@type": "Rating",
-                "ratingValue": review.rating.toString(),
-                "bestRating": "5",
-                "worstRating": "1"
-            },
-            "author": {
-                "@type": "Person",
-                "name": review.author
-            },
-            "datePublished": review.date,
-            "reviewBody": review.text
-        }));
+        // Add the most recent review
+        if (reviewsList.length > 0) {
+            organizationSchema.review = {
+                "@type": "Review",
+                "reviewRating": {
+                    "@type": "Rating",
+                    "ratingValue": reviewsList[0].rating,
+                    "bestRating": 5
+                },
+                "author": {
+                    "@type": "Person",
+                    "name": reviewsList[0].author
+                }
+            };
+        }
     }
 
     return (
