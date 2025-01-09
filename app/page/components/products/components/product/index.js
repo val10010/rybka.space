@@ -85,74 +85,39 @@ export default function ProductSlider({ data }) {
                             "@context": "https://schema.org",
                             "@type": "Product",
                             "name": productName,
-                            "description": data.info?.desc || '',
                             "image": data.images.map((imageId) => `https://rybkaspace.com/images/products/${data.id}/${imageId}.jpg`),
+                            "description": data.info?.desc || '',
                             "sku": `RS-${data.id}`,
+                            "mpn": `RSM-${data.id}`,
                             "brand": {
                                 "@type": "Brand",
                                 "name": brandName
                             },
-                            "offers": {
-                                "@type": "Offer",
-                                "url": `https://rybkaspace.com${productUrl}`,
-                                "priceCurrency": "UAH",
-                                "price": data.price,
-                                "priceValidUntil": currentDate,
-                                "itemCondition": "https://schema.org/NewCondition",
-                                "availability": data.disabled ? "https://schema.org/OutOfStock" : "https://schema.org/InStock",
-                                "priceSpecification": {
-                                    "@type": "PriceSpecification",
-                                    "price": data.oldPrice,
-                                    "priceCurrency": "UAH"
+                            "review": {
+                                "@type": "Review",
+                                "reviewRating": {
+                                    "@type": "Rating",
+                                    "ratingValue": reviews[0]?.rating || 4,
+                                    "bestRating": 5
+                                },
+                                "author": {
+                                    "@type": "Person",
+                                    "name": reviews[0]?.author || "Customer"
                                 }
                             },
                             "aggregateRating": {
                                 "@type": "AggregateRating",
                                 "ratingValue": averageRating,
-                                "reviewCount": reviews.length.toString(),
-                                "bestRating": "5",
-                                "worstRating": "1"
+                                "reviewCount": reviews.length
                             },
-                            "review": reviews.map(review => ({
-                                "@type": "Review",
-                                "reviewRating": {
-                                    "@type": "Rating",
-                                    "ratingValue": review.rating.toString(),
-                                    "bestRating": "5",
-                                    "worstRating": "1"
-                                },
-                                "author": {
-                                    "@type": "Person",
-                                    "name": review.author
-                                },
-                                "datePublished": review.date,
-                                "reviewBody": review.text,
-                                "itemReviewed": {
-                                    "@type": "Product",
-                                    "name": productName,
-                                    "sku": `RS-${data.id}`
-                                }
-                            })),
-                            "material": data.info?.material?.join(", ") || '',
-                            "size": data.grid?.sizes?.join(", ") || '',
-                            "category": "Жіночі спортивні костюми",
-                            "manufacturer": {
-                                "@type": "Organization",
-                                "name": brandName,
-                                "address": "Україна, м. Ізмаїл, проспект Миру, 36"
-                            },
-                            "additionalProperty": [
-                                {
-                                    "@type": "PropertyValue",
-                                    "name": "Колір",
-                                    "value": data.currentColor
-                                },
-                                ...(data.grid?.sizes || []).map(size => ({
-                                    "@type": "PropertyValue",
-                                    "name": "Розмір",
-                                    "value": size
-                                }))
-                            ]
+                            "offers": {
+                                "@type": "AggregateOffer",
+                                "offerCount": 1,
+                                "lowPrice": data.price,
+                                "highPrice": data.oldPrice || data.price,
+                                "priceCurrency": "UAH",
+                                "availability": data.disabled ? "https://schema.org/OutOfStock" : "https://schema.org/InStock"
+                            }
                         })
                     }}
                 />
