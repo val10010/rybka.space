@@ -29,6 +29,20 @@
         "onPhotoValue1": "рост модели - 164 см",
         "onPhotoValue2": "обхват груди - 86 см",
         "onPhotoValue3": "обхват бедер - 95 см",
-        "onPhotoValue4": "размер вещей"
+        "onPhotoValue4": "размер вещей",
+        "client": {
+            "size": "Размер",
+            "colors": "Цвета",
+            "deliveryAndPayment": "Доставка, оплата, возврат",
+            "buyOneClick": "Купить в один клик",
+            "quickOrder": "Быстрый заказ",
+            "fullName": "Фамилия Имя*",
+            "phoneNumber": "Номер телефона*",
+            "fillField": "Заполните это поле",
+            "enterFullPhone": "Введите полный номер телефона",
+            "orderSuccess": "Ваш заказ успешно создан! Номер заказа: {orderNumber}",
+            "orderError": "Во время отправки формы произошла ошибка, перезагрузите страницу и попробуйте еще раз.",
+            "imageAlt": "Женский спортивный костюм {name} - {color}"
+        }
     }
 }

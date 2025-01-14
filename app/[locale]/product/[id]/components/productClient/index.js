@@ -3,6 +3,7 @@
 import React, {useState, useCallback} from 'react';
 import {useForm, Controller} from 'react-hook-form';
 import {innerServices} from "@/services/index";
+import {useTranslations} from 'next-intl';
 import Link from "next/link";
 import Image from "next/image";
 import SizesBtn from "../sizesBtn";
@@ -12,6 +13,7 @@ import productsInfo from "@/mocks/productsInfo.json";
 import styles from "./productClient.module.scss";
 
 const ProductClient = ({product}) => {
+    const t = useTranslations('product.client');
     const {
         register,
         handleSubmit,
@@ -77,17 +79,17 @@ const ProductClient = ({product}) => {
                 'transaction_id': res.orderNumber
             });
             reset();
-            setIsShowMessage(`Ваше замовлення успішно створено! Номер замовлення: ${res.orderNumber}`)
+            setIsShowMessage(t('orderSuccess', {orderNumber: res.orderNumber}))
         } else {
             reset();
-            setIsShowMessage('Під час відправлення форми сталася помилка, перезавантажте сторінку і спробуйте ще раз.')
+            setIsShowMessage(t('orderError'))
         }
     };
 
     return (
         <>
             <div className={styles.aboutInfoSizeBlock}>
-                <span className={styles.aboutInfoSubtitle}>Розмір</span>
+                <span className={styles.aboutInfoSubtitle}>{t('size')}</span>
                 <div className={styles.aboutInfoSizeWrap}>
                     {
                         product?.grid.sizes?.map((item, i) => (
@@ -107,7 +109,7 @@ const ProductClient = ({product}) => {
             {
                 product?.colors &&
                 <div className={styles.aboutInfoColorsBlock}>
-                    <span className={styles.aboutInfoSubtitle}>Кольори</span>
+                    <span className={styles.aboutInfoSubtitle}>{t('colors')}</span>
                     <div className={styles.aboutInfoColorsWrap}>
                         {
                             product?.colors?.map((item, i) => {
@@ -124,7 +126,10 @@ const ProductClient = ({product}) => {
                                         <Image
                                             fill
                                             src={`/images/products/${item}/4.jpg`}
-                                            alt={`Жіночий спортивний костюм ${productsInfo.filter(product => product.id === item)[0].name} - ${productsInfo.filter(product => product.id === item)[0].currentColor}`}
+                                            alt={t('imageAlt', {
+                                                name: productsInfo.filter(product => product.id === item)[0].name,
+                                                color: productsInfo.filter(product => product.id === item)[0].currentColor
+                                            })}
                                         />
                                     </Link>
                                 );
@@ -135,13 +140,13 @@ const ProductClient = ({product}) => {
             }
 
             {/*<SizesBtn product={product}/>*/}
-            <Link className={styles.link} href="/delivery-and-payment">Доставка, оплата, повернення</Link>
+            <Link className={styles.link} href="/delivery-and-payment">{t('deliveryAndPayment')}</Link>
 
             <button
                 onClick={handleBuyBtnClick}
                 className={styles.aboutInfoBuyBtn}
             >
-                Купити в один клік
+                {t('buyOneClick')}
             </button>
             <Popup isOpen={isPopupOpen} onClose={handleClosePopup}>
                 {
@@ -155,28 +160,28 @@ const ProductClient = ({product}) => {
                         :
                             <form onSubmit={handleSubmit(onSubmit)} className={styles.orderForm}>
                                 <h2 className={styles.orderFormTitle}>
-                                    Швидке замовлення
+                                    {t('quickOrder')}
                                 </h2>
                                 <div className={styles.orderFormInputWrap}>
-                                    <label>Призвище Ім'я*</label>
+                                    <label>{t('fullName')}</label>
                                     <input
                                         type="text"
                                         className={`${styles.orderFormInput} ${errors?.name?.message ? styles.orderFormInputInvalid : ''}`}
-                                        {...register('name', {required: 'Заповнить це поле'})}
+                                        {...register('name', {required: t('fillField')})}
                                     />
                                     <p className={`${styles.orderFormInputError}`}>{errors?.name?.message}</p>
                                 </div>
                                 <div className={styles.orderFormInputWrap}>
-                                    <label>Номер телефону*</label>
+                                    <label>{t('phoneNumber')}</label>
                                     <Controller
                                         name="phone"
                                         control={control}
                                         defaultValue="+380"
                                         rules={{
-                                            required: 'Заповнить це поле',
+                                            required: t('fillField'),
                                             minLength: {
                                                 value: 13,
-                                                message: 'Введіть повний номер телефону'
+                                                message: t('enterFullPhone')
                                             }
                                         }}
                                         render={({field: {onChange, value}}) => (
@@ -192,7 +197,7 @@ const ProductClient = ({product}) => {
                                     <p className={`${styles.orderFormInputError}`}>{errors?.phone?.message}</p>
                                 </div>
                                 <div className={styles.orderFormInputWrap}>
-                                    <span>Розмір</span>
+                                    <span>{t('size')}</span>
                                     <div className={`${styles.aboutInfoSizeWrap} ${styles.aboutInfoSizeWrapMargin}`}>
                                         {
                                             product?.grid.sizes?.map((item, i) => (
@@ -214,7 +219,7 @@ const ProductClient = ({product}) => {
                                     className={`${styles.aboutInfoBuyBtn} ${!isValid || isSubmitting ? styles.orderFormBtnDisabled : ''}`}
                                     disabled={!isValid || isSubmitting}
                                 >
-                                    Відправити
+                                    {t('send')}
                                 </button>
                             </form>
                 }
