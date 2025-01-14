@@ -2,11 +2,13 @@
 
 import { useState, useEffect } from 'react';
 import Image from "next/image";
+import { useTranslations } from 'next-intl';
 
 import styles from './visitorCounter.module.scss'
 
 const VisitorCounter = () => {
     const [visitorCount, setVisitorCount] = useState(0);
+    const t = useTranslations('product.visitors');
 
     useEffect(() => {
         // Базовое количество посетителей
@@ -31,29 +33,17 @@ const VisitorCounter = () => {
                 baseCount += 5;
             }
 
-            return Math.max(baseCount, 1); // Минимум 1 посетитель
+            return baseCount;
         };
 
-        // Небольшие случайные колебания
-        const addNoise = (base) => {
-            const noise = Math.floor(Math.random() * 3) - 1; // -1, 0, или 1
-            return Math.max(base + noise, 1);
+        const updateVisitorCount = () => {
+            const baseCount = getBaseVisitors();
+            const randomVariation = Math.floor(Math.random() * 5) - 2; // Random variation between -2 and 2
+            setVisitorCount(Math.max(1, baseCount + randomVariation));
         };
 
-        // Обновление каждые 30-60 секунд
-        const updateInterval = Math.floor(Math.random() * 30000) + 30000;
-
-        const updateVisitors = () => {
-            const base = getBaseVisitors();
-            const withNoise = addNoise(base);
-            setVisitorCount(withNoise);
-        };
-
-        // Начальное обновление
-        updateVisitors();
-
-        // Периодическое обновление
-        const interval = setInterval(updateVisitors, updateInterval);
+        updateVisitorCount();
+        const interval = setInterval(updateVisitorCount, 30000); // Update every 30 seconds
 
         return () => clearInterval(interval);
     }, []);
@@ -61,13 +51,13 @@ const VisitorCounter = () => {
     return (
         <div className={styles.aboutInfoSee} role="status" aria-live="polite">
             <span className={styles.aboutInfoSeeImg} aria-hidden="true">
-                <Image 
-                    src="/images/eye.svg" 
-                    fill 
+                <Image
+                    src="/images/eye.svg"
+                    fill
                     alt="Кількість відвідувачів, які зараз переглядають цей товар"
                 />
             </span>
-            {visitorCount} {visitorCount === 1 ? 'людина' : visitorCount < 5 ? 'людини' : 'людей'} зараз переглядає
+            {visitorCount} {t('people')} {t('now')}
         </div>
     );
 };
