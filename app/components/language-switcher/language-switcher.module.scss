@@ -1,0 +1,23 @@
+.languageSwitcher {
+    display: flex;
+    gap: 8px;
+}
+
+.languageButton {
+    background: none;
+    border: none;
+    padding: 4px 8px;
+    cursor: pointer;
+    font-size: 14px;
+    color: #666;
+    transition: color 0.3s ease;
+
+    &:hover {
+        color: #000;
+    }
+
+    &.active {
+        color: #000;
+        font-weight: bold;
+    }
+}
