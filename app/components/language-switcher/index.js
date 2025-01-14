@@ -24,10 +24,10 @@ export default function LanguageSwitcher() {
                 UA
             </button>
             <button 
-                onClick={() => switchLocale('en')}
-                className={`${styles.languageButton} ${locale === 'en' ? styles.active : ''}`}
+                onClick={() => switchLocale('ru')}
+                className={`${styles.languageButton} ${locale === 'ru' ? styles.active : ''}`}
             >
-                EN
+                RU
             </button>
         </div>
     );
