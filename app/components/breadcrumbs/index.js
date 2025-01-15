@@ -1,9 +1,12 @@
 import Link from "next/link";
 import styles from "./breadcrumbs.module.scss";
+import { useTranslations } from 'next-intl';
 
 const Breadcrumbs = ({ items }) => {
+    const t = useTranslations('breadcrumbs');
+
     return (
-        <nav className={styles.breadcrumbs} aria-label="Навігація по сайту">
+        <nav className={styles.breadcrumbs} aria-label={t('navigation')}>
             <ol
                 className={styles.list}
                 itemScope
@@ -16,7 +19,7 @@ const Breadcrumbs = ({ items }) => {
                     itemType="https://schema.org/ListItem"
                 >
                     <Link href="/" itemProp="item">
-                        <span itemProp="name">Головна</span>
+                        <span itemProp="name">{t('home')}</span>
                         <meta itemProp="url" content="https://rybkaspace.com/" />
                     </Link>
                     <meta itemProp="position" content="1" />

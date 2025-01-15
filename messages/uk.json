@@ -61,6 +61,10 @@
             "send": "Відправити"
         }
     },
+    "breadcrumbs": {
+        "navigation": "Навігація по сайту",
+        "home": "Головна"
+    },
     "deliveryAndPayment": {
         "pageTitle": "Доставка, оплата, повернення",
         "delivery": {
