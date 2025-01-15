@@ -130,5 +130,14 @@
         "facebookAlt": "Наш Facebook - женские спортивные костюмы Rybka Space",
         "tiktokAlt": "Наш TikTok - женские спортивные костюмы Rybka Space",
         "address": "наш адрес: Украина, г. Измаил, проспект Мира, 36."
+    },
+    "SchemaOrganization": {
+        "description": "Интернет-магазин женских спортивных костюмов Rybka Space. Высококачественная одежда для активных женщин.",
+        "address": {
+            "street": "проспект Мира, 36",
+            "city": "Измаил",
+            "region": "Одесская область"
+        },
+        "language": "Russian"
     }
 }

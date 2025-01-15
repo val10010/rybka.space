@@ -1,6 +1,8 @@
 import reviews from '@/mocks/reviews.json';
+import { useTranslations } from 'next-intl';
 
 const SchemaOrganization = () => {
+    const t = useTranslations('SchemaOrganization');
     const { reviews: reviewsList } = reviews;
     const hasReviews = reviewsList && reviewsList.length > 0;
     const averageRating = hasReviews 
@@ -18,12 +20,12 @@ const SchemaOrganization = () => {
             "width": "180",
             "height": "60"
         },
-        "description": "Інтернет-магазин жіночих спортивних костюмів Rybka Space. Високоякісний одяг для активних жінок.",
+        "description": t('description'),
         "address": {
             "@type": "PostalAddress",
-            "streetAddress": "проспект Миру, 36",
-            "addressLocality": "Ізмаїл",
-            "addressRegion": "Одеська область",
+            "streetAddress": t('address.street'),
+            "addressLocality": t('address.city'),
+            "addressRegion": t('address.region'),
             "postalCode": "68600",
             "addressCountry": "UA"
         },
@@ -31,7 +33,7 @@ const SchemaOrganization = () => {
             "@type": "ContactPoint",
             "contactType": "customer support",
             "email": "support@rybkaspace.com",
-            "availableLanguage": ["Ukrainian"]
+            "availableLanguage": [t('language')]
         },
         "sameAs": [
             "https://www.instagram.com/rybka.space",
