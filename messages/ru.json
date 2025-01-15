@@ -16,7 +16,10 @@
         "color": "Цвет",
         "allColors": "Все цвета",
         "foundProducts": "Найдено товаров",
-        "videoReviews": "Видео отзывы"
+        "videoReviews": "Видео отзывы",
+        "details": "Подробнее",
+        "prevPhoto": "Предыдущее фото",
+        "nextPhoto": "Следующее фото"
     },
     "product": {
         "back": "Назад",

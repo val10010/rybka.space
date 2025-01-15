@@ -16,7 +16,10 @@
         "color": "Колір",
         "allColors": "Всі кольори",
         "foundProducts": "Знайдено товарів",
-        "videoReviews": "Відео відгуки"
+        "videoReviews": "Відео відгуки",
+        "details": "Детальніше",
+        "prevPhoto": "Попереднє фото",
+        "nextPhoto": "Наступне фото"
     },
     "product": {
         "back": "Назад",

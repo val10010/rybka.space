@@ -6,7 +6,7 @@ import { Navigation, Pagination } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
-import { useLocale } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 import styles from "./product.module.scss";
 import reviewsData from '@/mocks/reviews.json';
 
@@ -14,6 +14,7 @@ const { reviews } = reviewsData;
 
 export default function ProductSlider({ data }) {
     const locale = useLocale();
+    const t = useTranslations('products');
 
     if(data.disabled) return null;
 
@@ -72,10 +73,10 @@ export default function ProductSlider({ data }) {
                             <Link
                                 href={productUrl}
                                 className={styles.details}
-                                title={`Переглянути деталі про ${productName}`}
-                                aria-label={`Переглянути деталі про ${productName}`}
+                                title={`${t('details')} ${productName}`}
+                                aria-label={`${t('details')} ${productName}`}
                             >
-                                Детальніше
+                                {t('details')}
                             </Link>
                         </SwiperSlide>
                     ))}
@@ -128,14 +129,14 @@ export default function ProductSlider({ data }) {
                 <button
                     ref={navigationPrevRef}
                     className={`${styles.navButton} ${styles.prevButton}`}
-                    aria-label="Попереднє фото"
+                    aria-label={t('prevPhoto')}
                 >
                     <ChevronLeft />
                 </button>
                 <button
                     ref={navigationNextRef}
                     className={`${styles.navButton} ${styles.nextButton}`}
-                    aria-label="Наступне фото"
+                    aria-label={t('nextPhoto')}
                 >
                     <ChevronRight />
                 </button>
