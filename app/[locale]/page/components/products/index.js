@@ -7,13 +7,14 @@ import reviewsData from "@/mocks/reviews.json";
 import styles from "./products.module.scss";
 import Reviews from "@/components/reviews";
 import {VideoPlayer} from "@/components/videoPlayer";
-import { useLocale } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 
 export default function Products() {
     const [selectedSize, setSelectedSize] = useState('all');
     const [isFleece, setIsFleece] = useState('all');
     const [selectedColor, setSelectedColor] = useState('all');
     const locale = useLocale();
+    const t = useTranslations('products');
 
     const { reviews } = reviewsData;
     const hasReviews = reviews && reviews.length > 0;
@@ -44,8 +45,8 @@ export default function Products() {
             const sizeMatch = selectedSize === 'all' || product.grid.sizes.includes(selectedSize);
             const colorMatch = selectedColor === 'all' || product.currentColor[locale] === selectedColor;
             const fleeceMatch = isFleece === 'all' ||
-                (isFleece === 'yes' && product.name[locale].toLowerCase().includes('фліс')) ||
-                (isFleece === 'no' && !product.name[locale].toLowerCase().includes('фліс'));
+                (isFleece === 'yes' && product.name['uk'].toLowerCase().includes('фліс')) ||
+                (isFleece === 'no' && !product.name['uk'].toLowerCase().includes('фліс'));
 
             return sizeMatch && colorMatch && fleeceMatch;
         });
@@ -124,7 +125,7 @@ export default function Products() {
             <div className={styles.container}>
                 <div className={styles.filters}>
                     <div className={styles.filterGroup}>
-                        <label className={styles.label}>Розмір</label>
+                        <label className={styles.label}>{t('size')}</label>
                         <select
                             className={styles.select}
                             value={selectedSize}
@@ -132,27 +133,27 @@ export default function Products() {
                         >
                             {availableSizes.map(size => (
                                 <option key={size} value={size}>
-                                    {size === 'all' ? 'Всі розміри' : size.toUpperCase()}
+                                    {size === 'all' ? t('allSizes') : size.toUpperCase()}
                                 </option>
                             ))}
                         </select>
                     </div>
 
                     <div className={styles.filterGroup}>
-                        <label className={styles.label}>Сезон</label>
+                        <label className={styles.label}>{t('season')}</label>
                         <select
                             className={styles.select}
                             value={isFleece}
                             onChange={(e) => setIsFleece(e.target.value)}
                         >
-                            <option value="all">Всі сезони</option>
-                            <option value="yes">Зима</option>
-                            <option value="no">Осінь</option>
+                            <option value="all">{t('allSeasons')}</option>
+                            <option value="yes">{t('winter')}</option>
+                            <option value="no">{t('autumn')}</option>
                         </select>
                     </div>
 
                     <div className={styles.filterGroup}>
-                        <label className={styles.label}>Колір</label>
+                        <label className={styles.label}>{t('color')}</label>
                         <select
                             className={styles.select}
                             value={selectedColor}
@@ -160,14 +161,14 @@ export default function Products() {
                         >
                             {availableColors.map(color => (
                                 <option key={color} value={color}>
-                                    {color === 'all' ? 'Всі кольори' : color}
+                                    {color === 'all' ? t('allColors') : color}
                                 </option>
                             ))}
                         </select>
                     </div>
 
                     <div className={styles.results}>
-                        Знайдено товарів: {filteredProducts.length}
+                        {t('foundProducts')}: {filteredProducts.length}
                     </div>
                 </div>
 
@@ -178,7 +179,7 @@ export default function Products() {
                 </div>
                 <Reviews />
                 <section className={styles.videoDetails}>
-                    <h3 className={styles.videoDetailsTitle}>Відео відгуки</h3>
+                    <h3 className={styles.videoDetailsTitle}>{t('videoReviews')}</h3>
                     <VideoPlayer
                         url="https://youtube.com/shorts/LAXrt1adoHg?feature=share"
                     />
