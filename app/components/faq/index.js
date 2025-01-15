@@ -1,42 +1,44 @@
 "use client"
 
 import { useState } from "react";
+import { useTranslations } from 'next-intl';
 import styles from "./faq.module.scss";
 
 const FAQ = () => {
     const [openIndex, setOpenIndex] = useState(null);
+    const t = useTranslations('faq');
 
     const faqData = [
         {
-            question: "Як підібрати правильний розмір спортивного костюма?",
-            answer: "Для правильного підбору розміру використовуйте нашу таблицю розмірів. Виміряйте обхват грудей, талії та стегон, та порівняйте з таблицею. Якщо ваші заміри знаходяться між розмірами, рекомендуємо вибрати більший розмір для комфортної посадки.",
+            question: t('question1'),
+            answer: t('answer1'),
             datePublished: "2023-12-01"
         },
         {
-            question: "Які методи оплати ви приймаєте?",
-            answer: "Ми приймаємо оплату банківським переказом та накладеним платежем при отриманні товару у відділенні пошти.",
+            question: t('question2'),
+            answer: t('answer2'),
             datePublished: "2023-12-01"
         },
         {
-            question: "Скільки часу займає доставка?",
-            answer: "Доставка по Україні зазвичай займає 1-3 робочих дні. Відправка здійснюється Новою Поштою або Укрпоштою. Точний термін доставки залежить від вашого міста.",
+            question: t('question3'),
+            answer: t('answer3'),
             datePublished: "2023-12-01"
         },
         {
-            question: "Чи можна повернути або обміняти товар?",
-            answer: "Так, ви можете повернути або обміняти товар протягом 14 днів з моменту покупки, якщо він не був у використанні та збережені всі бірки та упаковка.",
+            question: t('question4'),
+            answer: t('answer4'),
             datePublished: "2023-12-01"
         },
         {
-            question: "З яких матеріалів виготовлені ваші спортивні костюми?",
-            answer: "Наші спортивні костюми виготовлені з високоякісних матеріалів: бавовни, поліестеру та еластану. Це забезпечує комфорт, довговічність та зручність під час носіння.",
+            question: t('question5'),
+            answer: t('answer5'),
             datePublished: "2023-12-01"
         }
     ];
 
     return (
         <section className={styles.faq}>
-            <h2 className={styles.title}>Часті запитання</h2>
+            <h2 className={styles.title}>{t('title')}</h2>
             <div 
                 className={styles.questions}
                 itemScope 
