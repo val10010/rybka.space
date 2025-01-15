@@ -6,12 +6,14 @@ import Image from "next/image";
 import ScrollToPlugin from "gsap/ScrollToPlugin";
 import { useEffect, useRef } from "react";
 import LanguageSwitcher from "../language-switcher";
+import { useTranslations } from 'next-intl';
 
 import styles from "./header.module.scss";
 
 gsap.registerPlugin(ScrollToPlugin);
 
 export default function Header() {
+    const t = useTranslations('header');
     const headerRef = useRef(null);
     const logoRef = useRef(null);
     const titleRef = useRef(null);
@@ -150,29 +152,30 @@ export default function Header() {
         >
             <Link
                 href="/"
-                className={styles.logo}
                 ref={logoRef}
-                aria-label="Rybka Space - головна сторінка"
+                className={styles.logo}
+                aria-label={t('logo')}
             >
                 <Image
-                    className={styles.img}
                     src="/images/logo.svg"
                     fill
-                    alt="Логотип Rybka Space"
-                    priority
+                    alt={t('logo')}
+                    priority={true}
                 />
             </Link>
             <h1
-                className={styles.title}
                 ref={titleRef}
+                className={styles.title}
             >
-                твій особистий <span>space</span> краси та комфорту
+                {t.rich('title', {
+                    special: (chunks) => <span>{chunks}</span>
+                })}
             </h1>
             <img
                 src={'/images/header-arrow.svg'}
                 className={styles.arrow}
                 ref={arrowRef}
-                alt="Прокрутіть вниз, щоб побачити колекцію жіночих спортивних костюмів"
+                aria-label={t('scrollToTop')}
             />
         </header>
     );
