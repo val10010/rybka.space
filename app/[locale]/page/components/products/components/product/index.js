@@ -6,12 +6,15 @@ import { Navigation, Pagination } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
+import { useLocale } from 'next-intl';
 import styles from "./product.module.scss";
 import reviewsData from '@/mocks/reviews.json';
 
 const { reviews } = reviewsData;
 
 export default function ProductSlider({ data }) {
+    const locale = useLocale();
+
     if(data.disabled) return null;
 
     const navigationPrevRef = React.useRef(null);
@@ -31,7 +34,7 @@ export default function ProductSlider({ data }) {
     }, []);
 
     const productUrl = `/product/${data.id}`;
-    const productName = `${data.name} - ${data.currentColor}`;
+    const productName = `${data.name[locale]} - ${data.currentColor[locale]}`;
     const currentDate = new Date().toISOString().split('T')[0];
     const brandName = "Rybka Space";
 
@@ -86,7 +89,7 @@ export default function ProductSlider({ data }) {
                             "@type": "Product",
                             "name": productName,
                             "image": data.images.map((imageId) => `https://rybkaspace.com/images/products/${data.id}/${imageId}.jpg`),
-                            "description": data.info?.desc || '',
+                            "description": data.info?.desc[locale] || '',
                             "sku": `RS-${data.id}`,
                             "mpn": `RSM-${data.id}`,
                             "brand": {
@@ -138,7 +141,7 @@ export default function ProductSlider({ data }) {
                 </button>
             </article>
             <Link href={`/product/${data.id}`} className={styles.cardInfo}>
-                <p>{ data.name } { data.currentColor }</p>
+                <p>{ data.name[locale] } { data.currentColor[locale] }</p>
                 <p>{ data.oldPrice }</p>
             </Link>
         </div>

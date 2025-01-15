@@ -7,15 +7,17 @@ import reviewsData from "@/mocks/reviews.json";
 import styles from "./products.module.scss";
 import Reviews from "@/components/reviews";
 import {VideoPlayer} from "@/components/videoPlayer";
+import { useLocale } from 'next-intl';
 
 export default function Products() {
     const [selectedSize, setSelectedSize] = useState('all');
     const [isFleece, setIsFleece] = useState('all');
     const [selectedColor, setSelectedColor] = useState('all');
+    const locale = useLocale();
 
     const { reviews } = reviewsData;
     const hasReviews = reviews && reviews.length > 0;
-    const averageRating = hasReviews 
+    const averageRating = hasReviews
         ? (reviews.reduce((acc, review) => acc + review.rating, 0) / reviews.length).toFixed(1)
         : "0";
 
@@ -30,7 +32,7 @@ export default function Products() {
     const availableColors = useMemo(() => {
         const colors = new Set();
         productsInfo.filter(product => !product.disabled).forEach(product => {
-            colors.add(product.currentColor);
+            colors.add(product.currentColor[locale]);
         });
         return ['all', ...Array.from(colors)];
     }, []);
@@ -40,10 +42,10 @@ export default function Products() {
             if (product.disabled) return false;
 
             const sizeMatch = selectedSize === 'all' || product.grid.sizes.includes(selectedSize);
-            const colorMatch = selectedColor === 'all' || product.currentColor === selectedColor;
+            const colorMatch = selectedColor === 'all' || product.currentColor[locale] === selectedColor;
             const fleeceMatch = isFleece === 'all' ||
-                (isFleece === 'yes' && product.name.toLowerCase().includes('фліс')) ||
-                (isFleece === 'no' && !product.name.toLowerCase().includes('фліс'));
+                (isFleece === 'yes' && product.name[locale].toLowerCase().includes('фліс')) ||
+                (isFleece === 'no' && !product.name[locale].toLowerCase().includes('фліс'));
 
             return sizeMatch && colorMatch && fleeceMatch;
         });
@@ -59,8 +61,8 @@ export default function Products() {
                 "position": index + 1,
                 "item": {
                     "@type": "Product",
-                    "name": `${product.name} - ${product.currentColor}`,
-                    "description": product.info.desc,
+                    "name": `${product.name[locale]} - ${product.currentColor[locale]}`,
+                    "description": product.info.desc[locale],
                     "image": product.images.map(img => `https://rybkaspace.com/images/products/${product.id}/${img}.jpg`),
                     "sku": `RS-${product.id}`,
                     "brand": {
