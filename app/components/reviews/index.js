@@ -4,6 +4,7 @@ import React from 'react';
 import Image from "next/image";
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination } from 'swiper/modules';
+import { useTranslations } from 'next-intl';
 
 import 'swiper/css';
 import 'swiper/css/navigation';
@@ -14,9 +15,11 @@ import reviewsData from '@/mocks/reviews.json';
 const { reviews } = reviewsData;
 
 export default function Reviews() {
+    const t = useTranslations('reviews');
+    
     return (
         <section className={styles.reviews}>
-            <h2 className={styles.title}>Відгуки наших клієнтів</h2>
+            <h2 className={styles.title}>{t('title')}</h2>
             <Swiper
                 modules={[Navigation, Pagination]}
                 spaceBetween={30}
