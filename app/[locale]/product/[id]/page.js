@@ -16,16 +16,18 @@ import styles from "./product.module.scss";
 
 export async function generateMetadata({ params }) {
     const id = +params.id;
+    const locale = params.locale;
     const product = productsInfo.filter(item => item.id === id)[0];
 
     return {
-        title: `${product.name} ${product.currentColor} - RYBKA.SPACE`,
+        title: `${product.name[locale]} ${product.currentColor[locale]} - RYBKA.SPACE`,
         description: product.info.desc
     }
 }
 
 export default function Product({ params }) {
     const id = +params.id;
+    const locale = params.locale;
     const product = productsInfo.filter(item => item.id === id)[0];
     const t = useTranslations('product');
 
@@ -39,7 +41,7 @@ export default function Product({ params }) {
             <Breadcrumbs
                 items={[
                     {
-                        title: `${product.name} ${product.currentColor}`,
+                        title: `${product.name[locale]} ${product.currentColor[locale]}`,
                         path: `/product/${product.id}`
                     }
                 ]}
@@ -49,7 +51,7 @@ export default function Product({ params }) {
                 <VariantsSlider product={product}/>
                 <div className={styles.aboutInfo}>
                     <h1 className={styles.aboutInfoTitle}>
-                        { product?.name } { product?.currentColor }
+                        { product.name[locale] } { product.currentColor[locale] }
                     </h1>
 
                     <div className={styles.aboutInfoPrice}>
@@ -78,7 +80,7 @@ export default function Product({ params }) {
                 <h2 className={styles.descTitle}>{t('description')}</h2>
                 <div className={styles.descWrap}>
                     <p className={styles.descItem}>
-                        { product.info.desc }
+                        { product.info.desc[locale] }
                     </p>
                     <p className={styles.descTitle}>
                         {t('season')}:
@@ -90,7 +92,7 @@ export default function Product({ params }) {
                         {t('color')}:
                     </p>
                     <ul className={styles.descList}>
-                        <li>{ product.currentColor }</li>
+                        <li>{ product.currentColor[locale] }</li>
                     </ul>
                     <p className={styles.descTitle}>
                         {t('care')}:
