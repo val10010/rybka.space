@@ -5,7 +5,6 @@ import Link from "next/link";
 import Image from "next/image";
 import ScrollToPlugin from "gsap/ScrollToPlugin";
 import { useEffect, useRef } from "react";
-import LanguageSwitcher from "../language-switcher";
 import { useTranslations } from 'next-intl';
 
 import styles from "./header.module.scss";

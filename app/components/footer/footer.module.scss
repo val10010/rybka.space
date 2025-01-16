@@ -7,6 +7,7 @@
   border-top: em(1) solid #eee;
   display: flex;
   justify-content: space-between;
+  align-items: center;
 
   @include mobile {
     width: auto;
@@ -42,5 +43,6 @@
   .address {
     position: absolute;
     color: white;
+    left: -99999px;
   }
 }

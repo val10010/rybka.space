@@ -1,15 +1,17 @@
 import Image from "next/image";
 import styles from "./footer.module.scss";
+import LanguageSwitcher from "../language-switcher";
 import {useTranslations} from 'next-intl';
 
 const Footer = () => {
     const t = useTranslations('footer');
-    
+
     return (
         <footer className={styles.container} role="contentinfo">
             <div className={styles.copyright}>
                 2024 Rybka.space
             </div>
+            <LanguageSwitcher/>
             <nav className={styles.social} aria-label={t('socialMedia')}>
                 <a href="https://www.instagram.com/rybka.space?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw=="
                    className={styles.socialItem}
