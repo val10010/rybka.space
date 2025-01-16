@@ -270,7 +270,8 @@
       white-space: nowrap;
       transition: all 0.25s ease;
       border-radius: em(980);
-      background: rgba(0, 113, 227, 0.1);
+      background: rgba(0, 113, 227, 0.02);
+      border: em(1) #0071e3 solid;
 
       &::after {
         content: ' грн.';
