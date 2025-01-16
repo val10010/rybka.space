@@ -32,9 +32,9 @@ export async function generateMetadata({ params: { locale } }) {
         alternates: {
             canonical: 'https://rybkaspace.com',
             languages: {
-                'uk-UA': '/uk',
-                'ru-RU': '/ru'
-            }
+                'uk-UA': 'https://rybkaspace.com/uk',
+                'ru-RU': 'https://rybkaspace.com/ru',
+            },
         },
         verification: {
             google: 'cC-cUeg7EzhhRc8HKzvNBwzU1zBro8xgdf9Lc-ABfpM',
