@@ -178,12 +178,12 @@ export default function Products() {
                     ))}
                 </div>
                 <Reviews />
-                {/*<section className={styles.videoDetails}>*/}
-                {/*    <h3 className={styles.videoDetailsTitle}>{t('videoReviews')}</h3>*/}
-                {/*    <VideoPlayer*/}
-                {/*        url="https://youtube.com/shorts/LAXrt1adoHg?feature=share"*/}
-                {/*    />*/}
-                {/*</section>*/}
+                <section className={styles.videoDetails}>
+                    <h3 className={styles.videoDetailsTitle}>{t('videoReviews')}</h3>
+                    <VideoPlayer
+                        url="https://youtube.com/shorts/LAXrt1adoHg?feature=share"
+                    />
+                </section>
             </div>
         </>
     );
