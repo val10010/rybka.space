@@ -1,7 +1,11 @@
 import styles from './page.module.scss';
 import { useTranslations } from 'next-intl';
+import { setRequestLocale } from 'next-intl/server';
 
-export default function DeliveryAndPayment() {
+export default function DeliveryAndPayment({ params: { locale } }) {
+  // Enable static rendering
+  setRequestLocale(locale);
+  
   const t = useTranslations('deliveryAndPayment');
 
   return (

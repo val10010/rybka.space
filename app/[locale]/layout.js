@@ -1,5 +1,7 @@
 import {NextIntlClientProvider} from 'next-intl';
 import {notFound} from 'next/navigation';
+import {setRequestLocale} from 'next-intl/server';
+import {routing} from '../../i18n/routing';
 import Header from "@/components/header";
 import Footer from "@/components/footer";
 import Script from 'next/script';
@@ -9,7 +11,7 @@ import "../globals.scss";
 import styles from "./page.module.scss";
 
 export function generateStaticParams() {
-    return [{locale: 'uk'}, {locale: 'ru'}];
+    return routing.locales.map((locale) => ({locale}));
 }
 
 async function getMessages(locale) {
@@ -74,6 +76,14 @@ export async function generateMetadata({ params: { locale } }) {
 }
 
 export default async function LocaleLayout({children, params: {locale}}) {
+    // Validate the incoming `locale` parameter
+    if (!routing.locales.includes(locale)) {
+        notFound();
+    }
+
+    // Enable static rendering
+    setRequestLocale(locale);
+
     const messages = await getMessages(locale);
 
     return (
