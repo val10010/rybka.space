@@ -125,11 +125,13 @@ export default function Products() {
             <div className={styles.container}>
                 <div className={styles.filters}>
                     <div className={styles.filterGroup}>
-                        <label className={styles.label}>{t('size')}</label>
+                        <label htmlFor="size-select" className={styles.label}>{t('size')}</label>
                         <select
+                            id="size-select"
                             className={styles.select}
                             value={selectedSize}
                             onChange={(e) => setSelectedSize(e.target.value)}
+                            aria-label={t('size')}
                         >
                             {availableSizes.map(size => (
                                 <option key={size} value={size}>
@@ -140,11 +142,13 @@ export default function Products() {
                     </div>
 
                     <div className={styles.filterGroup}>
-                        <label className={styles.label}>{t('season')}</label>
+                        <label htmlFor="season-select" className={styles.label}>{t('season')}</label>
                         <select
+                            id="season-select"
                             className={styles.select}
                             value={isFleece}
                             onChange={(e) => setIsFleece(e.target.value)}
+                            aria-label={t('season')}
                         >
                             <option value="all">{t('allSeasons')}</option>
                             <option value="yes">{t('winter')}</option>
@@ -153,11 +157,13 @@ export default function Products() {
                     </div>
 
                     <div className={styles.filterGroup}>
-                        <label className={styles.label}>{t('color')}</label>
+                        <label htmlFor="color-select" className={styles.label}>{t('color')}</label>
                         <select
+                            id="color-select"
                             className={styles.select}
                             value={selectedColor}
                             onChange={(e) => setSelectedColor(e.target.value)}
+                            aria-label={t('color')}
                         >
                             {availableColors.map(color => (
                                 <option key={color} value={color}>

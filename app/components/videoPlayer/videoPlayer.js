@@ -2,6 +2,7 @@
 
 import { useRef, useState } from 'react'
 import ReactPlayer from 'react-player'
+import { useTranslations } from 'next-intl'
 
 import styles from './videoPlayer.module.scss'
 
@@ -27,6 +28,7 @@ export function VideoPlayer({
     const playerRef = useRef(null)
     const [shouldLoad, setShouldLoad] = useState(false)
     const thumbnailUrl = `https://img.youtube.com/vi/${getYouTubeVideoId(url)}/maxresdefault.jpg`
+    const t = useTranslations('components.videoPlayer')
 
     function getYouTubeVideoId(url) {
         const regExp = /^.*(?:(?:youtu\.be\/|youtube\.com\/(?:(?:watch\?v=)|(?:shorts\/)))|(?:embed\/))([^?&"'>]+)/;
@@ -37,8 +39,8 @@ export function VideoPlayer({
     if (!shouldLoad) {
         return (
             <div className={styles.previewContainer} onClick={() => setShouldLoad(true)}>
-                <img src={thumbnailUrl} alt="Video preview" className={styles.previewImage} />
-                <button className={styles.playButton}>
+                <img src={thumbnailUrl} alt={t('previewAlt')} className={styles.previewImage} />
+                <button className={styles.playButton} aria-label={t('playButton')}>
                     <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M8 5v14l11-7z" fill="currentColor"/>
                     </svg>

@@ -149,6 +149,10 @@
             "productFullSizeAlt": "{name} - {color}, фото {index} у повному розмірі",
             "prevPhotoAlt": "Попереднє фото",
             "nextPhotoAlt": "Наступне фото"
+        },
+        "videoPlayer": {
+            "playButton": "Відтворити відео",
+            "previewAlt": "Прев'ю відео"
         }
     },
     "meta": {

@@ -173,6 +173,10 @@
             "productFullSizeAlt": "{name} - {color}, фото {index} в полном размере",
             "prevPhotoAlt": "Предыдущее фото",
             "nextPhotoAlt": "Следующее фото"
+        },
+        "videoPlayer": {
+            "playButton": "Воспроизвести видео",
+            "previewAlt": "Превью видео"
         }
     },
     "meta": {
