@@ -1,48 +1,71 @@
 "use client"
 
 import React from "react";
+import { useTranslations } from 'next-intl';
 
 import styles from "./sizeGrid.module.scss"
 
-const SizeGrid = ({ className, product }) => {
+const SizeGrid = ({ product, className }) => {
+    const t = useTranslations('components.sizeGrid');
+
     return (
         <table className={`${styles.table} ${className}`} cellPadding="15">
-            <tbody>
+            <thead>
                 <tr className={styles.tableTitle}>
                     <th></th>
-                    { product.grid.sizes.map(item => ( <th>{ item }</th> )) }
+                    {product.grid.sizes.map((item, index) => (
+                        <th key={index}>{item}</th>
+                    ))}
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th>{t('topLength')}</th>
+                    {product.grid.topLength.map((item, index) => (
+                        <td key={index}>{item}</td>
+                    ))}
                 </tr>
                 <tr>
-                    <th>Довжина верх</th>
-                    { product.grid.topLength.map(item => ( <td>{ item }</td> )) }
+                    <th>{t('sleeve')}</th>
+                    {product.grid.arm.map((item, index) => (
+                        <td key={index}>{item}</td>
+                    ))}
                 </tr>
                 <tr>
-                    <th>Рукав</th>
-                    { product.grid.arm.map(item => ( <td>{ item }</td> )) }
+                    <th>{t('chest')}</th>
+                    {product.grid.breast.map((item, index) => (
+                        <td key={index}>{item}</td>
+                    ))}
                 </tr>
                 <tr>
-                    <th>Груди</th>
-                    { product.grid.breast.map(item => ( <td>{ item }</td> )) }
+                    <th>{t('shoulders')}</th>
+                    {product.grid.shoulder.map((item, index) => (
+                        <td key={index}>{item}</td>
+                    ))}
                 </tr>
                 <tr>
-                    <th>Плечі</th>
-                    { product.grid.shoulder.map(item => ( <td>{ item }</td> )) }
+                    <th>{t('pantsLength')}</th>
+                    {product.grid.shanksLength.map((item, index) => (
+                        <td key={index}>{item}</td>
+                    ))}
                 </tr>
                 <tr>
-                    <th>Довжина штанів</th>
-                    { product.grid.shanksLength.map(item => ( <td>{ item }</td> )) }
+                    <th>{t('hips')}</th>
+                    {product.grid.thigh.map((item, index) => (
+                        <td key={index}>{item}</td>
+                    ))}
                 </tr>
                 <tr>
-                    <th>Стегна</th>
-                    { product.grid.thigh.map(item => ( <td>{ item }</td> )) }
+                    <th>{t('waistUnstretched')}</th>
+                    {product.grid.stretchedBelt.map((item, index) => (
+                        <td key={index}>{item}</td>
+                    ))}
                 </tr>
                 <tr>
-                    <th>Пояс не розтягнений</th>
-                    { product.grid.stretchedBelt.map(item => ( <td>{ item }</td> )) }
-                </tr>
-                <tr>
-                    <th>Пояс розтягнений</th>
-                    { product.grid.notStretchedBelt.map(item => ( <td>{ item }</td> )) }
+                    <th>{t('waistStretched')}</th>
+                    {product.grid.notStretchedBelt.map((item, index) => (
+                        <td key={index}>{item}</td>
+                    ))}
                 </tr>
             </tbody>
         </table>

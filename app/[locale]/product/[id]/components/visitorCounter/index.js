@@ -1,10 +1,10 @@
 "use client"
 
-import { useState, useEffect } from 'react';
-import Image from "next/image";
+import React, { useState, useEffect } from 'react';
 import { useTranslations } from 'next-intl';
+import Image from "next/image";
 
-import styles from './visitorCounter.module.scss'
+import styles from './visitorCounter.module.scss';
 
 const VisitorCounter = () => {
     const [visitorCount, setVisitorCount] = useState(0);
@@ -43,18 +43,18 @@ const VisitorCounter = () => {
         };
 
         updateVisitorCount();
-        const interval = setInterval(updateVisitorCount, 30000); // Update every 30 seconds
+        const interval = setInterval(updateVisitorCount, 30000);
 
         return () => clearInterval(interval);
     }, []);
 
     return (
-        <div className={styles.aboutInfoSee} role="status" aria-live="polite">
+        <div className={styles.aboutInfoSee}>
             <span className={styles.aboutInfoSeeImg} aria-hidden="true">
                 <Image
                     src="/images/eye.svg"
                     fill
-                    alt="Кількість відвідувачів, які зараз переглядають цей товар"
+                    alt={t('meta.visitorCounterAlt')}
                 />
             </span>
             {visitorCount} {t('people')} {t('now')}

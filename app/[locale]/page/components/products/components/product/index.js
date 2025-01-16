@@ -64,7 +64,10 @@ export default function ProductSlider({ data }) {
                             <Image
                                 fill
                                 src={`/images/products/${data.id}/${imageId}.jpg`}
-                                alt={`Жіночий спортивний костюм ${productName} - фото ${imageId}`}
+                                alt={t('meta.productImageAlt', {
+                                    name: productName,
+                                    index: imageId
+                                })}
                                 className={styles.img}
                                 draggable={false}
                                 priority={imageId === data.images[0]}

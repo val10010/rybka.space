@@ -12,31 +12,34 @@ export function generateStaticParams() {
     return [{locale: 'uk'}, {locale: 'ru'}];
 }
 
-export async function generateMetadata({ params: { locale } }) {
-    let messages;
+async function getMessages(locale) {
     try {
-        messages = (await import(`../../messages/${locale}.json`)).default;
+        return (await import(`../../messages/${locale}.json`)).default;
     } catch (error) {
         notFound();
     }
+}
+
+export async function generateMetadata({ params: { locale } }) {
+    const messages = await getMessages(locale);
 
     return {
-        title: messages.common.title,
-        description: messages.common.description,
-        keywords: "жіночі спортивні костюми, спортивний одяг для жінок, купити спортивний костюм, жіночий спортивний костюм, спортивні костюми україна, модний спортивний одяг, спортивні костюми Ізмаїл, жіночий одяг, спортивний стиль",
+        title: messages.meta.title,
+        description: messages.meta.description,
+        keywords: messages.meta.keywords,
         alternates: {
             canonical: 'https://rybkaspace.com',
             languages: {
-                'uk': 'https://rybkaspace.com',
-                'ru': 'https://rybkaspace.com/ru'
+                'uk-UA': '/uk',
+                'ru-RU': '/ru'
             }
         },
         verification: {
             google: 'cC-cUeg7EzhhRc8HKzvNBwzU1zBro8xgdf9Lc-ABfpM',
         },
         openGraph: {
-            title: messages.common.title,
-            description: messages.common.description,
+            title: messages.meta.title,
+            description: messages.meta.description,
             type: 'website',
             locale: locale === 'uk' ? 'uk_UA' : 'ru_RU',
             url: 'https://rybkaspace.com',
@@ -46,7 +49,7 @@ export async function generateMetadata({ params: { locale } }) {
                     url: 'https://rybkaspace.com/og-image.jpg',
                     width: 1200,
                     height: 630,
-                    alt: messages.common.title,
+                    alt: messages.meta.title,
                 }
             ],
         },
@@ -63,25 +66,20 @@ export async function generateMetadata({ params: { locale } }) {
         },
         twitter: {
             card: 'summary_large_image',
-            title: messages.common.title,
-            description: messages.common.description,
+            title: messages.meta.title,
+            description: messages.meta.description,
             images: ['https://rybkaspace.com/og-image.jpg'],
         }
     };
 }
 
 export default async function LocaleLayout({children, params: {locale}}) {
-    let messages;
-    try {
-        messages = (await import(`../../messages/${locale}.json`)).default;
-    } catch (error) {
-        notFound();
-    }
+    const messages = await getMessages(locale);
 
     return (
         <html lang={locale}>
             <body>
-                <NextIntlClientProvider locale={locale} messages={messages}>
+                <NextIntlClientProvider messages={messages} locale={locale}>
                     <div className={styles.wrapper}>
                         <Header />
                         <main className={styles.main}>

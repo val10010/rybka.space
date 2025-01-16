@@ -1,79 +1,78 @@
 "use client"
 
 import React, { useCallback, useState } from 'react';
+import { useTranslations } from 'next-intl';
 import Popup from "@/components/popup";
 import Image from "next/image";
 
-import styles from "./sizesBtn.module.scss";
+import styles from "./sizesBtn.module.scss"
 
 const sizesBtn = ({ product }) => {
-    const [isPopupOpen,  setIsPopupOpen] = useState(false);
+    const t = useTranslations('components.sizesBtn');
+    const [isPopupOpen, setIsPopupOpen] = useState(false);
 
     const handleOpenPopup = useCallback(() => {
         setIsPopupOpen(true);
-    }, [setIsPopupOpen]);
+    }, []);
 
     const handleClosePopup = useCallback(() => {
         setIsPopupOpen(false);
-    }, [setIsPopupOpen])
+    }, []);
 
     return (
         <>
             <button
-                onClick={handleOpenPopup}
+                type="button"
                 className={styles.aboutInfoSizesBtn}
-                aria-expanded={isPopupOpen}
-                aria-haspopup="dialog"
+                onClick={handleOpenPopup}
             >
                 <Image
-                    width="20"
-                    height="20"
-                    src="/images/pages/product/sizes.svg"
-                    className={styles.aboutInfoSizesBtnImg}
-                    alt="Іконка таблиці розмірів"
-                    aria-hidden="true"
+                    src="/images/size.svg"
+                    width={20}
+                    height={20}
+                    alt={t('iconAlt')}
+                    className={styles.icon}
                 />
-                Підібрати розмір
+                {t('selectSize')}
             </button>
             <Popup isOpen={isPopupOpen} onClose={handleClosePopup}>
                 <div className={styles.popupContent}>
                     <h2 className={styles.popupContentTitle}>
-                        Таблиця мірок
+                        {t('sizeTable')}
                     </h2>
                     <p className={styles.popupContentDesc}>
-                        Мірки потрібно знімати зі свого одягу.
-                        Покладіть на рівну поверхню свій спортивний костюм та зніміть заміри,
-                        як показано на схемі. Якщо ви все зробите правильно, помилитися з розміром у вас не буде шансу.
+                        {t('measurementInstructions')}
+                        {t('measurementDetails')}
                     </p>
                     <div className={styles.popupContentSizesImgWrap}>
                         <Image
-                            fill
-                            src="/images/pages/product/sizes.jpg"
-                            alt="Схема вимірювання жіночого спортивного костюма"
+                            src="/images/schema.webp"
+                            width={500}
+                            height={500}
+                            alt={t('schemaAlt')}
+                            className={styles.schema}
                         />
                     </div>
                     <div className={styles.popupContentSizesGridWrap}>
                         <div className={styles.popupContentSizesGrid}>
                             <div className={styles.popupContentSizesGridHeader}>
-                                <span>Розмір</span>
-                                <span>Груди</span>
-                                <span>Талія</span>
-                                <span>Стегна</span>
+                                <span>{t('size')}</span>
+                                <span>{t('chest')}</span>
+                                <span>{t('waist')}</span>
+                                <span>{t('hips')}</span>
                             </div>
-                            {
-                                product?.grid?.table?.map((item, i) => (
-                                    <div key={i} className={styles.popupContentSizesGridRow}>
-                                        <span>{item.size}</span>
-                                        <span>{item.chest}</span>
-                                        <span>{item.waist}</span>
-                                        <span>{item.hips}</span>
-                                    </div>
-                                ))
-                            }
+                            {product?.grid?.table?.map((item, i) => (
+                                <div key={i} className={styles.popupContentSizesGridRow}>
+                                    <span>{item.size}</span>
+                                    <span>{item.chest}</span>
+                                    <span>{item.waist}</span>
+                                    <span>{item.hips}</span>
+                                </div>
+                            ))}
                         </div>
                     </div>
                     <h2 className={styles.popupContentTitle}>
-                        ЯК ПРАВИЛЬНО ЗНЯТИ МІРКИ?
+                        {t('howToMeasure')}
                     </h2>
                 </div>
             </Popup>
