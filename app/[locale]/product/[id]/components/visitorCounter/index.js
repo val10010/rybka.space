@@ -54,7 +54,7 @@ const VisitorCounter = () => {
                 <Image
                     src="/images/eye.svg"
                     fill
-                    alt={t('meta.visitorCounterAlt')}
+                    alt={t('visitorCounterAlt')}
                 />
             </span>
             {visitorCount} {t('people')} {t('now')}

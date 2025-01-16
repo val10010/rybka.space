@@ -6,6 +6,7 @@ import {innerServices} from "@/services/index";
 import {useTranslations} from 'next-intl';
 import Link from "next/link";
 import Image from "next/image";
+import {useLocale} from 'next-intl';
 import SizesBtn from "../sizesBtn";
 import Popup from "@/components/popup";
 import productsInfo from "@/mocks/productsInfo.json";
@@ -13,6 +14,7 @@ import productsInfo from "@/mocks/productsInfo.json";
 import styles from "./productClient.module.scss";
 
 const ProductClient = ({product}) => {
+    const locale = useLocale();
     const t = useTranslations('product.client');
     const {
         register,
@@ -127,8 +129,8 @@ const ProductClient = ({product}) => {
                                             fill
                                             src={`/images/products/${item}/4.jpg`}
                                             alt={t('imageAlt', {
-                                                name: productsInfo.filter(product => product.id === item)[0].name,
-                                                color: productsInfo.filter(product => product.id === item)[0].currentColor
+                                                name: productsInfo.filter(product => product.id === item)[0].name[locale],
+                                                color: productsInfo.filter(product => product.id === item)[0].currentColor[locale]
                                             })}
                                         />
                                     </Link>

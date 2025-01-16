@@ -64,7 +64,7 @@ export default function ProductSlider({ data }) {
                             <Image
                                 fill
                                 src={`/images/products/${data.id}/${imageId}.jpg`}
-                                alt={t('meta.productImageAlt', {
+                                alt={t('productImageAlt', {
                                     name: productName,
                                     index: imageId
                                 })}
