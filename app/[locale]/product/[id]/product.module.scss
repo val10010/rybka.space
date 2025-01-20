@@ -61,11 +61,14 @@
       .price {
         display: flex;
         margin-top: em(5);
+        color: rgb(235, 0, 28);
+        font-weight: 500;
 
         .oldPrice {
           text-decoration: line-through;
           color: #737373;
           font-weight: 500;
+          padding-right: em(5);
         }
       }
     }

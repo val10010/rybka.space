@@ -57,7 +57,7 @@ export default function Product({ params }) {
                     <div className={styles.aboutInfoPrice}>
                         <span className={styles.aboutInfoSubtitle}>{t('price')}</span>
                         <span className={styles.price}>
-                            { product?.oldPrice } {t('currency')}
+                            <span className={styles.oldPrice}>{ product?.oldPrice } </span> { product?.price } {t('currency')}
                         </span>
                         <VisitorCounter/>
                     </div>
