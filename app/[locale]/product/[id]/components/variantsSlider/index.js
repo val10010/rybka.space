@@ -1,11 +1,13 @@
 "use client"
 
 import React, { useState, useEffect } from 'react';
+import {useLocale} from 'next-intl';
 
 import s from './variantsSlider.module.scss';
 import Image from "next/image";
 
 const ImageSlider = ({ product }) => {
+    const locale = useLocale();
     const id = product.id;
     const images = [];
     product.images.forEach(item => images.push(`/images/products/${id}/${item}.jpg`));
@@ -57,7 +59,7 @@ const ImageSlider = ({ product }) => {
                 <div className={s.mainImageContainer}>
                     <img
                         src={images[currentIndex]}
-                        alt={`${product.name} - ${product.currentColor}, фото ${currentIndex + 1}`}
+                        alt={`${product.name[locale]} - ${product.currentColor[locale]}, фото ${currentIndex + 1}`}
                         className={s.mainImage}
                         onClick={handleFullscreenToggle}
                     />
@@ -95,7 +97,7 @@ const ImageSlider = ({ product }) => {
                         >
                             <img
                                 src={img}
-                                alt={`${product.name} - ${product.currentColor}, мініатюра ${index + 1}`}
+                                alt={`${product.name[locale]} - ${product.currentColor[locale]}, мініатюра ${index + 1}`}
                                 className={s.thumbnailImage}
                             />
                         </button>
@@ -124,7 +126,7 @@ const ImageSlider = ({ product }) => {
                         </button>
                         <img
                             src={images[currentIndex]}
-                            alt={`${product.name} - ${product.currentColor}, фото ${currentIndex + 1} у повному розмірі`}
+                            alt={`${product.name[locale]} - ${product.currentColor[locale]}, фото ${currentIndex + 1} у повному розмірі`}
                             className={s.fullscreenImage}
                         />
                         <button

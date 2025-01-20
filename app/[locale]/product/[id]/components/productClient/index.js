@@ -68,7 +68,7 @@ const ProductClient = ({product}) => {
         const res = await innerServices.sendBotData({
             orderSize: selectedSize,
             orderName: product.name,
-            orderColor: product.currentColor,
+            orderColor: product.currentColor[locale],
             orderPrice: product.price,
             ...data
         });
