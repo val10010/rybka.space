@@ -1,20 +1,20 @@
 import reviewsData from '@/mocks/reviews.json';
 
-export default function SchemaProduct({ product }) {
+export default function SchemaProduct({ product, locale }) {
     const { reviews } = reviewsData;
     const hasReviews = reviews && reviews.length > 0;
-    const averageRating = hasReviews 
+    const averageRating = hasReviews
         ? (reviews.reduce((acc, review) => acc + review.rating, 0) / reviews.length).toFixed(1)
         : "0";
 
     const schemaData = {
         "@context": "https://schema.org",
         "@type": "Product",
-        "name": `${product.name} - ${product.currentColor}`,
+        "name": `${product.name[locale]} - ${product.currentColor[locale]}`,
         "description": product.info.desc,
         "image": product.images.map(img => `https://rybkaspace.com/images/products/${product.id}/${img}.jpg`),
         "sku": `RS-${product.id}`,
-        "mpn": `RSP-${product.id}-${product.currentColor}`,
+        "mpn": `RSP-${product.id}-${product.currentColor[locale]}`,
         "brand": {
             "@type": "Brand",
             "name": "Rybka Space"

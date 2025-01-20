@@ -37,7 +37,7 @@ export default function Product({ params }) {
 
     return (
         <>
-            <SchemaProduct product={product} />
+            <SchemaProduct product={product} locale={locale} />
             <Breadcrumbs
                 items={[
                     {
