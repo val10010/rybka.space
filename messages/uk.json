@@ -186,5 +186,11 @@
         "facebookAlt": "Наш Facebook - жіночі спортивні костюми Rybka Space",
         "tiktokAlt": "Наш TikTok - жіночі спортивні костюми Rybka Space",
         "address": "наша адреса: Україна, м. Ізмаїл, проспект Миру, 36."
+    },
+    "Blog": {
+        "title": "Блог",
+        "readMore": "Читати далі",
+        "latestPosts": "Останні публікації",
+        "backToBlog": "Повернутися до блогу"
     }
 }
