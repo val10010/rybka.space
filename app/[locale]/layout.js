@@ -98,16 +98,42 @@ export default async function LocaleLayout({children, params: {locale}}) {
                         <Footer />
                     </div>
                     <Script
-                        strategy="afterInteractive"
-                        src={`https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXX`}
+                        src="https://www.googletagmanager.com/gtag/js?id=G-K03JMHQMNL"
                     />
                     <Script id="google-analytics" strategy="afterInteractive">
                         {`
-                            window.dataLayer = window.dataLayer || [];
-                            function gtag(){dataLayer.push(arguments);}
-                            gtag('js', new Date());
-                            gtag('config', 'G-XXXXXXXX');
-                        `}
+                        window.dataLayer = window.dataLayer || [];
+                        function gtag(){dataLayer.push(arguments);}
+                        gtag('js', new Date());
+                        gtag('config', 'G-K03JMHQMNL', {
+                            page_path: window.location.pathname,
+                            custom_map: {
+                                'dimension1': 'product_category',
+                                'dimension2': 'search_term',
+                                'dimension3': 'user_region'
+                            }
+                        });
+                        
+                        // Отслеживание поисковых запросов
+                        function trackSearch(searchTerm) {
+                            gtag('event', 'search', {
+                                search_term: searchTerm,
+                                page_location: window.location.href
+                            });
+                        }
+                        
+                        // Отслеживание просмотров товаров
+                        function trackProductView(productData) {
+                            gtag('event', 'view_item', {
+                                items: [{
+                                    item_id: productData.id,
+                                    item_name: productData.name.uk,
+                                    item_category: 'Спортивні костюми',
+                                    price: productData.price
+                                }]
+                            });
+                        }
+                    `}
                     </Script>
                     <SchemaOrganization />
                 </NextIntlClientProvider>
