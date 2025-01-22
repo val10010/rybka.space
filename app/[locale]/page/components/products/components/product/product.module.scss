@@ -220,16 +220,6 @@
             height: em(6);
           }
         }
-
-        &:last-child {
-          transform: translateX(em(-4));
-          background: #0071e3;
-          color: white;
-
-          &::after {
-            opacity: 1;
-          }
-        }
       }
     }
   }
@@ -261,22 +251,43 @@
         transition: all 0.25s ease;
       }
     }
+  }
 
-    &:last-child {
-      font-size: em(15);
-      font-weight: 500;
-      color: #0071e3;
-      padding: em(11) em(21);
-      white-space: nowrap;
-      transition: all 0.25s ease;
-      border-radius: em(980);
-      background: rgba(0, 113, 227, 0.02);
-      border: em(1) #0071e3 solid;
+  .priceContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: em(2);
+    position: relative;
+    padding: em(2) em(4);
+  }
 
-      &::after {
-        content: ' грн.';
-        font-weight: 400;
-      }
+  .oldPrice {
+    font-size: em(13);
+    color: var(--foreground);
+    text-decoration: line-through;
+    margin: 0;
+    opacity: 0.5;
+    font-weight: 400;
+
+    &::after {
+      content: ' грн.';
+      font-weight: 400;
+    }
+  }
+
+  .price {
+    font-size: em(16);
+    font-weight: 600;
+    color: #ff3b30;
+    margin: 0;
+    position: relative;
+    transition: all 0.2s ease;
+
+    &::after {
+      content: ' грн.';
+      font-weight: 400;
+      color: rgba(255, 59, 48, 0.7);
     }
   }
 
@@ -284,37 +295,19 @@
     padding: em(14) em(16);
     width: em(340);
 
-    &::before {
-      width: 100%;
-      background: #e0e0e0;
+    .priceContainer {
+      padding: 0;
     }
 
-    &::after {
-      opacity: 1;
+    .oldPrice {
+      font-size: em(12);
     }
 
-    p {
-      &:first-child {
-        font-size: em(14);
-        padding-left: em(20);
+    .price {
+      font-size: em(15);
 
-        &::before {
-          opacity: 1;
-          width: em(6);
-          height: em(6);
-        }
-      }
-
-      &:last-child {
-        font-size: em(14);
-        padding: em(8) em(16);
-        transform: translateX(em(-4));
-        background: #0071e3;
-        color: white;
-
-        &::after {
-          opacity: 1;
-        }
+      &::after {
+        color: inherit;
       }
     }
   }
