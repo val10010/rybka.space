@@ -9,6 +9,7 @@ import styles from './styles.module.scss';
 const TelegramButton = () => {
   const t = useTranslations('common');
   const [isVisible, setIsVisible] = useState(false);
+  const [isPulsing, setIsPulsing] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -23,6 +24,19 @@ const TelegramButton = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  useEffect(() => {
+    const startPulse = () => {
+      if (!isPulsing) {
+        setIsPulsing(true);
+        setTimeout(() => setIsPulsing(false), 2000); // Длительность анимации
+      }
+    };
+
+    // Запускаем пульсацию каждые 5 секунд
+    const interval = setInterval(startPulse, 3000);
+    return () => clearInterval(interval);
+  }, [isPulsing]);
+
   return (
     <>
       <div className={`${styles.telegramContainer} ${!isVisible ? styles.hidden : ''}`}>
@@ -31,7 +45,7 @@ const TelegramButton = () => {
           href="https://t.me/rybkaspace"
           target="_blank"
           rel="noopener noreferrer"
-          className={styles.telegramButton}
+          className={`${styles.telegramButton} ${isPulsing ? styles.pulse : ''}`}
           aria-labelledby="chat-label"
           role="button"
           title={t('needConsultation')}
