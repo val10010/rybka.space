@@ -1,0 +1,40 @@
+@import 'app/utils/mixins.scss';
+
+.telegramContainer {
+  position: fixed;
+  right: em(20);
+  bottom: em(20);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: em(8);
+  z-index: 1000;
+}
+
+.telegramText {
+  font-size: em(14);
+  color: #333;
+  margin: 0;
+  background: white;
+  padding: em(8) em(12);
+  border-radius: em(8);
+  box-shadow: 0 em(2) em(8) rgba(0, 0, 0, 0.1);
+}
+
+.telegramButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: em(50);
+  height: em(50);
+  background-color: #229ED9;
+  border-radius: 50%;
+  color: white;
+  transition: all 0.3s ease;
+  box-shadow: 0 em(4) em(12) rgba(34, 158, 217, 0.3);
+}
+
+.telegramButton:hover {
+  transform: scale(1.05);
+  box-shadow: 0 em(6) em(16) rgba(34, 158, 217, 0.4);
+}

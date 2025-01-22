@@ -4,6 +4,7 @@ import {setRequestLocale} from 'next-intl/server';
 import {routing} from '../../i18n/routing';
 import Header from "@/components/header";
 import Footer from "@/components/footer";
+import TelegramButton from "@/components/TelegramButton";
 import Script from 'next/script';
 import SchemaOrganization from "@/components/SchemaOrganization";
 
@@ -96,6 +97,7 @@ export default async function LocaleLayout({children, params: {locale}}) {
                             {children}
                         </main>
                         <Footer />
+                        <TelegramButton />
                     </div>
                     <Script
                         src="https://www.googletagmanager.com/gtag/js?id=G-K03JMHQMNL"
