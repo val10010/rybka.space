@@ -2,66 +2,126 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <!-- Головна сторінка -->
   <url>
-    <loc>https://rybkaspace.com</loc>
+    <loc>https://rybkaspace.com/uk</loc>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://rybkaspace.com/ru</loc>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
 
   <!-- Сторінка доставки та оплати -->
   <url>
-    <loc>https://rybkaspace.com/delivery-and-payment</loc>
+    <loc>https://rybkaspace.com/uk/delivery-and-payment</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://rybkaspace.com/ru/delivery-and-payment</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <!-- Активні продукти -->
   <url>
-    <loc>https://rybkaspace.com/product/12</loc>
+    <loc>https://rybkaspace.com/uk/product/12</loc>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://rybkaspace.com/product/13</loc>
+    <loc>https://rybkaspace.com/ru/product/12</loc>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://rybkaspace.com/product/15</loc>
+    <loc>https://rybkaspace.com/uk/product/13</loc>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://rybkaspace.com/product/16</loc>
+    <loc>https://rybkaspace.com/ru/product/13</loc>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://rybkaspace.com/product/17</loc>
+    <loc>https://rybkaspace.com/uk/product/15</loc>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://rybkaspace.com/product/18</loc>
+    <loc>https://rybkaspace.com/ru/product/15</loc>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://rybkaspace.com/product/19</loc>
+    <loc>https://rybkaspace.com/uk/product/16</loc>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://rybkaspace.com/product/20</loc>
+    <loc>https://rybkaspace.com/ru/product/16</loc>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://rybkaspace.com/product/21</loc>
+    <loc>https://rybkaspace.com/uk/product/17</loc>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://rybkaspace.com/product/24</loc>
+    <loc>https://rybkaspace.com/ru/product/17</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://rybkaspace.com/uk/product/18</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://rybkaspace.com/ru/product/18</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://rybkaspace.com/uk/product/19</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://rybkaspace.com/ru/product/19</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://rybkaspace.com/uk/product/20</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://rybkaspace.com/ru/product/20</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://rybkaspace.com/uk/product/21</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://rybkaspace.com/ru/product/21</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://rybkaspace.com/uk/product/24</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://rybkaspace.com/ru/product/24</loc>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>

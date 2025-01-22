@@ -1,7 +1,11 @@
 User-agent: *
 Allow: /
-Allow: /product/*
-Allow: /delivery-and-payment
+Allow: /uk/
+Allow: /ru/
+Allow: /uk/product/*
+Allow: /ru/product/*
+Allow: /uk/delivery-and-payment
+Allow: /ru/delivery-and-payment
 Disallow: /api/
 Disallow: /_next/
 
