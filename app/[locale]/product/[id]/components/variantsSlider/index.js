@@ -57,6 +57,9 @@ const ImageSlider = ({ product }) => {
         <>
             <div className={s.slider}>
                 <div className={s.mainImageContainer}>
+                    {product.oldPrice && (
+                        <div className={s.discount}>-20%</div>
+                    )}
                     <img
                         src={images[currentIndex]}
                         alt={`${product.name[locale]} - ${product.currentColor[locale]}, фото ${currentIndex + 1}`}

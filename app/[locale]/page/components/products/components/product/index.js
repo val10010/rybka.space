@@ -42,6 +42,9 @@ export default function ProductSlider({ data }) {
     return (
         <div className={styles.wrapper}>
             <article className={styles.container}>
+                {data.oldPrice && (
+                    <div className={styles.discount}>-20%</div>
+                )}
                 <Swiper
                     modules={[Navigation, Pagination]}
                     spaceBetween={0}
@@ -127,6 +130,10 @@ export default function ProductSlider({ data }) {
                                         "@type": "PriceSpecification",
                                         "price": data.oldPrice,
                                         "priceCurrency": "UAH"
+                                    },
+                                    "discount": {
+                                        "@type": "Discount",
+                                        "discountPercentage": 20
                                     }
                                 }),
                                 "priceCurrency": "UAH",
