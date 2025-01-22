@@ -118,11 +118,19 @@ export default function ProductSlider({ data }) {
                                 "reviewCount": reviews.length
                             },
                             "offers": {
-                                "@type": "AggregateOffer",
-                                "offerCount": 1,
-                                "lowPrice": data.price,
-                                "highPrice": data.oldPrice || data.price,
+                                "@type": "Offer",
+                                "url": `https://rybkaspace.com/product/${data.id}`,
+                                "price": data.price,
+                                "priceValidUntil": "2025-02-28",
+                                ...(data.oldPrice && {
+                                    "priceSpecification": {
+                                        "@type": "PriceSpecification",
+                                        "price": data.oldPrice,
+                                        "priceCurrency": "UAH"
+                                    }
+                                }),
                                 "priceCurrency": "UAH",
+                                "itemCondition": "https://schema.org/NewCondition",
                                 "availability": data.disabled ? "https://schema.org/OutOfStock" : "https://schema.org/InStock"
                             }
                         })
