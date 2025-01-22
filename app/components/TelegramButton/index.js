@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Script from 'next/script';
 import { useTranslations } from 'next-intl';
 
@@ -8,10 +8,24 @@ import styles from './styles.module.scss';
 
 const TelegramButton = () => {
   const t = useTranslations('common');
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollY = window.scrollY;
+      setIsVisible(scrollY > 100);
+    };
+
+    // Проверяем начальное положение
+    handleScroll();
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   return (
     <>
-      <div className={styles.telegramContainer}>
+      <div className={`${styles.telegramContainer} ${!isVisible ? styles.hidden : ''}`}>
         <p className={styles.telegramText} id="chat-label">{t('needConsultation')}</p>
         <a
           href="https://t.me/rybkaspace"

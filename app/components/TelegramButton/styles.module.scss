@@ -9,6 +9,22 @@
   align-items: center;
   gap: em(8);
   z-index: 1000;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  opacity: 1;
+  transform: translateY(0);
+
+  &.hidden {
+    opacity: 0;
+    transform: translateY(em(20));
+    pointer-events: none;
+  }
+
+  @include mobile {
+    flex-direction: column;
+    align-items: flex-end;
+    right: 0;
+    bottom: em(20);
+  }
 }
 
 .telegramText {
@@ -19,6 +35,14 @@
   padding: em(8) em(12);
   border-radius: em(8);
   box-shadow: 0 em(2) em(8) rgba(0, 0, 0, 0.1);
+
+  @include mobile {
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+    margin: 0 em(14) em(8) 0;
+    padding: em(12) em(8);
+    white-space: nowrap;
+  }
 }
 
 .telegramButton {
@@ -32,9 +56,13 @@
   color: white;
   transition: all 0.3s ease;
   box-shadow: 0 em(4) em(12) rgba(34, 158, 217, 0.3);
-}
 
-.telegramButton:hover {
-  transform: scale(1.05);
-  box-shadow: 0 em(6) em(16) rgba(34, 158, 217, 0.4);
+  @include mobile {
+    margin-right: em(4);
+  }
+
+  &:hover {
+    transform: scale(1.05);
+    box-shadow: 0 em(6) em(16) rgba(34, 158, 217, 0.4);
+  }
 }
