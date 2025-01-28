@@ -27,10 +27,12 @@ const ProductClient = ({product}) => {
     const [selectedSize, setSize] = useState('');
     const [isPopupOpen, setIsPopupOpen] = useState();
     const [isShowMessage, setIsShowMessage] = useState();
+    const [isPreOrderSize, setIsPreOrderSize] = useState(false);
 
     const handleSelectSize = useCallback((size) => {
-        setSize(size)
-    }, [setSize]);
+        setSize(size);
+        setIsPreOrderSize(!product?.grid?.availableSizes?.includes(size));
+    }, [setSize, product?.grid?.availableSizes]);
 
     const handleBuyBtnClick = useCallback(() => {
         setIsPopupOpen(true);
@@ -67,7 +69,7 @@ const ProductClient = ({product}) => {
     const onSubmit = async (data) => {
         const res = await innerServices.sendBotData({
             orderSize: selectedSize,
-            orderName: product.name,
+            orderName: product.name[locale],
             orderColor: product.currentColor[locale],
             orderPrice: product.price,
             ...data
@@ -107,6 +109,9 @@ const ProductClient = ({product}) => {
                         ))
                     }
                 </div>
+                {selectedSize && isPreOrderSize && (
+                    <span className={styles.preOrderMessage}>{t('preOrder')}</span>
+                )}
             </div>
             {
                 product?.colors &&
@@ -216,6 +221,9 @@ const ProductClient = ({product}) => {
                                             ))
                                         }
                                     </div>
+                                    {selectedSize && isPreOrderSize && (
+                                        <span className={styles.preOrderMessage}>{t('preOrder')}</span>
+                                    )}
                                 </div>
                                 <button
                                     className={`${styles.aboutInfoBuyBtn} ${!isValid || isSubmitting ? styles.orderFormBtnDisabled : ''}`}
