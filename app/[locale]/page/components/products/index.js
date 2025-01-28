@@ -27,7 +27,11 @@ export default function Products() {
         productsInfo.filter(product => !product.disabled).forEach(product => {
             product.grid.sizes.forEach(size => sizes.add(size));
         });
-        return ['all', ...Array.from(sizes)];
+        const sizeOrder = { s: 1, m: 2, l: 3, xl: 4, xxl: 5 };
+        const sortedSizes = Array.from(sizes).sort((a, b) => {
+            return (sizeOrder[a.toLowerCase()] || 999) - (sizeOrder[b.toLowerCase()] || 999);
+        });
+        return ['all', ...sortedSizes];
     }, []);
 
     const availableColors = useMemo(() => {
