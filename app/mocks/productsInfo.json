@@ -9,6 +9,7 @@
     "colors": [2,3,4,5],
     "grid": {
       "sizes": ["S", "M"],
+      "availableSizes": ["S", "M"],
       "topLength": [11, 111],
       "arm": [11, 111],
       "breast": [11, 111],
@@ -51,7 +52,8 @@
     "price": 1450,
     "colors": [1,3,4,5],
     "grid": {
-      "sizes": ["M"],
+      "sizes": ["S","M"],
+      "availableSizes": ["M"],
       "topLength": [111],
       "arm": [111],
       "breast": [111],
@@ -95,6 +97,7 @@
     "colors": [1,2,4,5],
     "grid": {
       "sizes": ["S", "M"],
+      "availableSizes": ["S", "M"],
       "topLength": [11, 111],
       "arm": [11, 111],
       "breast": [11, 111],
@@ -137,7 +140,8 @@
     "price": 1450,
     "colors": [1,2,3,5],
     "grid": {
-      "sizes": ["M"],
+      "sizes": ["S","M"],
+      "availableSizes": ["M"],
       "topLength": [111],
       "arm": [111],
       "breast": [111],
@@ -180,7 +184,8 @@
     "price": 1450,
     "colors": [1,2,3,4],
     "grid": {
-      "sizes": ["S"],
+      "sizes": ["S","M"],
+      "availableSizes": ["S"],
       "topLength": [111],
       "arm": [111],
       "breast": [111],
@@ -224,6 +229,7 @@
     "colors": [7],
     "grid": {
       "sizes": ["S", "M"],
+      "availableSizes": ["S", "M"],
       "topLength": [111, 11],
       "arm": [111, 11],
       "breast": [111, 11],
@@ -267,6 +273,7 @@
     "colors": [6],
     "grid": {
       "sizes": ["S", "M"],
+      "availableSizes": ["S", "M"],
       "topLength": [111, 11],
       "arm": [111, 11],
       "breast": [111, 11],
@@ -309,6 +316,7 @@
     "price": 1600,
     "grid": {
       "sizes": ["S", "M"],
+      "availableSizes": ["S", "M"],
       "topLength": [111, 11],
       "arm": [111, 11],
       "breast": [111, 11],
@@ -351,6 +359,7 @@
     "price": 1650,
     "grid": {
       "sizes": ["S", "M"],
+      "availableSizes": ["S", "M"],
       "topLength": [111, 11],
       "arm": [111, 11],
       "breast": [111, 11],
@@ -393,7 +402,8 @@
     "price": 1650,
     "colors": [11],
     "grid": {
-      "sizes": ["M"],
+      "sizes": ["S","M"],
+      "availableSizes": ["M"],
       "topLength": [111],
       "arm": [111],
       "breast": [111],
@@ -436,7 +446,8 @@
     "price": 1650,
     "colors": [10],
     "grid": {
-      "sizes": ["M"],
+      "sizes": ["S","M"],
+      "availableSizes": ["M"],
       "topLength": [111],
       "arm": [111],
       "breast": [111],
@@ -480,7 +491,8 @@
     "price": 1280,
     "colors": [13, 14, 24],
     "grid": {
-      "sizes": [ "L", "XL", "XXL"],
+      "sizes": ["S", "M", "L", "XL", "XXL"],
+      "availableSizes": [ "L", "XL", "XXL"],
       "topLength": [111, 11],
       "arm": [111, 11],
       "breast": [111, 11],
@@ -524,7 +536,8 @@
     "price": 1280,
     "colors": [12, 14, 24],
     "grid": {
-      "sizes": ["M", "L"],
+      "sizes": ["S", "M", "L"],
+      "availableSizes": ["M", "L"],
       "topLength": [1, 111, 11],
       "arm": [1, 111, 11],
       "breast": [1, 111, 11],
@@ -568,6 +581,7 @@
     "colors": [13, 12, 24],
     "grid": {
       "sizes": ["S", "M"],
+      "availableSizes": ["S", "M"],
       "topLength": [1, 111],
       "arm": [1, 111],
       "breast": [1, 111],
@@ -612,6 +626,7 @@
     "colors": [12, 13, 14],
     "grid": {
       "sizes": ["S", "M", "L"],
+      "availableSizes": ["S", "M", "L"],
       "topLength": [1, 111],
       "arm": [1, 111],
       "breast": [1, 111],
@@ -655,7 +670,8 @@
     "price": 1320,
     "colors": [16,17],
     "grid": {
-      "sizes": ["M"],
+      "sizes": ["S","M"],
+      "availableSizes": ["M"],
       "topLength": [111],
       "arm": [111],
       "breast": [111],
@@ -700,6 +716,7 @@
     "colors": [15,17],
     "grid": {
       "sizes": ["S", "M"],
+      "availableSizes": ["S", "M"],
       "topLength": [1, 111],
       "arm": [1, 111],
       "breast": [1, 111],
@@ -744,6 +761,7 @@
     "colors": [16,15],
     "grid": {
       "sizes": ["S", "M", "XXL"],
+      "availableSizes": ["S", "M", "XXL"],
       "topLength": [1, 111],
       "arm": [1, 111],
       "breast": [1, 111],
@@ -788,6 +806,7 @@
     "colors": [19,20],
     "grid": {
       "sizes": ["S", "M"],
+      "availableSizes": ["S", "M"],
       "topLength": [1, 111],
       "arm": [1, 111],
       "breast": [1, 111],
@@ -832,6 +851,7 @@
     "colors": [18,20],
     "grid": {
       "sizes": ["S", "M"],
+      "availableSizes": ["S", "M"],
       "topLength": [1, 111],
       "arm": [1, 111],
       "breast": [1, 111],
@@ -875,7 +895,8 @@
     "price": 1440,
     "colors": [18,19],
     "grid": {
-      "sizes": ["M"],
+      "sizes": ["S","M"],
+      "availableSizes": ["M"],
       "topLength": [1, 111],
       "arm": [1, 111],
       "breast": [1, 111],
@@ -919,6 +940,7 @@
     "price": 1360,
     "grid": {
       "sizes": ["S", "M"],
+      "availableSizes": ["S", "M"],
       "topLength": [1, 111],
       "arm": [1, 111],
       "breast": [1, 111],
@@ -962,6 +984,7 @@
     "colors": [23],
     "grid": {
       "sizes": ["XL", "XXL"],
+      "availableSizes": ["XL", "XXL"],
       "topLength": [1, 111],
       "arm": [1, 111],
       "breast": [1, 111],
@@ -1005,6 +1028,7 @@
     "colors": [22],
     "grid": {
       "sizes": ["XXL"],
+      "availableSizes": ["XXL"],
       "topLength": [111],
       "arm": [111],
       "breast": [111],
