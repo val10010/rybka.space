@@ -8,7 +8,7 @@ import 'swiper/css/pagination';
 import { useLocale, useTranslations } from 'next-intl';
 import styles from "./product.module.scss";
 import reviewsData from '@/mocks/reviews.json';
-import AdaptiveImage from '@/components/adaptive-image';
+import ImageWithWebp from '@/components/image';
 
 const { reviews } = reviewsData;
 
@@ -64,19 +64,13 @@ export default function ProductSlider({ data }) {
                 >
                     {data.images.map((imageId, index) => (
                         <SwiperSlide key={imageId} className={styles.slide}>
-                            <AdaptiveImage
-                                fill
+                            <ImageWithWebp
                                 src={`/images/products/${data.id}/${imageId}.jpg`}
                                 alt={t('productImageAlt', {
                                     name: productName,
                                     index: imageId
                                 })}
                                 className={styles.img}
-                                draggable={false}
-                                priority={index === 0}
-                                quality={90}
-                                sizes="(max-width: 480px) 480px, (max-width: 768px) 768px, 1200px"
-                                loading={index === 0 ? "eager" : "lazy"}
                             />
                             <Link
                                 href={productUrl}
