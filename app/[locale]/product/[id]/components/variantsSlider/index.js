@@ -5,6 +5,7 @@ import {useLocale} from 'next-intl';
 
 import s from './variantsSlider.module.scss';
 import Image from "next/image";
+import styles from "../../../../page/components/products/components/product/product.module.scss";
 
 const ImageSlider = ({ product }) => {
     const locale = useLocale();
@@ -58,7 +59,7 @@ const ImageSlider = ({ product }) => {
             <div className={s.slider}>
                 <div className={s.mainImageContainer}>
                     {product.oldPrice && (
-                        <div className={s.discount}>-20%</div>
+                        <div className={s.discount}>-{ product.discount || 20 }%</div>
                     )}
                     <img
                         src={images[currentIndex]}
