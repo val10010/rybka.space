@@ -43,7 +43,7 @@ export default function ProductSlider({ data }) {
         <div className={styles.wrapper}>
             <article className={styles.container}>
                 {data.oldPrice && (
-                    <div className={styles.discount}>-20%</div>
+                    <div className={styles.discount}>-{ data.discount || 20 }%</div>
                 )}
                 <Swiper
                     modules={[Navigation, Pagination]}
@@ -64,17 +64,13 @@ export default function ProductSlider({ data }) {
                 >
                     {data.images.map((imageId) => (
                         <SwiperSlide key={imageId} className={styles.slide}>
-                            <Image
-                                fill
+                            <img
                                 src={`/images/products/${data.id}/${imageId}.jpg`}
                                 alt={t('productImageAlt', {
                                     name: productName,
                                     index: imageId
                                 })}
                                 className={styles.img}
-                                draggable={false}
-                                priority={imageId === data.images[0]}
-                                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                             />
                             <Link
                                 href={productUrl}

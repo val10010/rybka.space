@@ -225,7 +225,9 @@
       "uk": "Костюм Палаццо 2 - нитка",
       "ru": "Костюм Палаццо 2 - нитка"
     },
-    "price": 1400,
+    "oldPrice": 1400,
+    "price": 1190,
+    "discount": 15,
     "colors": [7],
     "grid": {
       "sizes": ["S", "M"],
@@ -240,8 +242,8 @@
       "notStretchedBelt": [111, 11]
     },
     "videoLink": "https://youtube.com/shorts/n3vwHFJ3VsM?si=xD3v_h8cJFbIQt-Z",
-    "disabled": true,
-    "images": [1,2,3],
+    "disabled": false,
+    "images": [1,2,3,4,5,6,7],
     "currentColor": {
       "uk": "крем",
       "ru": "крем"
