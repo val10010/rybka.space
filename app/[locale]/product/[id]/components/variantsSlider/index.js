@@ -5,6 +5,7 @@ import {useLocale} from 'next-intl';
 
 import s from './variantsSlider.module.scss';
 import Image from "next/image";
+import ImageWithWebp from '@/components/Image'
 import styles from "../../../../page/components/products/components/product/product.module.scss";
 
 const ImageSlider = ({ product }) => {
@@ -61,7 +62,7 @@ const ImageSlider = ({ product }) => {
                     {product.oldPrice && (
                         <div className={s.discount}>-{ product.discount || 20 }%</div>
                     )}
-                    <img
+                    <ImageWithWebp
                         src={images[currentIndex]}
                         alt={`${product.name[locale]} - ${product.currentColor[locale]}, фото ${currentIndex + 1}`}
                         className={s.mainImage}
@@ -99,7 +100,7 @@ const ImageSlider = ({ product }) => {
                                 currentIndex === index ? s.activeThumbnail : ''
                             }`}
                         >
-                            <img
+                            <ImageWithWebp
                                 src={img}
                                 alt={`${product.name[locale]} - ${product.currentColor[locale]}, мініатюра ${index + 1}`}
                                 className={s.thumbnailImage}
@@ -128,7 +129,7 @@ const ImageSlider = ({ product }) => {
                                 alt="Попереднє фото"
                             />
                         </button>
-                        <img
+                        <ImageWithWebp
                             src={images[currentIndex]}
                             alt={`${product.name[locale]} - ${product.currentColor[locale]}, фото ${currentIndex + 1} у повному розмірі`}
                             className={s.fullscreenImage}

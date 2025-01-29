@@ -7,6 +7,7 @@ import {useTranslations} from 'next-intl';
 import Link from "next/link";
 import Image from "next/image";
 import {useLocale} from 'next-intl';
+import ImageWithWebp from '@/components/Image'
 import SizesBtn from "../sizesBtn";
 import Popup from "@/components/popup";
 import productsInfo from "@/mocks/productsInfo.json";
@@ -130,8 +131,7 @@ const ProductClient = ({product}) => {
                                         href={'/product/' + item}
                                         className={styles.aboutInfoColors}
                                     >
-                                        <Image
-                                            fill
+                                        <ImageWithWebp
                                             src={`/images/products/${item}/4.jpg`}
                                             alt={t('imageAlt', {
                                                 name: productsInfo.filter(product => product.id === item)[0].name[locale],
