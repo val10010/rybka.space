@@ -74,7 +74,10 @@ export default function ProductSlider({ data }) {
                                 className={styles.img}
                                 draggable={false}
                                 priority={imageId === data.images[0]}
-                                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                                quality={90}
+                                sizes="(max-width: 480px) 480px, (max-width: 768px) 768px, (max-width: 1200px) 1200px, 1600px"
+                                loading={imageId === data.images[0] ? "eager" : "lazy"}
+                                unoptimized={true}
                             />
                             <Link
                                 href={productUrl}
