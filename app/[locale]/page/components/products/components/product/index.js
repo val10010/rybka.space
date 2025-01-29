@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-import Image from "next/image";
 import Link from "next/link";
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination } from 'swiper/modules';
@@ -9,6 +8,7 @@ import 'swiper/css/pagination';
 import { useLocale, useTranslations } from 'next-intl';
 import styles from "./product.module.scss";
 import reviewsData from '@/mocks/reviews.json';
+import AdaptiveImage from '@/components/adaptive-image';
 
 const { reviews } = reviewsData;
 
@@ -64,7 +64,7 @@ export default function ProductSlider({ data }) {
                 >
                     {data.images.map((imageId) => (
                         <SwiperSlide key={imageId} className={styles.slide}>
-                            <Image
+                            <AdaptiveImage
                                 fill
                                 src={`/images/products/${data.id}/${imageId}.jpg`}
                                 alt={t('productImageAlt', {
