@@ -64,13 +64,17 @@ export default function ProductSlider({ data }) {
                 >
                     {data.images.map((imageId) => (
                         <SwiperSlide key={imageId} className={styles.slide}>
-                            <img
+                            <Image
+                                fill
                                 src={`/images/products/${data.id}/${imageId}.jpg`}
                                 alt={t('productImageAlt', {
                                     name: productName,
                                     index: imageId
                                 })}
                                 className={styles.img}
+                                draggable={false}
+                                priority={imageId === data.images[0]}
+                                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                             />
                             <Link
                                 href={productUrl}
