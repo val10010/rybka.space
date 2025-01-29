@@ -8,7 +8,7 @@ import 'swiper/css/pagination';
 import { useLocale, useTranslations } from 'next-intl';
 import styles from "./product.module.scss";
 import reviewsData from '@/mocks/reviews.json';
-import ImageWithWebp from '@/components/image';
+import ImageWithWebp from '@/components/Image';
 
 const { reviews } = reviewsData;
 
