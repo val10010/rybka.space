@@ -12,7 +12,7 @@ const ImageWithWebp = ({ src, ...props }) => {
     return (
         <picture>
             <source srcSet={pathWithoutExtension + '.webp' } type="image/webp"/>
-            <img srcSet={src}  {...props}/>
+            <img srcSet={src} loading="lazy" {...props}/>
         </picture>
     );
 };
