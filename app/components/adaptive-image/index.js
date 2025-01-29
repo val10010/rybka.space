@@ -11,34 +11,32 @@ export default function AdaptiveImage({ src, ...props }) {
         
         async function checkAndSetImage() {
             try {
-                const webpSupported = await checkWebPSupport();
-                if (!webpSupported) return; // Используем оригинальный src
-
                 // Проверяем поддерживаемые форматы
                 const originalFormat = src.match(/\.(jpg|jpeg|png)$/i)?.[0]?.toLowerCase();
                 if (!originalFormat) return; // Если формат не поддерживается, оставляем как есть
 
-                const webpSrc = src.replace(/\.(jpg|jpeg|png)$/i, '.webp');
-                
-                // Проверяем существование WebP файла
-                const response = await fetch(webpSrc, { method: 'HEAD' });
-                if (response.ok) {
-                    setImageSrc(webpSrc);
-                }
-                // Если WebP не существует, оставляем оригинальный src
+                // Используем статическую проверку поддержки WebP
+                const webpSupported = await checkWebPSupport();
+                if (!webpSupported) return;
+
+                // Сразу пробуем использовать WebP версию
+                setImageSrc(src.replace(/\.(jpg|jpeg|png)$/i, '.webp'));
             } catch (error) {
-                console.warn('Error checking WebP image, falling back to original:', error);
-                // В случае ошибки используем оригинальный src
+                console.warn('Error in AdaptiveImage, using original format:', error);
             }
         }
 
         checkAndSetImage();
     }, [src]);
 
-    // На сервере всегда используем оригинальный формат
-    if (!isClient) {
-        return <Image src={src} {...props} />;
-    }
+    const imageProps = {
+        ...props,
+        src: imageSrc,
+        // Устанавливаем разумные значения по умолчанию
+        quality: props.quality || 75, // Снижаем качество по умолчанию
+        loading: props.loading || 'lazy',
+        unoptimized: false // Включаем оптимизацию Next.js
+    };
 
-    return <Image src={imageSrc} {...props} />;
+    return <Image {...imageProps} />;
 }

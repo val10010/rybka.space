@@ -62,7 +62,7 @@ export default function ProductSlider({ data }) {
                     }}
                     className={styles.slideTrack}
                 >
-                    {data.images.map((imageId) => (
+                    {data.images.map((imageId, index) => (
                         <SwiperSlide key={imageId} className={styles.slide}>
                             <AdaptiveImage
                                 fill
@@ -73,11 +73,10 @@ export default function ProductSlider({ data }) {
                                 })}
                                 className={styles.img}
                                 draggable={false}
-                                priority={imageId === data.images[0]}
+                                priority={index === 0}
                                 quality={90}
-                                sizes="(max-width: 480px) 480px, (max-width: 768px) 768px, (max-width: 1200px) 1200px, 1600px"
-                                loading={imageId === data.images[0] ? "eager" : "lazy"}
-                                unoptimized={true}
+                                sizes="(max-width: 480px) 480px, (max-width: 768px) 768px, 1200px"
+                                loading={index === 0 ? "eager" : "lazy"}
                             />
                             <Link
                                 href={productUrl}
