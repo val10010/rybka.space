@@ -86,7 +86,7 @@ export default function Product({ params }) {
                         {t('season')}:
                     </p>
                     <ul className={styles.descList}>
-                       <li>{t('seasonValue')}.</li>
+                       <li>{ product.info.season[locale] }</li>
                     </ul>
                     <p className={styles.descTitle}>
                         {t('color')}:
