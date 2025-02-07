@@ -9,6 +9,7 @@ import { useLocale, useTranslations } from 'next-intl';
 import styles from "./product.module.scss";
 import reviewsData from '@/mocks/reviews.json';
 import ImageWithWebp from '@/components/Image';
+import Image from "next/image";
 
 const { reviews } = reviewsData;
 
@@ -64,13 +65,23 @@ export default function ProductSlider({ data }) {
                 >
                     {data.images.map((imageId, index) => (
                         <SwiperSlide key={imageId} className={styles.slide}>
-                            <ImageWithWebp
-                                src={`/images/products/${data.id}/${imageId}.jpg`}
+                            {/*<ImageWithWebp*/}
+                            {/*    src={`/images/products/${data.id}/${imageId}.jpg`}*/}
+                            {/*    alt={t('productImageAlt', {*/}
+                            {/*        name: productName,*/}
+                            {/*        index: imageId*/}
+                            {/*    })}*/}
+                            {/*    className={styles.img}*/}
+                            {/*/>*/}
+                            <Image
+                                src={`/images/products/${data.id}/${imageId}.webp`}
                                 alt={t('productImageAlt', {
                                     name: productName,
                                     index: imageId
                                 })}
+                                quality={100}
                                 className={styles.img}
+                                fill
                             />
                             <Link
                                 href={productUrl}
