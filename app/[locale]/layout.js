@@ -149,11 +149,6 @@ export default async function LocaleLayout({children, params: {locale}}) {
                                 }
                             `}
                             </Script>
-                            {/* Динамическая загрузка Hotjar */}
-                            {typeof window !== 'undefined' && dynamic(() => import('@/components/HotjarScript'), {
-                                ssr: false,
-                                loading: () => null
-                            })}
                         </>
                     )}
                     <SchemaOrganization />
