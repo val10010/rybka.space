@@ -4,7 +4,7 @@ import gsap from "gsap";
 import Link from "next/link";
 import Image from "next/image";
 import ScrollToPlugin from "gsap/ScrollToPlugin";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useTranslations } from 'next-intl';
 
 import styles from "./header.module.scss";
@@ -117,6 +117,12 @@ export default function Header() {
                     scrollTo: {
                         y: "main",
                         ease: "power2.inOut"
+                    },
+                    onComplete: () => {
+                        // Динамически импортируем и запускаем Hotjar после завершения анимации
+                        import('../HotjarScript').then(module => {
+                            module.default();
+                        });
                     }
                 });
             }

@@ -88,8 +88,6 @@ export default async function LocaleLayout({children, params: {locale}}) {
 
     const messages = await getMessages(locale);
 
-    console.log(process.env.NODE_ENV)
-
     return (
         <html lang={locale}>
             <body>
