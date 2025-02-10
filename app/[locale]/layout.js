@@ -87,6 +87,8 @@ export default async function LocaleLayout({children, params: {locale}}) {
 
     const messages = await getMessages(locale);
 
+    console.log(process.env.NODE_ENV)
+
     return (
         <html lang={locale}>
             <body>
@@ -99,61 +101,65 @@ export default async function LocaleLayout({children, params: {locale}}) {
                         <Footer />
                         <TelegramButton />
                     </div>
-                    <Script
-                        src={`https://www.googletagmanager.com/gtag/js?id=G-K03JMHQMNL`}
-                        strategy="lazyOnload"
-                        async
-                        defer
-                    />
-                    <Script
-                        id="google-analytics"
-                        strategy="lazyOnload"
-                        defer
-                    >
-                        {`
-                        window.dataLayer = window.dataLayer || [];
-                        function gtag(){dataLayer.push(arguments);}
-                        gtag('js', new Date());
-                        gtag('config', 'G-K03JMHQMNL', {
-                            page_path: window.location.pathname,
-                            custom_map: {
-                                'dimension1': 'product_category',
-                                'dimension2': 'search_term',
-                                'dimension3': 'user_region'
-                            }
-                        });
-                        
-                        // Отслеживание поисковых запросов
-                        function trackSearch(searchTerm) {
-                            gtag('event', 'search', {
-                                search_term: searchTerm,
-                                page_location: window.location.href
-                            });
-                        }
-                        
-                        // Отслеживание просмотров товаров
-                        function trackProductView(productData) {
-                            gtag('event', 'view_item', {
-                                items: [{
-                                    item_id: productData.id,
-                                    item_name: productData.name.uk,
-                                    item_category: 'Спортивні костюми',
-                                    price: productData.price
-                                }]
-                            });
-                        }
-                    `}
-                    </Script>
-                    <Script defer id="hotjar" strategy="lazyOnload">{`
-                        (function(h,o,t,j,a,r){
-                            h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
-                            h._hjSettings={hjid:5256627,hjsv:6};
-                            a=o.getElementsByTagName('head')[0];
-                            r=o.createElement('script');r.async=1;
-                            r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
-                            a.appendChild(r);
-                        })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
-                    `}</Script>
+                    {process.env.NODE_ENV !== 'development' && (
+                        <>
+                            <Script
+                                src={`https://www.googletagmanager.com/gtag/js?id=G-K03JMHQMNL`}
+                                strategy="lazyOnload"
+                                async
+                                defer
+                            />
+                            <Script
+                                id="google-analytics"
+                                strategy="lazyOnload"
+                                defer
+                            >
+                                {`
+                                window.dataLayer = window.dataLayer || [];
+                                function gtag(){dataLayer.push(arguments);}
+                                gtag('js', new Date());
+                                gtag('config', 'G-K03JMHQMNL', {
+                                    page_path: window.location.pathname,
+                                    custom_map: {
+                                        'dimension1': 'product_category',
+                                        'dimension2': 'search_term',
+                                        'dimension3': 'user_region'
+                                    }
+                                });
+                                
+                                // Отслеживание поисковых запросов
+                                function trackSearch(searchTerm) {
+                                    gtag('event', 'search', {
+                                        search_term: searchTerm,
+                                        page_location: window.location.href
+                                    });
+                                }
+                                
+                                // Отслеживание просмотров товаров
+                                function trackProductView(productData) {
+                                    gtag('event', 'view_item', {
+                                        items: [{
+                                            item_id: productData.id,
+                                            item_name: productData.name.uk,
+                                            item_category: 'Спортивні костюми',
+                                            price: productData.price
+                                        }]
+                                    });
+                                }
+                            `}
+                            </Script>
+                            <Script defer id="hotjar" strategy="lazyOnload">{`
+                                (function(h,o,t,j,a,r){
+                                    h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
+                                    h._hjSettings={hjid:5256627,hjsv:6};
+                                    a=o.getElementsByTagName('head')[0];
+                                    r=o.createElement('script');r.async=1;
+                                    r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
+                                    a.appendChild(r);
+                                })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
+                            `}</Script>
+                        </>
+                    )}
                     <SchemaOrganization />
                 </NextIntlClientProvider>
             </body>
