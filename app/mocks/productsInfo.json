@@ -568,7 +568,8 @@
       "ru": "Костюм Худи флис"
     },
     "oldPrice": 1600,
-    "price": 1280,
+    "price": 1000,
+    "discount": 50,
     "colors": [13, 14, 24],
     "grid": {
       "sizes": ["S", "M", "L", "XL", "XXL"],
@@ -621,7 +622,8 @@
       "ru": "Костюм Худи флис"
     },
     "oldPrice": 1600,
-    "price": 1280,
+    "price": 1000,
+    "discount": 50,
     "colors": [12, 14, 24],
     "grid": {
       "sizes": ["S", "M", "L"],
@@ -726,7 +728,8 @@
       "ru": "Костюм Худи флис"
     },
     "oldPrice": 1600,
-    "price": 1280,
+    "price": 1000,
+    "discount": 50,
     "colors": [12, 13, 14],
     "grid": {
       "sizes": ["S", "M", "L"],
@@ -779,7 +782,8 @@
       "ru": "Костюм кенгуру флис"
     },
     "oldPrice": 1650,
-    "price": 1320,
+    "price": 1000,
+    "discount": 50,
     "colors": [16,17],
     "grid": {
       "sizes": ["S","M"],
@@ -832,7 +836,8 @@
       "ru": "Костюм кенгуру флис"
     },
     "oldPrice": 1650,
-    "price": 1320,
+    "price": 1000,
+    "discount": 50,
     "colors": [15,17],
     "grid": {
       "sizes": ["S", "M"],
@@ -885,7 +890,8 @@
       "ru": "Костюм кенгуру флис"
     },
     "oldPrice": 1650,
-    "price": 1320,
+    "price": 1000,
+    "discount": 50,
     "colors": [16,15],
     "grid": {
       "sizes": ["S", "M", "XXL"],
@@ -938,7 +944,8 @@
       "ru": "Костюм кенгуру замок флис"
     },
     "oldPrice": 1800,
-    "price": 1440,
+    "price": 1000,
+    "discount": 55,
     "colors": [19,20],
     "grid": {
       "sizes": ["S", "M"],
@@ -990,8 +997,9 @@
       "uk": "Костюм кенгуру замок фліс",
       "ru": "Костюм кенгуру замок флис"
     },
+    "discount": 55,
     "oldPrice": 1800,
-    "price": 1440,
+    "price": 1000,
     "colors": [18,20],
     "grid": {
       "sizes": ["S", "M"],
@@ -1048,7 +1056,7 @@
     "colors": [18,19],
     "grid": {
       "sizes": ["S","M"],
-      "availableSizes": ["M"],
+      "availableSizes": [],
       "topLength": [1, 111],
       "arm": [1, 111],
       "breast": [1, 111],
@@ -1100,7 +1108,7 @@
     "price": 1360,
     "grid": {
       "sizes": ["S", "M"],
-      "availableSizes": ["S", "M"],
+      "availableSizes": [],
       "topLength": [1, 111],
       "arm": [1, 111],
       "breast": [1, 111],
