@@ -1,13 +1,14 @@
 "use client"
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 import Link from 'next/link';
 import GoogleCustomerReviews from '@/components/GoogleCustomerReviews';
 import styles from './order-success.module.scss';
 
-export default function OrderSuccessPage() {
+// Компонент для работы с параметрами URL
+function OrderSuccessContent() {
   const t = useTranslations('orderSuccess');
   const searchParams = useSearchParams();
   const [orderDetails, setOrderDetails] = useState({
@@ -71,6 +72,29 @@ export default function OrderSuccessPage() {
           productIds={orderDetails.products}
         />
       )}
+    </div>
+  );
+}
+
+// Основной компонент страницы с Suspense boundary
+export default function OrderSuccessPage() {
+  return (
+    <Suspense fallback={<OrderSuccessLoading />}>
+      <OrderSuccessContent />
+    </Suspense>
+  );
+}
+
+// Компонент загрузки
+function OrderSuccessLoading() {
+  const t = useTranslations('orderSuccess');
+  
+  return (
+    <div className={styles.container}>
+      <h1 className={styles.title}>{t('title')}</h1>
+      <div className={styles.orderInfo}>
+        <p className={styles.loading}>Загрузка информации о заказе...</p>
+      </div>
     </div>
   );
 }

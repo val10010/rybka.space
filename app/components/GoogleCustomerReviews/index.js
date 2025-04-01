@@ -15,7 +15,7 @@ export default function GoogleCustomerReviews({
 }) {
   const locale = useLocale();
 
-  // Дата ожидаемой доставки (через 7 дней)
+  // Дата ожидаемой доставки (через  7 дней)
   const estimatedDeliveryDate = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString().split('T')[0];
 
   return (
@@ -59,8 +59,8 @@ export default function GoogleCustomerReviews({
       />
 
       {/* Скрипт для отправки информации о заказе */}
-      <div 
-        className="goog-review-opt-in-container" 
+      <div
+        className="goog-review-opt-in-container"
         data-merchant-id={merchantId}
         data-order-id={orderId}
         data-email={email || ''}
