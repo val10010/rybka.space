@@ -9,7 +9,15 @@
         "home": "Главная",
         "readMore": "Читать далее",
         "backToBlog": "Вернуться к блогу",
-        "relatedProducts": "Связанные товары"
+        "relatedProducts": "Связанные товары",
+        "readingTime": "Время чтения: {minutes} мин",
+        "publishedOn": "Опубликовано",
+        "author": "Автор",
+        "tags": "Теги",
+        "shareArticle": "Поделиться статьей",
+        "moreArticles": "Больше статей",
+        "styleGuide": "Гид по стилю",
+        "fashionTips": "Советы по моде"
     },
     "common": {
         "title": "Rybka Space - Женские спортивные костюмы",

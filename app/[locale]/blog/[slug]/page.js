@@ -1,13 +1,21 @@
-import { useTranslations, useLocale } from 'next-intl';
-import Link from 'next/link';
-import Image from 'next/image';
+import { setRequestLocale } from 'next-intl/server';
 import { notFound } from 'next/navigation';
+import { formatDate } from '../../../utils/dateFormatter';
+import { generateBlogSchema } from '../../../components/blog/BlogSchema';
 import BlogContent from '../../../components/blog/BlogContent';
+import BlogSEO from '../../../components/blog/BlogSEO';
+import BlogAnalytics from '../../../components/blog/BlogAnalytics';
+import BlogBreadcrumbs from '../../../components/blog/BlogBreadcrumbs';
+import BlogPostHeaderSection from '../../../components/blog/BlogPostHeaderSection';
+import BlogPostCoverImage from '../../../components/blog/BlogPostCoverImage';
+import BlogPostTags from '../../../components/blog/BlogPostTags';
 import RelatedProducts from '../../../components/blog/RelatedProducts';
+import BackToListButton from '../../../components/blog/BackToListButton';
 import blogPosts from '../../../mocks/blogPosts.json';
 import styles from './page.module.scss';
 
-export function generateMetadata({ params: { locale, slug } }) {
+export async function generateMetadata({ params: { locale, slug } }) {
+  await setRequestLocale(locale);
   const post = blogPosts.find(post => post.slug === slug);
   
   if (!post) {
@@ -35,9 +43,9 @@ export function generateMetadata({ params: { locale, slug } }) {
   };
 }
 
-export default function BlogPostPage({ params: { slug } }) {
-  const locale = useLocale();
-  const t = useTranslations('Blog');
+export default async function BlogPostPage({ params: { slug, locale } }) {
+  const url = `https://rybka.space/${locale}/blog/${slug}`;
+  await setRequestLocale(locale);
   
   // Находим пост по slug
   const post = blogPosts.find(post => post.slug === slug);
@@ -46,63 +54,74 @@ export default function BlogPostPage({ params: { slug } }) {
   if (!post) {
     notFound();
   }
-  
-  // Форматирование даты
-  const formattedDate = new Date(post.date).toLocaleDateString(locale === 'uk' ? 'uk-UA' : 'ru-RU', {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric'
+
+  const formattedDate = formatDate(post.date, locale);
+  const breadcrumbItems = [
+    { href: `/${locale}`, text: 'Главная' },
+    { href: `/${locale}/blog`, text: 'Блог' },
+    { text: post.title[locale] }
+  ];
+
+  // Генерируем JSON-LD разметку
+  const schema = generateBlogSchema({
+    title: post.title[locale],
+    description: post.description[locale],
+    image: post.coverImage,
+    author: post.author[locale],
+    date: post.date,
+    locale,
+    url
   });
 
   return (
-    <article className={styles.article}>
+    <>
+      <BlogSEO post={post} locale={locale} url={url} />
+      <article className={styles.article} itemScope itemType="https://schema.org/BlogPosting">
         <div className={styles.container}>
-          <div className={styles.breadcrumbs}>
-            <Link href={`/${locale}`}>{t('home')}</Link> / 
-            <Link href={`/${locale}/blog`}>{t('blog')}</Link> / 
-            <span>{post.title[locale]}</span>
-          </div>
-          
-          <header className={styles.header}>
-            <h1 className={styles.title}>{post.title[locale]}</h1>
-            <div className={styles.meta}>
-              <time dateTime={post.date}>{formattedDate}</time>
-              <span className={styles.author}>{post.author[locale]}</span>
-            </div>
-          </header>
-          
-          <figure className={styles.coverImage}>
-            <Image
-              src={post.coverImage}
-              alt={post.title[locale]}
-              width={1200}
-              height={630}
-              priority
-              className={styles.image}
-            />
-          </figure>
-          
+          {/* Хлебные крошки */}
+          <BlogBreadcrumbs items={breadcrumbItems} />
+
+          {/* Заголовок и метаданные */}
+          <BlogPostHeaderSection 
+            title={post.title[locale]} 
+            date={formattedDate} 
+            author={post.author[locale]}
+          >
+            <BlogAnalytics post={post} locale={locale} />
+          </BlogPostHeaderSection>
+
+          {/* Главное изображение */}
+          <BlogPostCoverImage 
+            src={post.coverImage} 
+            alt={post.title[locale]} 
+          />
+
+        {/* Контент статьи */}
+        <div itemProp="articleBody">
           <BlogContent content={post.content} locale={locale} />
-          
-          {post.tags && post.tags[locale].length > 0 && (
-            <div className={styles.tags}>
-              {post.tags[locale].map((tag, index) => (
-                <span key={index} className={styles.tag}>#{tag}</span>
-              ))}
-            </div>
-          )}
-          
-          {post.relatedProducts && post.relatedProducts.length > 0 && (
-            <RelatedProducts productIds={post.relatedProducts} locale={locale} />
-          )}
-          
-          <div className={styles.navigation}>
-            <Link href={`/${locale}/blog`} className={styles.backButton}>
-              {t('backToBlog')}
-            </Link>
-          </div>
         </div>
-      </article>
+        
+        {/* Вставляем JSON-LD разметку */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+        />
+
+        {/* Теги */}
+        {post.tags && post.tags[locale].length > 0 && (
+          <BlogPostTags tags={post.tags[locale]} />
+        )}
+
+        {/* Связанные товары */}
+        {post.relatedProducts && post.relatedProducts.length > 0 && (
+          <RelatedProducts productIds={post.relatedProducts} locale={locale} />
+        )}
+
+        {/* Кнопка возврата (клиентский компонент) */}
+        <BackToListButton locale={locale} />
+      </div>
+    </article>
+    </>
   );
 }
 

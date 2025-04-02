@@ -1,0 +1,19 @@
+.analytics {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 1rem 0;
+  color: #666;
+  font-size: 0.9rem;
+}
+
+.readingTime {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  
+  &:before {
+    content: '⏱';
+    font-size: 1.1rem;
+  }
+}

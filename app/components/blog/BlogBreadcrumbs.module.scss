@@ -1,0 +1,19 @@
+.breadcrumbs {
+  margin-bottom: 2rem;
+  color: #666;
+  font-size: 0.9rem;
+}
+
+.link {
+  color: #666;
+  text-decoration: none;
+  transition: color 0.2s;
+  
+  &:hover {
+    color: #000;
+  }
+}
+
+.current {
+  color: #000;
+}
