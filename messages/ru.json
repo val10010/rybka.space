@@ -2,6 +2,15 @@
     "Index": {
         "title": "Главная"
     },
+    "Blog": {
+        "blog": "Блог",
+        "blogTitle": "Блог - Rybka Space",
+        "blogDescription": "Блог о женской моде, стиле и трендах от Rybka Space",
+        "home": "Главная",
+        "readMore": "Читать далее",
+        "backToBlog": "Вернуться к блогу",
+        "relatedProducts": "Связанные товары"
+    },
     "common": {
         "title": "Rybka Space - Женские спортивные костюмы",
         "description": "⭐ Большой выбор женских спортивных костюмов в интернет-магазине Rybka Space ✅ Высокое качество ✅ Быстрая доставка по Украине ✅ Приятные цены ✅ Удобная оплата",
@@ -146,7 +155,11 @@
         "instagramAlt": "Наш Instagram - женские спортивные костюмы Rybka Space",
         "facebookAlt": "Наш Facebook - женские спортивные костюмы Rybka Space",
         "tiktokAlt": "Наш TikTok - женские спортивные костюмы Rybka Space",
-        "address": "наш адрес: Украина, г. Измаил, проспект Мира, 36."
+        "address": "наш адрес: Украина, г. Измаил, проспект Мира, 36.",
+        "siteNavigation": "Навигация по сайту",
+        "home": "Главная",
+        "blog": "Блог",
+        "deliveryAndPayment": "Доставка и оплата"
     },
     "SchemaOrganization": {
         "description": "Интернет-магазин женских спортивных костюмов Rybka Space. Высококачественная одежда для активных женщин.",

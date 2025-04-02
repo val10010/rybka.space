@@ -1,0 +1,82 @@
+.content {
+  max-width: 800px;
+  margin: 0 auto;
+  font-size: 1.05rem;
+  line-height: 1.7;
+  color: #333;
+}
+
+.paragraph {
+  margin-bottom: 1.5rem;
+}
+
+.heading {
+  font-size: 1.75rem;
+  font-weight: 600;
+  margin: 2rem 0 1rem;
+  color: #222;
+}
+
+.figure {
+  margin: 2rem 0;
+  width: 100%;
+}
+
+.image {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+.caption {
+  margin-top: 0.75rem;
+  text-align: center;
+  font-size: 0.9rem;
+  color: #666;
+  font-style: italic;
+}
+
+.list {
+  margin: 1.5rem 0;
+  padding-left: 1.5rem;
+}
+
+.listItem {
+  margin-bottom: 0.75rem;
+  position: relative;
+}
+
+.cta {
+  margin: 2.5rem 0;
+  text-align: center;
+}
+
+.ctaButton {
+  display: inline-block;
+  padding: 0.75rem 1.5rem;
+  background-color: #007bff;
+  color: white;
+  font-weight: 500;
+  text-decoration: none;
+  border-radius: 4px;
+  transition: background-color 0.2s ease;
+  
+  &:hover {
+    background-color: #0056b3;
+  }
+}
+
+@media (max-width: 768px) {
+  .content {
+    font-size: 1rem;
+  }
+  
+  .heading {
+    font-size: 1.5rem;
+  }
+  
+  .figure {
+    margin: 1.5rem 0;
+  }
+}

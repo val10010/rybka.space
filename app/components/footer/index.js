@@ -1,13 +1,29 @@
 import Image from "next/image";
+import Link from "next/link";
 import styles from "./footer.module.scss";
 import LanguageSwitcher from "../language-switcher";
-import {useTranslations} from 'next-intl';
+import {useTranslations, useLocale} from 'next-intl';
 
 const Footer = () => {
     const t = useTranslations('footer');
+    const locale = useLocale();
 
     return (
         <footer className={styles.container} role="contentinfo">
+            <div className={styles.navigation}>
+                <nav className={styles.menu} aria-label={t('siteNavigation')}>
+                    <Link href={`/${locale}`} className={styles.menuItem}>
+                        {t('home')}
+                    </Link>
+                    <Link href={`/${locale}/blog`} className={styles.menuItem}>
+                        {t('blog')}
+                    </Link>
+                    <Link href={`/${locale}/delivery-and-payment`} className={styles.menuItem}>
+                        {t('deliveryAndPayment')}
+                    </Link>
+                </nav>
+            </div>
+            
             <div className={styles.copyright}>
                 2024 Rybka.space
             </div>
