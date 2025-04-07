@@ -10,6 +10,7 @@ import styles from "./product.module.scss";
 import reviewsData from '@/mocks/reviews.json';
 import ImageWithWebp from '@/components/Image';
 import Image from "next/image";
+import { getCategoryByProductId } from '@/services/categoryService';
 
 const { reviews } = reviewsData;
 
@@ -35,7 +36,10 @@ export default function ProductSlider({ data }) {
         }
     }, []);
 
-    const productUrl = `/product/${data.id}`;
+    // Получаем slug категории товара для формирования URL
+    const category = getCategoryByProductId(data.id);
+    const categorySlug = category ? category.slug[locale] : 'zhinochi-kostyumy';
+    const productUrl = `/${locale}/categories/${categorySlug}/${data.id}`;
     const productName = `${data.name[locale]} - ${data.currentColor[locale]}`;
     const currentDate = new Date().toISOString().split('T')[0];
     const brandName = "Rybka Space";
@@ -129,7 +133,7 @@ export default function ProductSlider({ data }) {
                             },
                             "offers": {
                                 "@type": "Offer",
-                                "url": `https://rybkaspace.com/product/${data.id}`,
+                                "url": `https://rybkaspace.com/${locale}/categories/${categorySlug}/${data.id}`,
                                 "price": data.price,
                                 "priceValidUntil": "2025-02-28",
                                 ...(data.oldPrice && {
@@ -166,7 +170,7 @@ export default function ProductSlider({ data }) {
                     <ChevronRight />
                 </button>
             </article>
-            <Link href={`/product/${data.id}`} className={styles.cardInfo}>
+            <Link href={`/${locale}/categories/${categorySlug}/${data.id}`} className={styles.cardInfo}>
                 <p>{ data.name[locale] } { data.currentColor[locale] }</p>
                 <div className={styles.priceContainer}>
                     {data.oldPrice && (

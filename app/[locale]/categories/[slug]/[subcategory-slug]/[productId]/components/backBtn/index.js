@@ -1,17 +1,23 @@
 'use client';
 
-import { useRouter } from "next/navigation";
+import { useRouter, useParams } from "next/navigation";
 import { useTranslations } from 'next-intl';
 
 import styles from "./backBtn.module.scss";
 
 const BackBtn = () => {
     const router = useRouter();
+    const params = useParams();
     const t = useTranslations('product');
+    
+    const handleBack = () => {
+        // Возвращаемся на страницу подкатегории
+        router.push(`/${params.locale}/categories/${params.slug}/${params['subcategory-slug']}`);
+    };
 
     return (
         <button
-            onClick={() => router.push('/')}
+            onClick={handleBack}
             className={styles.backBtn}
         >
            <img

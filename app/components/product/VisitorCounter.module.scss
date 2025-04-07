@@ -1,0 +1,18 @@
+@import "app/utils/mixins";
+
+.counter {
+  display: flex;
+  align-items: center;
+  gap: em(8);
+  margin-top: em(10);
+  font-size: em(14);
+  color: #666;
+  
+  .icon {
+    font-size: em(16);
+  }
+  
+  .text {
+    font-style: italic;
+  }
+}

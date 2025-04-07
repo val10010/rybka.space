@@ -6,7 +6,6 @@ import {useLocale} from 'next-intl';
 import s from './variantsSlider.module.scss';
 import Image from "next/image";
 import ImageWithWebp from '@/components/Image'
-import styles from "../../../../page/components/products/components/product/product.module.scss";
 
 const ImageSlider = ({ product }) => {
     const locale = useLocale();

@@ -11,28 +11,58 @@ import Reviews from "@/components/reviews";
 import { useTranslations } from 'next-intl';
 
 import productsInfo from "@/mocks/productsInfo.json";
+import { getCategoryBySlug, getCategoryByProductId } from "@/services/categoryService";
 
 import styles from "./product.module.scss";
 
 export async function generateMetadata({ params }) {
-    const id = +params.id;
+    const productId = +params.productId;
     const locale = params.locale;
-    const product = productsInfo.filter(item => item.id === id)[0];
+    const product = productsInfo.find(item => item.id === productId);
+    
+    if (!product || product.disabled) {
+        return {
+            title: 'Товар не найден - RYBKA.SPACE',
+        };
+    }
 
     return {
         title: `${product.name[locale]} ${product.currentColor[locale]} - RYBKA.SPACE`,
-        description: product.info.desc
+        description: product.info.desc[locale] || ''
     }
 }
 
 export default function Product({ params }) {
-    const id = +params.id;
+    const productId = +params.productId;
     const locale = params.locale;
-    const product = productsInfo.filter(item => item.id === id)[0];
+    const slug = params.slug;
+    const subcategorySlug = params['subcategory-slug'];
+    
+    // Находим товар по ID
+    const product = productsInfo.find(item => item.id === productId);
     const t = useTranslations('product');
-
+    
+    // Проверяем, существует ли товар
     if(!product || product.disabled) {
-        redirect('/');
+        redirect(`/${locale}/categories`);
+    }
+    
+    // Получаем категорию и подкатегорию товара
+    const mainCategory = getCategoryByProductId(productId);
+    
+    // Проверяем, соответствует ли slug основной категории в URL
+    if (mainCategory && mainCategory.slug[locale] !== slug) {
+        // Если не соответствует, перенаправляем на правильный URL
+        redirect(`/${locale}/categories/${mainCategory.slug[locale]}/${subcategorySlug}/${productId}`);
+    }
+    
+    // Получаем категорию по slug подкатегории
+    const subCategory = getCategoryBySlug(subcategorySlug, locale);
+    
+    // Проверяем, является ли эта категория подкатегорией основной категории
+    if (subCategory && subCategory.parentId !== mainCategory.id) {
+        // Если это не подкатегория основной категории, перенаправляем
+        redirect(`/${locale}/categories/${mainCategory.slug[locale]}/${mainCategory.slug[locale]}/${productId}`);
     }
 
     return (
@@ -41,8 +71,20 @@ export default function Product({ params }) {
             <Breadcrumbs
                 items={[
                     {
+                        title: locale === 'uk' ? 'Головна' : 'Главная',
+                        path: `/${locale}`
+                    },
+                    {
+                        title: getCategoryBySlug(params.slug, locale)?.name[locale] || '',
+                        path: `/${locale}/categories/${params.slug}`
+                    },
+                    {
+                        title: getCategoryBySlug(params['subcategory-slug'], locale)?.name[locale] || '',
+                        path: `/${locale}/categories/${params.slug}/${params['subcategory-slug']}`
+                    },
+                    {
                         title: `${product.name[locale]} ${product.currentColor[locale]}`,
-                        path: `/product/${product.id}`
+                        path: `/${locale}/categories/${params.slug}/${params['subcategory-slug']}/${productId}`
                     }
                 ]}
             />

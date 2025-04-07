@@ -61,11 +61,17 @@ export const getSubcategories = (parentId) => {
 
 /**
  * Получает категорию по slug
- * @param {string} slug - Slug категории
+ * @param {string|null} slug - Slug категории, если null - возвращает все категории
  * @param {string} locale - Текущая локаль
- * @returns {Object|null} Объект категории или null, если категория не найдена
+ * @returns {Object|Array|null} Объект категории, массив всех категорий или null, если категория не найдена
  */
 export const getCategoryBySlug = (slug, locale) => {
+  // Если slug не указан, возвращаем все категории
+  if (slug === null || slug === undefined) {
+    return categories;
+  }
+  
+  // Иначе ищем категорию по slug
   return categories.find(category => category.slug[locale] === slug) || null;
 };
 
@@ -186,4 +192,28 @@ export const getPopularProductsByCategory = (categoryId, limit = 4) => {
   // Сортируем по популярности (в данном случае просто берем первые N товаров)
   // В реальном приложении здесь можно добавить логику сортировки по продажам, просмотрам и т.д.
   return products.slice(0, limit);
+};
+
+/**
+ * Получает основную категорию товара по его ID
+ * @param {number} productId - ID товара
+ * @returns {Object|null} Объект категории или null, если категория не найдена
+ */
+export const getCategoryByProductId = (productId) => {
+  // Получаем все категории товара
+  const productCats = getProductCategories(productId);
+  
+  if (!productCats.length) return null;
+  
+  // Ищем основную категорию (не подкатегорию)
+  for (const catId of productCats) {
+    const category = getCategoryById(catId);
+    if (category && !category.parentId) {
+      return category;
+    }
+  }
+  
+  // Если основная категория не найдена, возвращаем первую доступную
+  const firstCatId = productCats[0];
+  return getCategoryById(firstCatId);
 };

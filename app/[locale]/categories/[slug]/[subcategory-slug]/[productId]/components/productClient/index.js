@@ -7,6 +7,7 @@ import {useTranslations} from 'next-intl';
 import Link from "next/link";
 import Image from "next/image";
 import {useLocale} from 'next-intl';
+import {useParams} from 'next/navigation';
 import ImageWithWebp from '@/components/Image'
 import SizesBtn from "../sizesBtn";
 import Popup from "@/components/popup";
@@ -16,6 +17,7 @@ import styles from "./productClient.module.scss";
 
 const ProductClient = ({product}) => {
     const locale = useLocale();
+    const params = useParams();
     const t = useTranslations('product.client');
     const {
         register,
@@ -128,7 +130,7 @@ const ProductClient = ({product}) => {
                                 return (
                                     <Link
                                         key={i}
-                                        href={'/product/' + item}
+                                        href={`/${locale}/categories/${params.slug}/${params['subcategory-slug']}/${item}`}
                                         className={styles.aboutInfoColors}
                                     >
                                         <ImageWithWebp

@@ -4,8 +4,24 @@ import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useLocale, useTranslations } from 'next-intl';
-import { getPopularProductsByCategory } from '../../services/categoryService';
+import { 
+  getPopularProductsByCategory, 
+  getCategoryByProductId,
+  getCategoryById 
+} from '../../services/categoryService';
 import styles from './PopularCategoryProducts.module.scss';
+
+// Вспомогательная функция для получения slug категории по ID
+function getCategorySlug(categoryId, locale) {
+  const category = getCategoryById(categoryId);
+  return category ? category.slug[locale] : 'zhinochi-kostyumy';
+}
+
+// Вспомогательная функция для получения slug категории товара
+function getCategorySlugForProduct(productId, locale) {
+  const category = getCategoryByProductId(productId);
+  return category ? category.slug[locale] : 'zhinochi-kostyumy';
+}
 
 /**
  * Компонент для отображения популярных товаров в категории
@@ -30,7 +46,7 @@ export default function PopularCategoryProducts({ categoryId, limit = 4 }) {
       <div className={styles.productsGrid}>
         {popularProducts.map(product => (
           <Link 
-            href={`/${locale}/product/${product.id}`}
+            href={`/${locale}/categories/${categoryId ? getCategorySlug(categoryId, locale) : getCategorySlugForProduct(product.id, locale)}/${product.id}`}
             key={product.id}
             className={styles.productCard}
           >

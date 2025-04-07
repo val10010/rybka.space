@@ -1,0 +1,22 @@
+@import "app/utils/mixins";
+
+.backBtn {
+  display: inline-flex;
+  align-items: center;
+  background: none;
+  border: none;
+  font-size: em(16);
+  color: #666;
+  cursor: pointer;
+  padding: em(10) 0;
+  transition: color 0.3s;
+  
+  &:hover {
+    color: #000;
+  }
+  
+  @include mobile {
+    font-size: em(14);
+    padding: em(5) 0;
+  }
+}
