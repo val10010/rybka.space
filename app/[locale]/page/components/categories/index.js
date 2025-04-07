@@ -26,7 +26,7 @@ export default function HomeCategories() {
         <div className={styles.categoriesGrid}>
           {mainCategories.map(category => (
             <Link 
-              href={`/${locale}/category/${category.slug[locale]}`}
+              href={`/${locale}/categories/${category.slug[locale]}`}
               key={category.id}
               className={styles.categoryCard}
             >
