@@ -1,0 +1,124 @@
+// Переменные цветов и стилей
+$background-light: #f9f9f9;
+$text-primary: #333;
+$text-secondary: #666;
+$primary-color: #4a90e2;
+$border-light: #eaeaea;
+
+.categoriesSection {
+  padding: 3rem 0;
+  background-color: $background-light;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.sectionTitle {
+  font-size: 2rem;
+  font-weight: 600;
+  text-align: center;
+  margin-bottom: 2rem;
+  color: $text-primary;
+}
+
+.categoriesGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 2rem;
+  
+  @media (max-width: 768px) {
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 1.5rem;
+  }
+  
+  @media (max-width: 480px) {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+}
+
+.categoryCard {
+  display: block;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  background-color: white;
+  text-decoration: none;
+  color: $text-primary;
+  
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+    
+    .categoryOverlay {
+      opacity: 1;
+    }
+    
+    .categoryImage {
+      transform: scale(1.05);
+    }
+  }
+}
+
+.imageWrapper {
+  position: relative;
+  height: 200px;
+  overflow: hidden;
+}
+
+.categoryImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.categoryOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.viewButton {
+  background-color: $primary-color;
+  color: white;
+  padding: 0.5rem 1.5rem;
+  border-radius: 4px;
+  font-weight: 500;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+}
+
+.categoryInfo {
+  padding: 1.25rem;
+}
+
+.categoryName {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: $text-primary;
+}
+
+.categoryDescription {
+  font-size: 0.9rem;
+  color: $text-secondary;
+  line-height: 1.5;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}

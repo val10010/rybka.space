@@ -40,7 +40,14 @@
         "details": "Детальніше",
         "prevPhoto": "Попереднє фото",
         "nextPhoto": "Наступне фото",
-        "productImageAlt": "Женский спортивный костюм {name} - фото {index}"
+        "productImageAlt": "Женский спортивный костюм {name} - фото {index}",
+        "filters": "Фільтри",
+        "resetFilters": "Скинути фільтри",
+        "apply": "Застосувати",
+        "minPrice": "Мінімальна ціна",
+        "maxPrice": "Максимальна ціна",
+        "notFound": "Товари не знайдено",
+        "popularInCategory": "Популярні товари в цій категорії"
     },
     "product": {
         "back": "Назад",
@@ -193,6 +200,14 @@
         "productImageAlt": "Жіночий спортивний костюм {name} - фото {index}",
         "productsImageAlt": "Жіночі спортивні костюми",
         "visitorCounterAlt": "Кількість відвідувачів, які зараз переглядають цей товар"
+    },
+    "categories": {
+        "title": "Категорії",
+        "allProducts": "Всі товари",
+        "viewAll": "Переглянути всі",
+        "exploreMore": "Дослідіть більше",
+        "exploreCategories": "Дослідіть інші категорії",
+        "exploreAllCategories": "Переглянути всі категорії"
     },
     "SchemaOrganization": {
         "description": "Інтернет-магазин жіночих спортивних костюмів Rybka Space. Високоякісний одяг для активних жінок.",

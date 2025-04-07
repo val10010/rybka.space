@@ -1,0 +1,98 @@
+// Переменные цветов и стилей
+$background-light: #f9f9f9;
+$text-primary: #333;
+$text-secondary: #666;
+$primary-color: #4a90e2;
+$border-light: #eaeaea;
+
+.sidebar {
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.sidebarTitle {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: $text-primary;
+  margin-bottom: 1.25rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid $border-light;
+}
+
+.categoryList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.categoryItem {
+  margin-bottom: 0.75rem;
+  
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.categoryLink {
+  display: flex;
+  align-items: center;
+  padding: 0.5rem 0;
+  color: $text-primary;
+  text-decoration: none;
+  transition: color 0.2s ease;
+  font-size: 0.95rem;
+  
+  &:hover {
+    color: $primary-color;
+    
+    .categoryImage {
+      transform: scale(1.05);
+    }
+  }
+}
+
+.categoryImageWrapper {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin-right: 0.75rem;
+  flex-shrink: 0;
+}
+
+.categoryImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.categoryName {
+  flex-grow: 1;
+}
+
+@media (max-width: 768px) {
+  .sidebar {
+    padding: 1.25rem;
+  }
+  
+  .categoryList {
+    display: flex;
+    flex-wrap: wrap;
+    margin: -0.5rem;
+  }
+  
+  .categoryItem {
+    margin: 0.5rem;
+    width: calc(50% - 1rem);
+  }
+}
+
+@media (max-width: 480px) {
+  .categoryItem {
+    width: 100%;
+  }
+}

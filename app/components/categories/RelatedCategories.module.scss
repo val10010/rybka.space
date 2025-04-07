@@ -1,0 +1,69 @@
+// Переменные цветов и стилей
+$background-light: #f9f9f9;
+$text-primary: #333;
+$text-secondary: #666;
+$primary-color: #4a90e2;
+$border-light: #eaeaea;
+
+.relatedCategories {
+  margin-top: 3rem;
+  padding: 2rem 0;
+  border-top: 1px solid $border-light;
+}
+
+.title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: $text-primary;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.categoriesGrid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+  margin: 0 -0.5rem;
+}
+
+.categoryLink {
+  display: inline-block;
+  padding: 0.6rem 1.25rem;
+  background-color: $background-light;
+  border-radius: 4px;
+  color: $text-primary;
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: all 0.2s ease;
+  
+  &:hover {
+    background-color: $primary-color;
+    color: white;
+    transform: translateY(-2px);
+  }
+}
+
+.categoryName {
+  font-weight: 500;
+}
+
+@media (max-width: 768px) {
+  .relatedCategories {
+    margin-top: 2rem;
+    padding: 1.5rem 0;
+  }
+  
+  .title {
+    font-size: 1.25rem;
+  }
+  
+  .categoriesGrid {
+    gap: 0.75rem;
+  }
+  
+  .categoryLink {
+    padding: 0.5rem 1rem;
+    font-size: 0.85rem;
+  }
+}

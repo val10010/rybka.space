@@ -1,0 +1,111 @@
+// Переменные цветов и стилей
+$background-light: #f9f9f9;
+$text-primary: #333;
+$text-secondary: #666;
+$primary-color: #4a90e2;
+$border-light: #eaeaea;
+
+.popularProducts {
+  margin-top: 3rem;
+  padding: 2rem 0;
+  border-top: 1px solid $border-light;
+}
+
+.title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: $text-primary;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.productsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 1.5rem;
+  
+  @media (max-width: 768px) {
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 1rem;
+  }
+  
+  @media (max-width: 480px) {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.75rem;
+  }
+}
+
+.productCard {
+  display: flex;
+  flex-direction: column;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  background-color: white;
+  text-decoration: none;
+  color: $text-primary;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+    
+    .productImage {
+      transform: scale(1.05);
+    }
+  }
+}
+
+.imageWrapper {
+  position: relative;
+  padding-top: 140%; // Соотношение сторон 5:7
+  overflow: hidden;
+}
+
+.productImage {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.productInfo {
+  padding: 1rem;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.productName {
+  font-size: 0.95rem;
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+  color: $text-primary;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.productPrice {
+  margin-top: auto;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.price {
+  font-weight: 600;
+  font-size: 1.1rem;
+  color: $primary-color;
+}
+
+.oldPrice {
+  font-size: 0.9rem;
+  color: $text-secondary;
+  text-decoration: line-through;
+}

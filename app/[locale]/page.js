@@ -1,5 +1,6 @@
 import { setRequestLocale } from 'next-intl/server';
 import Products from "./page/components/products";
+import FeaturedCategories from "./page/components/featured-categories";
 
 export default function Home({ params: { locale } }) {
   // Enable static rendering
@@ -7,6 +8,7 @@ export default function Home({ params: { locale } }) {
   
   return (
     <>
+      <FeaturedCategories />
       <Products/>
     </>
   );
