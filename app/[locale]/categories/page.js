@@ -1,6 +1,7 @@
 import { setRequestLocale } from 'next-intl/server';
 import { getAllCategories, getMainCategories } from '../../services/categoryService';
 import CategoryList from '../../components/categories/CategoryList';
+import CategoryBreadcrumbs from '../../components/categories/CategoryBreadcrumbs';
 import styles from './page.module.scss';
 
 // Генерация метаданных для страницы категорий
@@ -51,8 +52,23 @@ export default async function CategoriesPage({ params: { locale } }) {
   const seasonalTitle = locale === 'uk' ? 'Сезонні костюми' : 'Сезонные костюмы';
   const styleTitle = locale === 'uk' ? 'Стилі костюмів' : 'Стили костюмов';
   
+  // Создаем хлебные крошки для страницы категорий
+  const breadcrumbs = [
+    {
+      text: locale === 'uk' ? 'Головна' : 'Главная',
+      href: `/${locale}`
+    },
+    {
+      text: pageTitle,
+      href: null // Текущая страница не имеет ссылки
+    }
+  ];
+  
   return (
     <div className={styles.container}>
+      {/* Хлебные крошки */}
+      <CategoryBreadcrumbs items={breadcrumbs} locale={locale} />
+      
       <h1 className={styles.pageTitle}>{pageTitle}</h1>
       
       {/* Основные категории */}

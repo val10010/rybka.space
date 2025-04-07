@@ -62,6 +62,7 @@ export default async function CategoryPage({ params: { locale, slug } }) {
   
   // Если категория не найдена, возвращаем 404
   if (!category) {
+    console.error(`Category not found for slug: ${slug}`);
     notFound();
   }
   
@@ -69,10 +70,10 @@ export default async function CategoryPage({ params: { locale, slug } }) {
   const breadcrumbs = getCategoryBreadcrumbs(category.id, locale);
   
   // Получаем товары для категории
-  const products = getProductsByCategory(category.id);
+  const products = getProductsByCategory(category.id) || [];
   
   // Получаем подкатегории, если это родительская категория
-  const subcategories = getSubcategories(category.id);
+  const subcategories = getSubcategories(category.id) || [];
   
   // URL страницы для SEO
   const url = `https://rybka.space/${locale}/categories/${slug}`;
@@ -92,12 +93,12 @@ export default async function CategoryPage({ params: { locale, slug } }) {
       </div>
       
       {/* Подкатегории, если есть */}
-      {subcategories.length > 0 && (
+      {Array.isArray(subcategories) && subcategories.length > 0 && (
         <CategoryList categories={subcategories} locale={locale} />
       )}
       
       {/* Клиентский компонент с фильтрами и товарами */}
-      {products.length > 0 && (
+      {Array.isArray(products) && products.length > 0 && (
         <CategoryClientPage 
           products={products} 
           locale={locale} 

@@ -10,7 +10,7 @@ import styles from './CategoryFilters.module.scss';
  * @param {Function} onFilterChange - Функция обратного вызова при изменении фильтров
  * @param {string} locale - Текущая локаль
  */
-export default function CategoryFilters({ products, onFilterChange, locale }) {
+export default function CategoryFilters({ products = [], onFilterChange, locale }) {
   const t = useTranslations();
   
   // Состояния для фильтров
@@ -20,10 +20,13 @@ export default function CategoryFilters({ products, onFilterChange, locale }) {
   const [priceRange, setPriceRange] = useState({ min: 0, max: 0 });
   const [currentPriceRange, setCurrentPriceRange] = useState({ min: 0, max: 0 });
   
-  // Получаем уникальные значения для фильтров
-  const sizes = [...new Set(products.flatMap(p => p.grid?.availableSizes || []))].sort();
+  // Проверяем, что products существует и является массивом
+  const validProducts = Array.isArray(products) ? products : [];
   
-  const colors = [...new Set(products.map(p => JSON.stringify({
+  // Получаем уникальные значения для фильтров
+  const sizes = [...new Set(validProducts.flatMap(p => p.grid?.availableSizes || []))].sort();
+  
+  const colors = [...new Set(validProducts.map(p => JSON.stringify({
     name: p.currentColor,
     id: p.id
   })))].map(c => JSON.parse(c));
@@ -38,20 +41,20 @@ export default function CategoryFilters({ products, onFilterChange, locale }) {
     }
   });
   
-  const seasons = [...new Set(products.flatMap(p => 
+  const seasons = [...new Set(validProducts.flatMap(p => 
     p.info?.season ? p.info.season[locale] : []
   ))];
   
   // Определяем диапазон цен
   useEffect(() => {
-    if (products.length > 0) {
-      const prices = products.map(p => p.price);
+    if (validProducts.length > 0) {
+      const prices = validProducts.map(p => p.price);
       const min = Math.min(...prices);
       const max = Math.max(...prices);
       setPriceRange({ min, max });
       setCurrentPriceRange({ min, max });
     }
-  }, [products]);
+  }, [validProducts]);
   
   // Обработчики изменения фильтров
   const handleSizeChange = (size) => {
@@ -96,12 +99,12 @@ export default function CategoryFilters({ products, onFilterChange, locale }) {
     setSelectedColors([]);
     setSelectedSeasons([]);
     setCurrentPriceRange(priceRange);
-    onFilterChange(products);
+    onFilterChange(validProducts);
   };
   
   // Применение фильтров
   const applyFilters = (sizes, colors, seasons, priceRange) => {
-    let filteredProducts = [...products];
+    let filteredProducts = [...validProducts];
     
     // Фильтрация по размерам
     if (sizes.length > 0) {
