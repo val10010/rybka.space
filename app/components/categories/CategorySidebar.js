@@ -30,7 +30,7 @@ export default function CategorySidebar({ currentCategoryId }) {
       
       <ul className={styles.categoryList}>
         <li className={styles.categoryItem}>
-          <Link href={`/${locale}/categories/all-suits`} className={styles.categoryLink}>
+          <Link href={`/${locale}/categories/${locale === 'uk' ? 'zhinochi-kostyumy' : 'zhenskie-kostyumy'}`} className={styles.categoryLink}>
             {t('allProducts')}
           </Link>
         </li>
