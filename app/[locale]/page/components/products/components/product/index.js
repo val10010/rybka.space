@@ -44,7 +44,7 @@ export default function ProductSlider({ data }) {
         <div className={styles.wrapper}>
             <article className={styles.container}>
                 {data.oldPrice && (
-                    <div className={styles.discount}>-{ data.discount || 20 }%</div>
+                    <div className={styles.discount}>-{Math.ceil(((data.oldPrice - data.price) / data.oldPrice) * 100 / 5) * 5}%</div>
                 )}
                 <Swiper
                     modules={[Navigation, Pagination]}
