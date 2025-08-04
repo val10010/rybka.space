@@ -21,10 +21,35 @@ export default function CategoryFilters({ products = [], onFilterChange, locale 
   const [currentPriceRange, setCurrentPriceRange] = useState({ min: 0, max: 0 });
   
   // Проверяем, что products существует и является массивом
-  const validProducts = Array.isArray(products) ? products : [];
+  // Фильтруем товары, у которых disabled: true
+  const validProducts = Array.isArray(products) 
+    ? products.filter(product => !product.disabled)
+    : [];
   
+  // Функция для сортировки размеров в логическом порядке
+  const sortSizes = (sizes) => {
+    const sizeOrder = {
+      'XS': 1, 'S': 2, 'M': 3, 'L': 4, 'XL': 5, 'XXL': 6, 'XXXL': 7,
+      '2XL': 6, '3XL': 7, '4XL': 8, '5XL': 9,
+      // Добавляем числовые размеры
+      '36': 10, '38': 11, '40': 12, '42': 13, '44': 14, '46': 15, '48': 16, '50': 17, '52': 18, '54': 19
+    };
+    
+    return [...sizes].sort((a, b) => {
+      // Если оба размера есть в нашем порядке, сортируем по нему
+      if (sizeOrder[a] && sizeOrder[b]) {
+        return sizeOrder[a] - sizeOrder[b];
+      }
+      // Если только один размер есть в порядке, он идет первым
+      if (sizeOrder[a]) return -1;
+      if (sizeOrder[b]) return 1;
+      // Если ни один размер не найден в порядке, сортируем по алфавиту
+      return a.localeCompare(b);
+    });
+  };
+
   // Получаем уникальные значения для фильтров
-  const sizes = [...new Set(validProducts.flatMap(p => p.grid?.availableSizes || []))].sort();
+  const sizes = sortSizes([...new Set(validProducts.flatMap(p => p.grid?.availableSizes || []))]);
   
   const colors = [...new Set(validProducts.map(p => JSON.stringify({
     name: p.currentColor,
@@ -54,7 +79,8 @@ export default function CategoryFilters({ products = [], onFilterChange, locale 
       setPriceRange({ min, max });
       setCurrentPriceRange({ min, max });
     }
-  }, [validProducts]);
+  // Используем JSON.stringify для сравнения массива объектов вместо прямого сравнения ссылок
+  }, [JSON.stringify(products.filter(p => !p.disabled).map(p => p.id))]);
   
   // Обработчики изменения фильтров
   const handleSizeChange = (size) => {
@@ -99,11 +125,13 @@ export default function CategoryFilters({ products = [], onFilterChange, locale 
     setSelectedColors([]);
     setSelectedSeasons([]);
     setCurrentPriceRange(priceRange);
+    // Возвращаем только валидные товары (без disabled: true)
     onFilterChange(validProducts);
   };
   
   // Применение фильтров
   const applyFilters = (sizes, colors, seasons, priceRange) => {
+    // Начинаем с валидных товаров (уже без disabled: true)
     let filteredProducts = [...validProducts];
     
     // Фильтрация по размерам

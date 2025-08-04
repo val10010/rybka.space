@@ -5,7 +5,7 @@ import VisitorCounter from "./components/visitorCounter";
 import { VideoPlayer } from "@/components/videoPlayer"
 import { redirect } from 'next/navigation'
 import SchemaProduct from "@/components/SchemaProduct";
-import Breadcrumbs from "@/components/breadcrumbs";
+import CategoryBreadcrumbs from "@/components/categories/CategoryBreadcrumbs";
 import FAQ from "@/components/faq";
 import Reviews from "@/components/reviews";
 import { useTranslations } from 'next-intl';
@@ -68,25 +68,30 @@ export default function Product({ params }) {
     return (
         <>
             <SchemaProduct product={product} locale={locale} />
-            <Breadcrumbs
+            <CategoryBreadcrumbs
                 items={[
                     {
-                        title: locale === 'uk' ? 'Головна' : 'Главная',
-                        path: `/${locale}`
+                        text: locale === 'uk' ? 'Головна' : 'Главная',
+                        href: `/${locale}`
                     },
                     {
-                        title: getCategoryBySlug(params.slug, locale)?.name[locale] || '',
-                        path: `/${locale}/categories/${params.slug}`
+                        text: locale === 'uk' ? 'Категорії' : 'Категории',
+                        href: `/${locale}/categories`
                     },
                     {
-                        title: getCategoryBySlug(params['subcategory-slug'], locale)?.name[locale] || '',
-                        path: `/${locale}/categories/${params.slug}/${params['subcategory-slug']}`
+                        text: getCategoryBySlug(params.slug, locale)?.name[locale] || '',
+                        href: `/${locale}/categories/${params.slug}`
                     },
                     {
-                        title: `${product.name[locale]} ${product.currentColor[locale]}`,
-                        path: `/${locale}/categories/${params.slug}/${params['subcategory-slug']}/${productId}`
+                        text: getCategoryBySlug(params['subcategory-slug'], locale)?.name[locale] || '',
+                        href: `/${locale}/categories/${params.slug}/${params['subcategory-slug']}`
+                    },
+                    {
+                        text: `${product.name[locale]} ${product.currentColor[locale]}`,
+                        href: null
                     }
                 ]}
+                locale={locale}
             />
             <section className={styles.about}>
                 <BackBtn/>

@@ -1,5 +1,4 @@
 import categories from '../mocks/categories.json';
-import productCategories from '../mocks/productCategories.json';
 import productsInfo from '../mocks/productsInfo.json';
 
 /**
@@ -90,13 +89,12 @@ export const getCategoryById = (id) => {
  * @returns {Array} Массив товаров в категории
  */
 export const getProductsByCategory = (categoryId) => {
-  // Получаем ID товаров, которые принадлежат к данной категории
-  const productIds = productCategories
-    .filter(item => item.categories.includes(categoryId))
-    .map(item => item.productId);
-  
-  // Возвращаем информацию о товарах
-  return productsInfo.filter(product => productIds.includes(product.id));
+  // Возвращаем информацию о товарах, исключая товары с disabled: true
+  return productsInfo.filter(product => 
+    product.categories && 
+    product.categories.includes(categoryId) && 
+    !product.disabled
+  );
 };
 
 /**
@@ -126,6 +124,12 @@ export const getCategoryBreadcrumbs = (categoryId, locale) => {
         });
       }
     }
+    
+    // Добавляем промежуточный элемент "категории"
+    breadcrumbs.unshift({
+      text: locale === 'uk' ? 'Категорії' : 'Категории',
+      href: `/${locale}/categories`
+    });
   }
   
   // Добавляем ссылку на главную страницу
@@ -143,8 +147,8 @@ export const getCategoryBreadcrumbs = (categoryId, locale) => {
  * @returns {Array} Массив ID категорий товара
  */
 export const getProductCategories = (productId) => {
-  const productCategory = productCategories.find(item => item.productId === productId);
-  return productCategory ? productCategory.categories : [];
+  const product = productsInfo.find(item => item.id === productId);
+  return product && product.categories ? product.categories : [];
 };
 
 /**
@@ -163,9 +167,13 @@ export const getRelatedProducts = (productId, limit = 4) => {
   const relatedProductIds = new Set();
   
   productCats.forEach(categoryId => {
-    productCategories
-      .filter(item => item.categories.includes(categoryId) && item.productId !== productId)
-      .forEach(item => relatedProductIds.add(item.productId));
+    productsInfo
+      .filter(product => 
+        product.categories && 
+        product.categories.includes(categoryId) && 
+        product.id !== productId
+      )
+      .forEach(product => relatedProductIds.add(product.id));
   });
   
   // Получаем информацию о связанных товарах

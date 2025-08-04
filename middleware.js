@@ -2,13 +2,13 @@ import createMiddleware from 'next-intl/middleware';
 import { NextResponse } from 'next/server';
 import productsInfo from './app/mocks/productsInfo.json';
 import categories from './app/mocks/categories.json';
-import productCategories from './app/mocks/productCategories.json';
 
 // Функция для получения категории товара по ID
 function getCategoryByProductId(productId) {
+  // Получаем товар по ID
+  const product = productsInfo.find(item => item.id === productId);
   // Получаем категории товара
-  const productCats = productCategories
-    .find(item => item.productId === productId)?.categories || [];
+  const productCats = product?.categories || [];
   
   if (!productCats.length) return null;
   
@@ -27,9 +27,10 @@ function getCategoryByProductId(productId) {
 
 // Функция для получения подкатегории товара
 function getSubcategoryByProductId(productId) {
+  // Получаем товар по ID
+  const product = productsInfo.find(item => item.id === productId);
   // Получаем категории товара
-  const productCats = productCategories
-    .find(item => item.productId === productId)?.categories || [];
+  const productCats = product?.categories || [];
   
   if (!productCats.length) return null;
   

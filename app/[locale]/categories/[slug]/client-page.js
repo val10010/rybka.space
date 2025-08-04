@@ -5,7 +5,6 @@ import CategoryFilters from '../../../components/categories/CategoryFilters';
 import CategoryProducts from '../../../components/categories/CategoryProducts';
 import CategorySidebar from '../../../components/categories/CategorySidebar';
 import styles from './client-page.module.scss';
-import { useRouter } from 'next/navigation';
 
 /**
  * Клиентский компонент страницы категории с фильтрами
@@ -14,29 +13,27 @@ import { useRouter } from 'next/navigation';
  * @param {string} categoryId - ID текущей категории
  */
 export default function CategoryClientPage({ products, locale, categoryId }) {
-  // Используем router для предотвращения ошибок гидратации
-  const router = useRouter();
-  
+
   // Инициализируем состояние только если products существует
   const [filteredProducts, setFilteredProducts] = useState(products || []);
-  
+
   // Обработчик изменения фильтров
   const handleFilterChange = (newFilteredProducts) => {
     setFilteredProducts(newFilteredProducts);
   };
-  
+
   return (
     <div className={styles.layout}>
       {/* Боковая панель с фильтрами и категориями */}
       <aside className={styles.sidebar}>
         <CategorySidebar currentCategoryId={categoryId} />
-        <CategoryFilters 
-          products={products} 
+        <CategoryFilters
+          products={products}
           onFilterChange={handleFilterChange}
           locale={locale}
         />
       </aside>
-      
+
       {/* Основной контент с товарами */}
       <main className={styles.content}>
         <div className={styles.resultsInfo}>

@@ -123,9 +123,10 @@ const ProductClient = ({product}) => {
                     <div className={styles.aboutInfoColorsWrap}>
                         {
                             product?.colors?.map((item, i) => {
-                                const product = productsInfo.filter(product => product.id === item)[0];
+                                const productVariant = productsInfo.find(p => p.id === item);
 
-                                if (product.disabled) return null;
+                                // Пропускаем, если товар не найден или отключен
+                                if (!productVariant || productVariant.disabled) return null;
 
                                 return (
                                     <Link
@@ -136,8 +137,8 @@ const ProductClient = ({product}) => {
                                         <ImageWithWebp
                                             src={`/images/products/${item}/4.jpg`}
                                             alt={t('imageAlt', {
-                                                name: productsInfo.filter(product => product.id === item)[0].name[locale],
-                                                color: productsInfo.filter(product => product.id === item)[0].currentColor[locale]
+                                                name: productVariant.name[locale],
+                                                color: productVariant.currentColor[locale]
                                             })}
                                         />
                                     </Link>

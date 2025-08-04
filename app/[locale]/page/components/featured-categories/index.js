@@ -10,27 +10,23 @@ import styles from './featured-categories.module.scss';
 export default function FeaturedCategories() {
   const locale = useLocale();
   const t = useTranslations('categories');
-  
+
   // Получаем основные категории и берем только 3 для главной страницы
   const featuredCategories = getMainCategories().slice(0, 3);
-  
+
   if (!featuredCategories || featuredCategories.length === 0) {
     return null;
   }
-  
+
   return (
     <section className={styles.featuredSection}>
       <div className={styles.container}>
         <div className={styles.sectionHeader}>
           <h2 className={styles.sectionTitle}>{t('title')}</h2>
-          <Link href={`/${locale}/categories`} className={styles.viewAllLink}>
-            {t('viewAll')}
-          </Link>
         </div>
-        
         <div className={styles.categoriesGrid}>
           {featuredCategories.map(category => (
-            <Link 
+            <Link
               href={`/${locale}/categories/${category.slug[locale]}`}
               key={category.id}
               className={styles.categoryCard}
@@ -56,7 +52,7 @@ export default function FeaturedCategories() {
             </Link>
           ))}
         </div>
-        
+
         <div className={styles.allCategoriesLink}>
           <Link href={`/${locale}/categories`} className={styles.button}>
             {t('exploreAllCategories')}
